@@ -1,0 +1,63 @@
+package refactoringgtl.moving
+
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/SoftwareSystem/model/softwareSystem.ecore"
+
+rule createImport {
+	[=] component : Component {
+		[+] -imports->otherComponent
+	}
+	[=] otherComponent : Component
+	
+	forbid(importEdge)[component=component, otherComponent=otherComponent]
+};
+
+/////////////////////////////////////////////////////////////
+/////// CONSTRAINT VIOLATIONS AND REPAIRS WHEN MOVING ///////
+/////////////////////////////////////////////////////////////
+
+// These violations and repairs come from moving the component and breaking an 'intact' import
+// Repairs and violations depend on the system and component binding, e.g., moving a component from a system where it imports 
+// another component from to some other system will cause a violation while doing it the opposite way
+// will repair one
+pattern transitiveImportMissingFront {
+	[=] firstComponent : Component {
+	}
+	
+	[=] secondComponent : Component {
+		[=] -imports->thirdComponent
+	}
+	[=] thirdComponent : Component
+	
+	forbid(importEdge)[firstComponent=component, thirdComponent=otherComponent]
+};
+
+pattern transitiveImportMissingBack {
+	[=] firstComponent : Component {
+		[=] -imports->secondComponent
+	}
+	
+	[=] secondComponent : Component {
+	}
+	[=] thirdComponent : Component
+	
+	forbid(importEdge)[firstComponent=component, secondComponent=otherComponent]
+};
+
+pattern transitiveImportCreated {
+	[=] firstComponent : Component {
+		[=] -imports->secondComponent
+	}
+	
+	[=] secondComponent : Component {
+		[=] -imports->thirdComponent
+	}
+	[=] thirdComponent : Component
+};
+
+pattern importEdge {
+	[=] component : Component {
+		[=] -imports->otherComponent
+	}
+	[=] otherComponent : Component
+};

@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: RefactoringGTL
+Bundle-ManifestVersion: 2
+Bundle-Name: RefactoringGTL
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: RefactoringGTL; singleton:=true
+Bundle-ActivationPolicy: lazy
+Import-Package: org.apache.log4j,
+ org.apache.commons.logging
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Require-Bundle: org.emoflon.ibex.common,
+ org.emoflon.ibex.gt,
+ org.emoflon.ibex.gt.hipe,
+ org.emoflon.ibex.gt.gtmodel,
+ SoftwareSystem
+Export-Package: refactoringgtl.moving.api,
+ refactoringgtl.moving.api.match,
+ refactoringgtl.moving.api.pattern,
+ refactoringgtl.moving.api.rule

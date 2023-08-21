@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<psf version="2.0">
+<provider id="org.eclipse.egit.core.GitProvider">
+<project reference="1.0,https://github.com/eMoflon/TGG-3.0-Prototype.git,main,Refactoring"/>
+<project reference="1.0,https://github.com/eMoflon/TGG-3.0-Prototype.git,main,RefactoringGTL"/>
+<project reference="1.0,https://github.com/eMoflon/TGG-3.0-Prototype.git,main,SoftwareSystem"/>
+</provider>
+<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1692097253300_5" label="gt" name="gt">
+<item elementID="=RefactoringGTL" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSets>
+<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1692097233756_4" label="metamodels" name="metamodels">
+<item elementID="=SoftwareSystem" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSets>
+<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1692194916054_8" label="run" name="run">
+<item elementID="=Refactoring" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSets>
+</psf>
