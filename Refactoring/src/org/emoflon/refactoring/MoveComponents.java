@@ -1,98 +1,79 @@
 package org.emoflon.refactoring;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
-import java.util.Set;
 
 import org.emoflon.refactoring.analysis.ConstraintCounter;
 import org.emoflon.refactoring.analysis.OverlapCreator;
 
-import refactoringgtl.moving.api.MovingGtApi;
 import refactoringgtl.moving.api.MovingHiPEGtApi;
 
-public class MoveComponents {
+public class MoveComponents extends RefactoringCase<MovingHiPEGtApi>{
 
-	@SuppressWarnings("rawtypes")
-	private MovingGtApi api;
-	
-	private Map<String, Collection<OverlapCreator>> name2overlapCreators = new HashMap<>();
-	
-	private Set<String> rules = new HashSet<>();
-	private Set<String> violation = new HashSet<>();
-	private Set<String> repairs = new HashSet<>();
-	
-	private ConstraintCounter constraintCounter;
-	
+
 	public MoveComponents(String path) {
-		initialize(path);
+		super(path);
 	}
 
-	private void initialize(String path) {
-		api = new MovingHiPEGtApi();
-		loadModel(path);
-		api.initializeEngine();
+	@Override
+	protected void createAndRegisterOverlaps() {
+		var moveComponentName = api.moveComponent().ruleName;
 		
-		var moveComponent = api.moveComponent().ruleName;
-		
-		var importedComponentInSystem = api.importedComponentInSystem().patternName;
-		var importedComponentNotInSystem = api.importedComponentNotInSystem().patternName;
-		var importingComponentInSystem = api.importingComponentInSystem().patternName;
-		var importingComponentNotInSystem = api.importingComponentNotInSystem().patternName;
+		var importedComponentInSystemName = api.importedComponentInSystem().patternName;
+		var importedComponentNotInSystemName = api.importedComponentNotInSystem().patternName;
+		var importingComponentInSystemName = api.importingComponentInSystem().patternName;
+		var importingComponentNotInSystemName = api.importingComponentNotInSystem().patternName;
 
-		rules.add(moveComponent);
+		rules.add(api.moveComponent());
 		
-		violation.add(importedComponentInSystem);
-		violation.add(importedComponentNotInSystem);
-		violation.add(importingComponentInSystem);
-		violation.add(importingComponentNotInSystem);
+		violations.add(api.importedComponentInSystem());
+		violations.add(api.importedComponentNotInSystem());
+		violations.add(api.importingComponentInSystem());
+		violations.add(api.importingComponentNotInSystem());
 		
-		repairs.add(importedComponentInSystem);
-		repairs.add(importedComponentNotInSystem);
-		repairs.add(importingComponentInSystem);
-		repairs.add(importingComponentNotInSystem);
+		repairs.add(api.importedComponentInSystem());
+		repairs.add(api.importedComponentNotInSystem());
+		repairs.add(api.importingComponentInSystem());
+		repairs.add(api.importingComponentNotInSystem());
 		
 		// create violations
 		var violationOverlap1 = new OverlapCreator();
 		var violationOverlap2 = new OverlapCreator();
 
-		violationOverlap1.registerOverlap(moveComponent, "formerSystem", "component");
-		violationOverlap1.registerOverlap(importedComponentInSystem, "system", "component"); // +
-		violationOverlap1.registerOverlap(importingComponentInSystem, "system", "component"); // +
+		violationOverlap1.registerOverlap(api.moveComponent(), "formerSystem", "component");
+		violationOverlap1.registerOverlap(api.importedComponentInSystem(), "system", "component"); // +
+		violationOverlap1.registerOverlap(api.importingComponentInSystem(), "system", "component"); // +
 		
-		violationOverlap2.registerOverlap(moveComponent, "newSystem", "component");
-		violationOverlap2.registerOverlap(importedComponentNotInSystem, "system", "component");
-		violationOverlap2.registerOverlap(importingComponentNotInSystem, "system", "component");
+		violationOverlap2.registerOverlap(api.moveComponent(), "newSystem", "component");
+		violationOverlap2.registerOverlap(api.importedComponentNotInSystem(), "system", "component");
+		violationOverlap2.registerOverlap(api.importingComponentNotInSystem(), "system", "component");
 		
-		name2overlapCreators.computeIfAbsent(moveComponent, (x) -> new LinkedList<>()).add(violationOverlap1);
-		name2overlapCreators.computeIfAbsent(importedComponentInSystem, (x) -> new LinkedList<>()).add(violationOverlap1);
-		name2overlapCreators.computeIfAbsent(importingComponentInSystem, (x) -> new LinkedList<>()).add(violationOverlap1);
+		name2overlapCreators.computeIfAbsent(moveComponentName, (x) -> new LinkedList<>()).add(violationOverlap1);
+		name2overlapCreators.computeIfAbsent(importedComponentInSystemName, (x) -> new LinkedList<>()).add(violationOverlap1);
+		name2overlapCreators.computeIfAbsent(importingComponentInSystemName, (x) -> new LinkedList<>()).add(violationOverlap1);
 		
-		name2overlapCreators.computeIfAbsent(moveComponent, (x) -> new LinkedList<>()).add(violationOverlap2);
-		name2overlapCreators.computeIfAbsent(importedComponentNotInSystem, (x) -> new LinkedList<>()).add(violationOverlap2);
-		name2overlapCreators.computeIfAbsent(importingComponentNotInSystem, (x) -> new LinkedList<>()).add(violationOverlap2);
+		name2overlapCreators.computeIfAbsent(moveComponentName, (x) -> new LinkedList<>()).add(violationOverlap2);
+		name2overlapCreators.computeIfAbsent(importedComponentNotInSystemName, (x) -> new LinkedList<>()).add(violationOverlap2);
+		name2overlapCreators.computeIfAbsent(importingComponentNotInSystemName, (x) -> new LinkedList<>()).add(violationOverlap2);
 		
 		// create repairs
 		var repairOverlap1 = new OverlapCreator();
 		var repairOverlap2 = new OverlapCreator();
 
-		repairOverlap1.registerOverlap(moveComponent, "newSystem", "component");
-//		repairOverlap1.registerOverlap(importedComponentInSystem, "system", "component"); // +
-//		repairOverlap1.registerOverlap(importingComponentInSystem, "system", "component"); // +
+//		repairOverlap1.registerOverlap(api.moveComponent(), "newSystem", "component");
+//		repairOverlap1.registerOverlap(api.importedComponentInSystem(), "system", "component"); // +
+//		repairOverlap1.registerOverlap(api.importingComponentInSystem(), "system", "component"); // +
+//		
+		repairOverlap2.registerOverlap(api.moveComponent(), "formerSystem", "component");
+//		repairOverlap2.registerOverlap(api.importedComponentNotInSystem(), "system", "component");
+		repairOverlap2.registerOverlap(api.importingComponentNotInSystem(), "system", "component");
 		
-		repairOverlap2.registerOverlap(moveComponent, "formerSystem", "component");
-//		repairOverlap2.registerOverlap(importedComponentNotInSystem, "system", "component");
-		repairOverlap2.registerOverlap(importingComponentNotInSystem, "system", "component");
-		
-		name2overlapCreators.computeIfAbsent(moveComponent, (x) -> new LinkedList<>()).add(repairOverlap1);
-		name2overlapCreators.computeIfAbsent(importedComponentInSystem, (x) -> new LinkedList<>()).add(repairOverlap1);
-		name2overlapCreators.computeIfAbsent(importingComponentInSystem, (x) -> new LinkedList<>()).add(repairOverlap1);
+		name2overlapCreators.computeIfAbsent(moveComponentName, (x) -> new LinkedList<>()).add(repairOverlap1);
+		name2overlapCreators.computeIfAbsent(importedComponentInSystemName, (x) -> new LinkedList<>()).add(repairOverlap1);
+		name2overlapCreators.computeIfAbsent(importingComponentInSystemName, (x) -> new LinkedList<>()).add(repairOverlap1);
 
-		name2overlapCreators.computeIfAbsent(moveComponent, (x) -> new LinkedList<>()).add(repairOverlap2);
-		name2overlapCreators.computeIfAbsent(importedComponentNotInSystem, (x) -> new LinkedList<>()).add(repairOverlap2);
-		name2overlapCreators.computeIfAbsent(importingComponentNotInSystem, (x) -> new LinkedList<>()).add(repairOverlap2);
+		name2overlapCreators.computeIfAbsent(moveComponentName, (x) -> new LinkedList<>()).add(repairOverlap2);
+		name2overlapCreators.computeIfAbsent(importedComponentNotInSystemName, (x) -> new LinkedList<>()).add(repairOverlap2);
+		name2overlapCreators.computeIfAbsent(importingComponentNotInSystemName, (x) -> new LinkedList<>()).add(repairOverlap2);
 		
 		var violations = new LinkedList<OverlapCreator>();
 		violations.add(violationOverlap1);
@@ -103,58 +84,10 @@ public class MoveComponents {
 		repairs.add(repairOverlap2);
 		
 		constraintCounter = new ConstraintCounter(violations, repairs);
-		
-		registerSubscriptions();
-	}
-	
-	private void registerSubscriptions() {
-		api.moveComponent().subscribeAppearing(constraintCounter::addRuleMatch);
-		api.moveComponent().unsubscribeAppearing(constraintCounter::removeRuleMatch);
-		
-		// pattern1
-		api.importedComponentInSystem().subscribeAppearing(constraintCounter::addViolation);
-		api.importedComponentInSystem().unsubscribeAppearing(constraintCounter::removeViolation);
-		
-		api.importedComponentInSystem().subscribeAppearing(constraintCounter::addRepair);
-		api.importedComponentInSystem().unsubscribeAppearing(constraintCounter::removeRepair);
-		
-		// pattern2
-		api.importingComponentInSystem().subscribeAppearing(constraintCounter::addViolation);
-		api.importingComponentInSystem().unsubscribeAppearing(constraintCounter::removeViolation);
-		
-		api.importingComponentInSystem().subscribeAppearing(constraintCounter::addRepair);
-		api.importingComponentInSystem().unsubscribeAppearing(constraintCounter::removeRepair);
-		
-		// pattern3
-		api.importedComponentNotInSystem().subscribeAppearing(constraintCounter::addViolation);
-		api.importedComponentNotInSystem().unsubscribeAppearing(constraintCounter::removeViolation);
-		
-		api.importedComponentNotInSystem().subscribeAppearing(constraintCounter::addRepair);
-		api.importedComponentNotInSystem().unsubscribeAppearing(constraintCounter::removeRepair);
-		
-		// pattern4
-		api.importingComponentNotInSystem().subscribeAppearing(constraintCounter::addViolation);
-		api.importingComponentNotInSystem().unsubscribeAppearing(constraintCounter::removeViolation);
-		
-		api.importingComponentNotInSystem().subscribeAppearing(constraintCounter::addRepair);
-		api.importingComponentNotInSystem().unsubscribeAppearing(constraintCounter::removeRepair);
 	}
 
-	public void loadModel(String model) {
-		var path = api.getWorkspacePath() + "Refactoring/resources/" + model;
-		try {
-			api.addModel(path);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	@Override
+	protected void createAPI() {
+		api = new MovingHiPEGtApi();
 	}
-	
-	public MovingGtApi getApi() {
-		return api;
-	}
-	
-	public ConstraintCounter getConstraintCounter() {
-		return constraintCounter;
-	}
-	
 }

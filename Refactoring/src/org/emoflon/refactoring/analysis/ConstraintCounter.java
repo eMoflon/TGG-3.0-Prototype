@@ -1,5 +1,6 @@
 package org.emoflon.refactoring.analysis;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,12 +8,11 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.emoflon.ibex.gt.engine.IBeXGTMatch;
 import org.emoflon.refactoring.logging.Formatter;
 import org.emoflon.refactoring.logging.LoggingConfig;
-
-import softwareSystem.Component;
 
 @SuppressWarnings("rawtypes")
 public class ConstraintCounter {
@@ -97,6 +97,22 @@ public class ConstraintCounter {
 		}
 	}
 	
+	public IBeXGTMatch getNextMatch() {
+		var matchList = ruleMatches.parallelStream() //
+				.map(m -> 
+					new RuleApplicationGain(m, calculcateGain(m))
+				).collect(Collectors.toList());
+		
+		matchList.sort((a,b) -> a.gain() - b.gain());
+		var bestMatch = matchList.get(0);
+		LoggingConfig.log("Appication: ", "Applying " + bestMatch.match() + " with gain " + bestMatch.gain());
+		return bestMatch.match();
+	}
+	
+	public int calculcateGain(IBeXGTMatch match) {
+		return countRepairs(match) - countViolations(match);
+	}
+	
 	public int countViolations(IBeXGTMatch match) {
 		return count(violationOverlapCreators, creator2violations, match);
 	}
@@ -178,4 +194,8 @@ public class ConstraintCounter {
 
 record OverlapMappings(Map<MatchOverlap, Collection<IBeXGTMatch>> overlap2matches) {
 
+}
+
+record RuleApplicationGain(IBeXGTMatch match, int gain) {
+	
 }

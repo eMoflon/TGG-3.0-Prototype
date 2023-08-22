@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.emoflon.ibex.gt.engine.IBeXGTMatch;
+import org.emoflon.ibex.gt.engine.IBeXGTPattern;
 
 public class OverlapCreator {
 
@@ -21,7 +22,8 @@ public class OverlapCreator {
 	 * @param patternName the name of the pattern from which the matches come
 	 * @param parameters the elements in the overlap in the correct order
 	 */
-	public void registerOverlap(String patternName, String... parameters) {
+	public void registerOverlap(IBeXGTPattern pattern, String... parameters) {
+		var patternName = pattern.patternName;
 		if(overlapSize == -1)
 			overlapSize = parameters.length;
 		else

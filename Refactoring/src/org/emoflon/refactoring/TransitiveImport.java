@@ -13,106 +13,60 @@ import org.emoflon.refactoring.analysis.OverlapCreator;
 import refactoringgtl.moving.api.MovingGtApi;
 import refactoringgtl.moving.api.MovingHiPEGtApi;
 
-public class TransitiveImport {
+public class TransitiveImport extends RefactoringCase<MovingHiPEGtApi>{
 
-	@SuppressWarnings("rawtypes")
-	private MovingGtApi api;
-	
-	private Map<String, Collection<OverlapCreator>> name2overlapCreators = new HashMap<>();
-	
-	private Set<String> rules = new HashSet<>();
-	private Set<String> violation = new HashSet<>();
-	private Set<String> repairs = new HashSet<>();
-	
-	private ConstraintCounter constraintCounter;
-	
 	public TransitiveImport(String path) {
-		initialize(path);
+		super(path);
 	}
 
-	private void initialize(String path) {
-		api = new MovingHiPEGtApi();
-		loadModel(path);
-		api.initializeEngine();
+	@Override
+	protected void createAndRegisterOverlaps() {
+		var createImportName = api.createImport().ruleName;
 		
-		var createImport = api.createImport().ruleName;
-		
-		var transitiveImportMissingFront = api.transitiveImportMissingFront().patternName;
-		var transitiveImportMissingBack = api.transitiveImportMissingBack().patternName;
-		var transitiveImportCreated = api.transitiveImportCreated().patternName;
+		var transitiveImportMissingFrontName = api.transitiveImportMissingFront().patternName;
+		var transitiveImportMissingBackName = api.transitiveImportMissingBack().patternName;
+		var transitiveImportCreatedName = api.transitiveImportCreated().patternName;
 
-		rules.add(createImport);
+		rules.add(api.createImport());
 		
-		violation.add(transitiveImportMissingFront);
-		violation.add(transitiveImportMissingBack);
+		violations.add(api.transitiveImportMissingFront());
+		violations.add(api.transitiveImportMissingBack());
 		
-		repairs.add(transitiveImportCreated);
+		repairs.add(api.transitiveImportCreated());
 		
 		// create violations
 		var violationOverlap1 = new OverlapCreator();
 
-		violationOverlap1.registerOverlap(createImport, "component", "otherComponent");
-		violationOverlap1.registerOverlap(transitiveImportMissingFront, "firstComponent", "secondComponent"); // +
-		violationOverlap1.registerOverlap(transitiveImportMissingBack, "secondComponent", "thirdComponent"); // +
+		violationOverlap1.registerOverlap(api.createImport(), "component", "otherComponent");
+		violationOverlap1.registerOverlap(api.transitiveImportMissingFront(), "firstComponent", "secondComponent"); // +
+		violationOverlap1.registerOverlap(api.transitiveImportMissingBack(), "secondComponent", "thirdComponent"); // +
 		
-		name2overlapCreators.computeIfAbsent(createImport, (x) -> new LinkedList<>()).add(violationOverlap1);
-		name2overlapCreators.computeIfAbsent(transitiveImportMissingFront, (x) -> new LinkedList<>()).add(violationOverlap1);
-		name2overlapCreators.computeIfAbsent(transitiveImportMissingBack, (x) -> new LinkedList<>()).add(violationOverlap1);
+		name2overlapCreators.computeIfAbsent(createImportName, (x) -> new LinkedList<>()).add(violationOverlap1);
+		name2overlapCreators.computeIfAbsent(transitiveImportMissingFrontName, (x) -> new LinkedList<>()).add(violationOverlap1);
+		name2overlapCreators.computeIfAbsent(transitiveImportMissingBackName, (x) -> new LinkedList<>()).add(violationOverlap1);
 		
 		
 		// create repairs
 		var repairOverlap1 = new OverlapCreator();
 
-		repairOverlap1.registerOverlap(createImport, "component", "otherComponent");
-		repairOverlap1.registerOverlap(transitiveImportCreated, "firstComponent", "thirdComponent"); // +
+		repairOverlap1.registerOverlap(api.createImport(), "component", "otherComponent");
+		repairOverlap1.registerOverlap(api.transitiveImportCreated(), "firstComponent", "thirdComponent"); // +
 		
-		name2overlapCreators.computeIfAbsent(createImport, (x) -> new LinkedList<>()).add(repairOverlap1);
-		name2overlapCreators.computeIfAbsent(transitiveImportCreated, (x) -> new LinkedList<>()).add(repairOverlap1);
+		name2overlapCreators.computeIfAbsent(createImportName, (x) -> new LinkedList<>()).add(repairOverlap1);
+		name2overlapCreators.computeIfAbsent(transitiveImportCreatedName, (x) -> new LinkedList<>()).add(repairOverlap1);
 
-		var violations = new LinkedList<OverlapCreator>();
-		violations.add(violationOverlap1);
+		var violationOverlaps = new LinkedList<OverlapCreator>();
+		violationOverlaps.add(violationOverlap1);
 
-		var repairs = new LinkedList<OverlapCreator>();
-		repairs.add(repairOverlap1);
+		var repairOverlaps = new LinkedList<OverlapCreator>();
+		repairOverlaps.add(repairOverlap1);
 		
-		constraintCounter = new ConstraintCounter(violations, repairs);
-		
-		registerSubscriptions();
-	}
-	
-	private void registerSubscriptions() {
-		api.createImport().subscribeAppearing(constraintCounter::addRuleMatch);
-		api.createImport().unsubscribeAppearing(constraintCounter::removeRuleMatch);
-		
-		// pattern1
-		api.transitiveImportMissingFront().subscribeAppearing(constraintCounter::addViolation);
-		api.transitiveImportMissingFront().unsubscribeAppearing(constraintCounter::removeViolation);
-		
-		// pattern2
-		api.transitiveImportMissingBack().subscribeAppearing(constraintCounter::addViolation);
-		api.transitiveImportMissingBack().unsubscribeAppearing(constraintCounter::removeViolation);
-		
-		// pattern3
-		api.transitiveImportCreated().subscribeAppearing(constraintCounter::addRepair);
-		api.transitiveImportCreated().unsubscribeAppearing(constraintCounter::removeRepair);
-		
+		constraintCounter = new ConstraintCounter(violationOverlaps, repairOverlaps);
 	}
 
-	public void loadModel(String model) {
-		var path = api.getWorkspacePath() + "Refactoring/resources/" + model;
-		try {
-			api.addModel(path);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	@Override
+	protected void createAPI() {
+		api = new MovingHiPEGtApi();
 	}
-	
-	public MovingGtApi getApi() {
-		return api;
-	}
-	
-	public ConstraintCounter getConstraintCounter() {
-		return constraintCounter;
-	}
-	
+
 }
