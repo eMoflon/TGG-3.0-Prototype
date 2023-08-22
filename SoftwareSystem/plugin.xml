@@ -9,7 +9,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated softwareSystem -->
       <package
-            uri="http://www.emoflon.org/softwareSystem"
+            uri="platform:/resource/SoftwareSystem/model/softwareSystem.ecore"
             class="softwareSystem.SoftwareSystemPackage"
             genModel="model/softwareSystem.genmodel"/>
    </extension>

@@ -13,7 +13,8 @@ Require-Bundle: org.emoflon.ibex.common,
  org.emoflon.ibex.gt,
  org.emoflon.ibex.gt.hipe,
  org.emoflon.ibex.gt.gtmodel,
- SoftwareSystem
+ SoftwareSystem,
+ org.emoflon.ibex.common.slimgt;bundle-version="1.0.0"
 Export-Package: refactoringgtl.moving.api,
  refactoringgtl.moving.api.match,
  refactoringgtl.moving.api.pattern,

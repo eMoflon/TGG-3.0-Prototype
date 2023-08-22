@@ -6,6 +6,7 @@ import org.emoflon.refactoring.analysis.ConstraintCounter;
 import org.emoflon.refactoring.analysis.OverlapCreator;
 
 import refactoringgtl.moving.api.MovingHiPEGtApi;
+import softwareSystem.SoftwareSystemPackage;
 
 public class MoveComponents extends RefactoringCase<MovingHiPEGtApi>{
 
@@ -90,4 +91,11 @@ public class MoveComponents extends RefactoringCase<MovingHiPEGtApi>{
 	protected void createAPI() {
 		api = new MovingHiPEGtApi();
 	}
+
+	@Override
+	protected void initializeMetamodel() {
+		SoftwareSystemPackage.eINSTANCE.getName();
+	}
+	
+	
 }

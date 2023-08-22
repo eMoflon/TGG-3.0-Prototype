@@ -39,7 +39,7 @@ public interface SoftwareSystemPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://www.emoflon.org/softwareSystem";
+	String eNS_URI = "platform:/resource/SoftwareSystem/model/softwareSystem.ecore";
 
 	/**
 	 * The package namespace name.

@@ -1,17 +1,12 @@
 package org.emoflon.refactoring;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
-import java.util.Set;
 
 import org.emoflon.refactoring.analysis.ConstraintCounter;
 import org.emoflon.refactoring.analysis.OverlapCreator;
 
-import refactoringgtl.moving.api.MovingGtApi;
 import refactoringgtl.moving.api.MovingHiPEGtApi;
+import softwareSystem.SoftwareSystemPackage;
 
 public class TransitiveImport extends RefactoringCase<MovingHiPEGtApi>{
 
@@ -67,6 +62,11 @@ public class TransitiveImport extends RefactoringCase<MovingHiPEGtApi>{
 	@Override
 	protected void createAPI() {
 		api = new MovingHiPEGtApi();
+	}
+	
+	@Override
+	protected void initializeMetamodel() {
+		SoftwareSystemPackage.eINSTANCE.getName();
 	}
 
 }

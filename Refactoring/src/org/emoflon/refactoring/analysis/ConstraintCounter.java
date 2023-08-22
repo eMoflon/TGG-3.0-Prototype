@@ -1,6 +1,5 @@
 package org.emoflon.refactoring.analysis;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -103,9 +102,9 @@ public class ConstraintCounter {
 					new RuleApplicationGain(m, calculcateGain(m))
 				).collect(Collectors.toList());
 		
-		matchList.sort((a,b) -> a.gain() - b.gain());
+		matchList.sort((a,b) -> b.gain() - a.gain());
 		var bestMatch = matchList.get(0);
-		LoggingConfig.log("Appication: ", "Applying " + bestMatch.match() + " with gain " + bestMatch.gain());
+		LoggingConfig.log("Choose Match: ", bestMatch.match() + " with gain " + bestMatch.gain());
 		return bestMatch.match();
 	}
 	
@@ -153,6 +152,7 @@ public class ConstraintCounter {
 		for(var line : lines) {
 			System.out.println(line);
 		}
+		System.out.println("\n\n\n");
 	}
 	
 	public void printViolations() {

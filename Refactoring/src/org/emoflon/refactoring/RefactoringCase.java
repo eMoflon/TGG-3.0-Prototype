@@ -9,8 +9,10 @@ import java.util.Set;
 import org.emoflon.ibex.gt.api.IBeXGtAPI;
 import org.emoflon.ibex.gt.engine.IBeXGTMatch;
 import org.emoflon.ibex.gt.engine.IBeXGTPattern;
+import org.emoflon.ibex.gt.engine.IBeXGTRule;
 import org.emoflon.refactoring.analysis.ConstraintCounter;
 import org.emoflon.refactoring.analysis.OverlapCreator;
+import org.emoflon.refactoring.logging.LoggingConfig;
 
 @SuppressWarnings("unused")
 public abstract class RefactoringCase<API extends IBeXGtAPI<?,?,?>> {
@@ -19,19 +21,21 @@ public abstract class RefactoringCase<API extends IBeXGtAPI<?,?,?>> {
 	
 	protected Map<String, Collection<OverlapCreator>> name2overlapCreators = new HashMap<>();
 	
-	protected Set<IBeXGTPattern> rules = new HashSet<>();
+	protected Set<IBeXGTRule> rules = new HashSet<>();
 	protected Set<IBeXGTPattern> violations = new HashSet<>();
 	protected Set<IBeXGTPattern> repairs = new HashSet<>();
 	
 	protected ConstraintCounter constraintCounter;
 	
 	public RefactoringCase(String path) {
+		initializeMetamodel();
 		createAPI();
 		initializeAPI(path);
 		createAndRegisterOverlaps();
 		registerSubscriptions();
 	}
 	
+	protected abstract void initializeMetamodel();
 	
 	protected abstract void createAPI();
 	
@@ -46,17 +50,17 @@ public abstract class RefactoringCase<API extends IBeXGtAPI<?,?,?>> {
 	private void registerSubscriptions() {
 		for(var rule : rules) {
 			rule.subscribeAppearing((o) -> constraintCounter.addRuleMatch((IBeXGTMatch) o));
-			rule.unsubscribeAppearing((o) -> constraintCounter.removeRuleMatch((IBeXGTMatch) o));
+			rule.subscribeDisappearing((o) -> constraintCounter.removeRuleMatch((IBeXGTMatch) o));
 		}
 		
 		for(var violation : violations) {
 			violation.subscribeAppearing((o) -> constraintCounter.addViolation((IBeXGTMatch) o));
-			violation.unsubscribeAppearing((o) -> constraintCounter.removeViolation((IBeXGTMatch) o));
+			violation.subscribeDisappearing((o) -> constraintCounter.removeViolation((IBeXGTMatch) o));
 		}
 		
 		for(var repair : repairs) {
 			repair.subscribeAppearing((o) -> constraintCounter.addRepair((IBeXGTMatch) o));
-			repair.unsubscribeAppearing((o) -> constraintCounter.removeRepair((IBeXGTMatch) o));
+			repair.subscribeDisappearing((o) -> constraintCounter.removeRepair((IBeXGTMatch) o));
 		}
 	}
 
@@ -66,6 +70,17 @@ public abstract class RefactoringCase<API extends IBeXGtAPI<?,?,?>> {
 			api.addModel(path);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void performOneStep() {
+		var nextMatch = constraintCounter.getNextMatch();
+		for(var rule : rules) {
+			if(rule.patternName.equals(nextMatch.getPatternName())) {
+				LoggingConfig.log("Applying Match:", nextMatch);
+				rule.apply(nextMatch);
+				break;
+			}
 		}
 	}
 	

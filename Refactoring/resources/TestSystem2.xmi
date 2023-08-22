@@ -2,7 +2,9 @@
 <softwareSystem:System
     xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:softwareSystem="platform:/resource/SoftwareSystem/model/softwareSystem.ecore"
+    xsi:schemaLocation="http://www.emoflon.org/softwareSystem ../../SoftwareSystem/model/softwareSystem.ecore"
     name="org">
   <subSystems
       name="emoflon">
@@ -22,6 +24,9 @@
         <components
             imports="//@subSystems.0/@subSystems.0/@components.0"
             name="TGGMatch"/>
+        <components
+            imports="//@subSystems.0/@subSystems.0/@subSystems.1/@components.0"
+            name="SCMatch"/>
       </subSystems>
       <components
           name="Match"/>

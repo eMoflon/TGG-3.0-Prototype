@@ -1,6 +1,5 @@
 package org.emoflon.run;
 
-import org.emoflon.refactoring.MoveComponents;
 import org.emoflon.refactoring.TransitiveImport;
 import org.emoflon.refactoring.logging.LoggingConfig;
 
@@ -12,7 +11,7 @@ public class TestCreateImports {
 		LoggingConfig.matchSubStringsToLog.add("TGGMatch");
 //		LoggingConfig.matchSubStringsToLog.add("GTPatternMatch");
 		
-		var config = new TransitiveImport("TestSystem1.xmi");
+		var config = new TransitiveImport("TestSystem2.xmi");
 		var constraintCounter = config.getConstraintCounter();
 		config.getApi().updateMatches();
 		
