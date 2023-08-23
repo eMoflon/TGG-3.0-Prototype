@@ -6,6 +6,4 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: .
 Require-Bundle: RefactoringGTLFull;bundle-version="1.0.0",
- SoftwareSystem;bundle-version="0.1.0",
- org.emoflon.ibex.gt;bundle-version="1.0.0",
- org.emoflon.ibex.gt.hipe;bundle-version="1.0.0"
+ RefactoringCommon;bundle-version="1.0.0"
