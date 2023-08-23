@@ -19,20 +19,29 @@ public class LoggingConfig {
 			if(prefix != null && prefix.length() != 0)
 				out += prefix + ": \t";
 			
-			if(o instanceof IBeXGTMatch && !activateMatchLogging)
-				return;
-			
-			if(matchSubStringsToLog.isEmpty()) {
-				System.out.println(out + (useFormatter ? Formatter.toString(o) : o.toString()));
-				return;
-			}
-			
-			for(var subString : matchSubStringsToLog) {
-				if(o.toString().contains(subString)) {
-					System.out.println(out + (useFormatter ? Formatter.toString(o) : o.toString()));
-					return;
+			if(o instanceof IBeXGTMatch) {
+				if(activateMatchLogging) {
+					if(matchSubStringsToLog.isEmpty()) {
+						System.out.println(out + (useFormatter ? Formatter.toString(o) : o.toString()));
+						return;
+					}
+					
+					for(var subString : matchSubStringsToLog) {
+						if(o.toString().contains(subString)) {
+							System.out.println(out + (useFormatter ? Formatter.toString(o) : o.toString()));
+							return;
+						}
+					}
 				}
+				return;
 			}
+
+			System.out.println(out + (useFormatter ? Formatter.toString(o) : o.toString()));
 		}
+	}
+	
+	public static void logln(String prefix, Object o) {
+		log(prefix, o);
+		System.out.println("\n");
 	}
 }

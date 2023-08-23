@@ -104,8 +104,15 @@ public class ConstraintCounter {
 		
 		matchList.sort((a,b) -> b.gain() - a.gain());
 		var bestMatch = matchList.get(0);
-		LoggingConfig.log("Choose Match: ", bestMatch.match() + " with gain " + bestMatch.gain());
-		return bestMatch.match();
+		if(bestMatch.gain() > 0) {
+			LoggingConfig.log("Choose Match: ", bestMatch.match() + " with gain " + bestMatch.gain());
+			return bestMatch.match();
+		}
+		else {
+			LoggingConfig.log("Blocked Match: ", "Best match is " + bestMatch.match() + " and has only a gain of " + bestMatch.gain());
+			return null;
+		}
+
 	}
 	
 	public int calculcateGain(IBeXGTMatch match) {

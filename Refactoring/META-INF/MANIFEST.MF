@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Refactoring
-Bundle-SymbolicName: Refactoring
+Bundle-SymbolicName: RefactoringAC
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: .
-Require-Bundle: RefactoringGTL;bundle-version="1.0.0",
+Require-Bundle: RefactoringGTLFull;bundle-version="1.0.0",
  SoftwareSystem;bundle-version="0.1.0",
  org.emoflon.ibex.gt;bundle-version="1.0.0",
  org.emoflon.ibex.gt.hipe;bundle-version="1.0.0"

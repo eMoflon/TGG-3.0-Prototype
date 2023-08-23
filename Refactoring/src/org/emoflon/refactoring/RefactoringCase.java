@@ -75,9 +75,14 @@ public abstract class RefactoringCase<API extends IBeXGtAPI<?,?,?>> {
 	
 	public void performOneStep() {
 		var nextMatch = constraintCounter.getNextMatch();
+		if(nextMatch == null) {
+			LoggingConfig.log("Abort:", "No match found");
+			return;
+		}
+		
 		for(var rule : rules) {
 			if(rule.patternName.equals(nextMatch.getPatternName())) {
-				LoggingConfig.log("Applying Match:", nextMatch);
+				LoggingConfig.logln("Applying Match:", nextMatch);
 				rule.apply(nextMatch);
 				break;
 			}
