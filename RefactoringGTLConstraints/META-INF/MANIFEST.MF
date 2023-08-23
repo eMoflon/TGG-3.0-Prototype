@@ -14,13 +14,6 @@ Require-Bundle: org.emoflon.ibex.common,
  org.emoflon.ibex.gt.gtmodel,
  org.emoflon.ibex.gt.hipe,
  SoftwareSystem
-Export-Package: refactoringgtlconstraints.example.api,
- refactoringgtlconstraints.example.api.match,
- refactoringgtlconstraints.example.api.pattern,
- refactoring.constraints.api,
+Export-Package: refactoring.constraints.api,
  refactoring.constraints.api.match,
- refactoring.constraints.api.pattern,
- refactoring.full.api,
- refactoring.full.api.match,
- refactoring.full.api.pattern,
- refactoring.full.api.rule
+ refactoring.constraints.api.pattern
