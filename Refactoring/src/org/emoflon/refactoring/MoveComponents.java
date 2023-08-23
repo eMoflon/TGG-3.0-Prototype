@@ -5,10 +5,10 @@ import java.util.LinkedList;
 import org.emoflon.refactoring.analysis.ConstraintCounter;
 import org.emoflon.refactoring.analysis.OverlapCreator;
 
-import refactoringgtl.moving.api.MovingHiPEGtApi;
+import refactoring.full.api.FullHiPEGtApi;
 import softwareSystem.SoftwareSystemPackage;
 
-public class MoveComponents extends RefactoringCase<MovingHiPEGtApi>{
+public class MoveComponents extends RefactoringCase<FullHiPEGtApi>{
 
 
 	public MoveComponents(String path) {
@@ -89,7 +89,7 @@ public class MoveComponents extends RefactoringCase<MovingHiPEGtApi>{
 
 	@Override
 	protected void createAPI() {
-		api = new MovingHiPEGtApi();
+		api = new FullHiPEGtApi();
 	}
 
 	@Override

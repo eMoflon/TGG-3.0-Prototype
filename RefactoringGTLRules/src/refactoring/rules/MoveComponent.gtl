@@ -1,0 +1,16 @@
+package refactoring.rules
+
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/SoftwareSystem/model/softwareSystem.ecore"
+
+rule moveComponent {
+	[=] formerSystem : System {
+		[-] -components->component
+	}
+	[=] newSystem : System {
+		[+] -components->component
+	}
+	[=] component : Component
+};
+
+  

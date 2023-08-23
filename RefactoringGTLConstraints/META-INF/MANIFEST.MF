@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: RefactoringGTLConstraints
+Bundle-ManifestVersion: 2
+Bundle-Name: RefactoringGTLConstraints
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: RefactoringGTLConstraints; singleton:=true
+Bundle-ActivationPolicy: lazy
+Import-Package: org.apache.log4j,
+ org.apache.commons.logging
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Require-Bundle: org.emoflon.ibex.common,
+ org.emoflon.ibex.gt,
+ org.emoflon.ibex.gt.gtmodel,
+ org.emoflon.ibex.gt.hipe,
+ SoftwareSystem
+Export-Package: refactoringgtlconstraints.example.api,
+ refactoringgtlconstraints.example.api.match,
+ refactoringgtlconstraints.example.api.pattern,
+ refactoring.constraints.api,
+ refactoring.constraints.api.match,
+ refactoring.constraints.api.pattern,
+ refactoring.full.api,
+ refactoring.full.api.match,
+ refactoring.full.api.pattern,
+ refactoring.full.api.rule

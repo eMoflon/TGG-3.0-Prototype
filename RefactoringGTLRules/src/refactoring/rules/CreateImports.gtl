@@ -1,0 +1,20 @@
+package refactoring.rules
+
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/SoftwareSystem/model/softwareSystem.ecore"
+
+rule createImport {
+	[=] component : Component {
+		[+] -imports->otherComponent
+	}
+	[=] otherComponent : Component
+	
+	forbid(importEdge)[component=component, otherComponent=otherComponent]
+};
+
+pattern importEdge {
+	[=] component : Component {
+		[=] -imports->otherComponent
+	}
+	[=] otherComponent : Component
+};
