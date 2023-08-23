@@ -1,4 +1,4 @@
-package org.emoflon.refactoring.analysis;
+package org.emoflon.refactoring.ac.analysis;
 
 import java.util.Collection;
 import java.util.Collections;

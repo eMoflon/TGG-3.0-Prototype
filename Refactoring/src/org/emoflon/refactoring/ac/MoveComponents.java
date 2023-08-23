@@ -1,9 +1,9 @@
-package org.emoflon.refactoring;
+package org.emoflon.refactoring.ac;
 
 import java.util.LinkedList;
 
-import org.emoflon.refactoring.analysis.ConstraintCounter;
-import org.emoflon.refactoring.analysis.OverlapCreator;
+import org.emoflon.refactoring.ac.analysis.ConstraintCounter;
+import org.emoflon.refactoring.ac.analysis.OverlapCreator;
 
 import refactoring.full.api.FullHiPEGtApi;
 import softwareSystem.SoftwareSystemPackage;

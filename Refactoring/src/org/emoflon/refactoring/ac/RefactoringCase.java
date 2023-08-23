@@ -1,4 +1,4 @@
-package org.emoflon.refactoring;
+package org.emoflon.refactoring.ac;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,8 +10,8 @@ import org.emoflon.ibex.gt.api.IBeXGtAPI;
 import org.emoflon.ibex.gt.engine.IBeXGTMatch;
 import org.emoflon.ibex.gt.engine.IBeXGTPattern;
 import org.emoflon.ibex.gt.engine.IBeXGTRule;
-import org.emoflon.refactoring.analysis.ConstraintCounter;
-import org.emoflon.refactoring.analysis.OverlapCreator;
+import org.emoflon.refactoring.ac.analysis.ConstraintCounter;
+import org.emoflon.refactoring.ac.analysis.OverlapCreator;
 import org.emoflon.refactoring.logging.LoggingConfig;
 
 @SuppressWarnings("unused")
