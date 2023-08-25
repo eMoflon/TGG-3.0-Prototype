@@ -16,18 +16,20 @@ import org.emoflon.ibex.gt.engine.hipe.HiPEPatternMatchingEngine;
 import org.emoflon.ibex.gt.gtmodel.IBeXGTModel.GTRule;
 import org.emoflon.smartemf.runtime.notification.SmartEMFNotification;
 
+import hipe.engine.HiPEContentAdapter;
 import scala.collection.GenMapLike;
 
-public abstract class ConstraintCheckingInstance<API extends IBeXGtAPI<?,?,?>> {
+public abstract class ConstraintCheckingInstance<API extends IBeXGtAPI<?,?,?>> extends GTInstance<API> {
 
-	protected API api;
-	private EContentAdapter matcherContentAdapter;
+	private HiPEContentAdapter matcherContentAdapter;
 	
 	private Map<String, Collection<Consumer<IBeXGTMatch>>> ruleName2notificationCreators = new HashMap<>();
 	private Collection<IBeXGTPattern> constraintPattern = new LinkedList<>();
 	
 	private Collection<IBeXGTMatch> violations;
 	private Collection<IBeXGTMatch> repairs;
+	
+	private Collection<IBeXGTMatch> ruleMatches = new LinkedList<>();
 	
 	public ConstraintCheckingInstance(String modelPath) {
 		createAPI();
@@ -48,19 +50,27 @@ public abstract class ConstraintCheckingInstance<API extends IBeXGtAPI<?,?,?>> {
 		repairs = new LinkedList<>();
 	}
 	
-	private void initialize() {
-		api.initializeEngine();
+	@Override
+	protected void initialize() {
+		super.initialize();
 		
 		// this only works for HiPE
-		if(api.getGTEngine().getPatternMatcher() instanceof HiPEPatternMatchingEngine engine) 
+		if(api.getGTEngine().getPatternMatcher() instanceof HiPEPatternMatchingEngine engine) {
 			matcherContentAdapter = engine.getAdapter();
+			// we deactivate the notification processing of this hipe instance and activate it only for letting it process our fake notifications
+			matcherContentAdapter.setActive(false);
+		}
 		else 
 			throw new RuntimeException("Currently, only HiPE is supported as pattern matcher!");
 	}
 
-	protected abstract void createAPI();
+	public Collection<WeightedMatch> evaluate() {
+		var result = evaluate(ruleMatches);
+		ruleMatches = new LinkedList<>();
+		return result;
+	}
 	
-	public Collection<WeightedMatch> evaluate(Collection<IBeXGTMatch> appliedRuleMatchs) {
+	private Collection<WeightedMatch> evaluate(Collection<IBeXGTMatch> appliedRuleMatchs) {
 		var list = new LinkedList<WeightedMatch>();
 		for(var match : appliedRuleMatchs) {
 			list.add(evaluate(match));
@@ -68,10 +78,12 @@ public abstract class ConstraintCheckingInstance<API extends IBeXGtAPI<?,?,?>> {
 		return list;
 	}
 	
-	public WeightedMatch evaluate(IBeXGTMatch appliedRuleMatch) {
+	private WeightedMatch evaluate(IBeXGTMatch appliedRuleMatch) {
 		var notificationCreators = ruleName2notificationCreators.get(appliedRuleMatch.getPatternName());
 		if(notificationCreators == null)
 			return null;
+		
+		matcherContentAdapter.setActive(true);
 		
 		// first create notifications
 		notificationCreators.forEach(c -> c.accept(appliedRuleMatch));
@@ -82,6 +94,8 @@ public abstract class ConstraintCheckingInstance<API extends IBeXGtAPI<?,?,?>> {
 		// create the result and wipe both lists
 		var result = new WeightedMatch(appliedRuleMatch, violations, repairs);
 		reset();
+		
+		matcherContentAdapter.setActive(false);
 		
 		return result;
 	}
@@ -159,18 +173,9 @@ public abstract class ConstraintCheckingInstance<API extends IBeXGtAPI<?,?,?>> {
 			constraintPattern.subscribeDisappearing(m -> violations.add((IBeXGTMatch) m));
 		}
 	}
-	
-	public API getApi() {
-		return api;
-	}
-	
-	public void loadModel(String model) {
-		var path = api.getWorkspacePath() + "Refactoring/resources/" + model;
-		try {
-			api.addModel(path);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
+	public void registerRuleMatchForChecking(IBeXGTMatch ruleMatch) {
+		ruleMatches.add(ruleMatch);
 	}
 }
 

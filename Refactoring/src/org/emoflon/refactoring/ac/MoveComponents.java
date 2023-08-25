@@ -60,12 +60,12 @@ public class MoveComponents extends RefactoringCase<FullHiPEGtApi>{
 		var repairOverlap1 = new OverlapCreator();
 		var repairOverlap2 = new OverlapCreator();
 
-//		repairOverlap1.registerOverlap(api.moveComponent(), "newSystem", "component");
-//		repairOverlap1.registerOverlap(api.importedComponentInSystem(), "system", "component"); // +
-//		repairOverlap1.registerOverlap(api.importingComponentInSystem(), "system", "component"); // +
+		repairOverlap1.registerOverlap(api.moveComponent(), "newSystem", "component");
+		repairOverlap1.registerOverlap(api.importedComponentInSystem(), "system", "component"); // +
+		repairOverlap1.registerOverlap(api.importingComponentInSystem(), "system", "component"); // +
 //		
 		repairOverlap2.registerOverlap(api.moveComponent(), "formerSystem", "component");
-//		repairOverlap2.registerOverlap(api.importedComponentNotInSystem(), "system", "component");
+		repairOverlap2.registerOverlap(api.importedComponentNotInSystem(), "system", "component");
 		repairOverlap2.registerOverlap(api.importingComponentNotInSystem(), "system", "component");
 		
 		name2overlapCreators.computeIfAbsent(moveComponentName, (x) -> new LinkedList<>()).add(repairOverlap1);

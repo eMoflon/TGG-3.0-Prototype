@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.emoflon.ibex.gt.engine.IBeXGTMatch;
+import org.emoflon.refactoring.RuleApplicationGain;
 import org.emoflon.refactoring.logging.Formatter;
 import org.emoflon.refactoring.logging.LoggingConfig;
 
@@ -201,8 +202,4 @@ public class ConstraintCounter {
 
 record OverlapMappings(Map<MatchOverlap, Collection<IBeXGTMatch>> overlap2matches) {
 
-}
-
-record RuleApplicationGain(IBeXGTMatch match, int gain) {
-	
 }
