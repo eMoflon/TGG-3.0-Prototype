@@ -36,4 +36,8 @@ public abstract class RuleMatchingInstance<API extends IBeXGtAPI<?,?,?>> extends
 	public void update() {
 		api.updateMatches();
 	}
+	
+	public Collection<IBeXGTRule> getRules() {
+		return name2rule.values();
+	}
 }
