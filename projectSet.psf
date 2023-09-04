@@ -2,6 +2,7 @@
 <psf version="2.0">
 <provider id="org.eclipse.egit.core.GitProvider">
 <project reference="1.0,https://github.com/eMoflon/TGG-3.0-Prototype.git,main,Refactoring"/>
+<project reference="1.0,https://github.com/eMoflon/TGG-3.0-Prototype.git,main,RefactoringCommon"/>
 <project reference="1.0,https://github.com/eMoflon/TGG-3.0-Prototype.git,main,RefactoringGTLConstraints"/>
 <project reference="1.0,https://github.com/eMoflon/TGG-3.0-Prototype.git,main,RefactoringGTL"/>
 <project reference="1.0,https://github.com/eMoflon/TGG-3.0-Prototype.git,main,RefactoringGTLRules"/>
@@ -19,5 +20,6 @@
 <workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1692194916054_8" label="run" name="run">
 <item elementID="=RefactoringAC" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=RefactoringSearchBased" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=RefactoringCommon" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSets>
 </psf>
