@@ -1,7 +1,7 @@
 package org.emoflon.run.search;
 
-import org.emoflon.refactoring.MoveComponents;
 import org.emoflon.refactoring.logging.LoggingConfig;
+import org.emoflon.run.search.scheduling.MoveComponents;
 
 public class TestMoveComponents {
 	
@@ -11,16 +11,15 @@ public class TestMoveComponents {
 //		LoggingConfig.matchSubStringsToLog.add("TGGMatch");
 //		LoggingConfig.matchSubStringsToLog.add("GTPatternMatch");
 		
-		var config = new MoveComponents("TestSystem1.xmi");
-		var constraintCounter = config.getConstraintCounter();
-		config.getApi().updateMatches();
-		constraintCounter.printAll();
+		var config = new MoveComponents("TestSystem1.xmi", 1);
+		config.update();
+		config.printAll();
 		
 		config.performOneStep();
-		config.getApi().updateMatches();
-		constraintCounter.printAll();
-		
-		config.getApi().terminate();
+		config.update();
+		config.printAll();
+
+		config.terminate();
 	}
 
 }

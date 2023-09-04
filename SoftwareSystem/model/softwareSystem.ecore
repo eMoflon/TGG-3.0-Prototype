@@ -18,7 +18,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="SIL">
     <eLiterals name="LOW"/>
-    <eLiterals name="MED"/>
-    <eLiterals name="HIGH"/>
+    <eLiterals name="MED" value="1"/>
+    <eLiterals name="HIGH" value="2"/>
   </eClassifiers>
 </ecore:EPackage>

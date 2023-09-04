@@ -40,9 +40,9 @@ public class MoveComponents extends RefactoringCase<FullHiPEGtApi>{
 		var violationOverlap1 = new OverlapCreator();
 		var violationOverlap2 = new OverlapCreator();
 
-		violationOverlap1.registerOverlap(api.moveComponent(), "formerSystem", "component");
-		violationOverlap1.registerOverlap(api.importedComponentInSystem(), "system", "component"); // +
-		violationOverlap1.registerOverlap(api.importingComponentInSystem(), "system", "component"); // +
+//		violationOverlap1.registerOverlap(api.moveComponent(), "formerSystem", "component");
+//		violationOverlap1.registerOverlap(api.importedComponentInSystem(), "system", "component"); // +
+//		violationOverlap1.registerOverlap(api.importingComponentInSystem(), "system", "component"); // +
 		
 		violationOverlap2.registerOverlap(api.moveComponent(), "newSystem", "component");
 		violationOverlap2.registerOverlap(api.importedComponentNotInSystem(), "system", "component");
@@ -60,9 +60,9 @@ public class MoveComponents extends RefactoringCase<FullHiPEGtApi>{
 		var repairOverlap1 = new OverlapCreator();
 		var repairOverlap2 = new OverlapCreator();
 
-		repairOverlap1.registerOverlap(api.moveComponent(), "newSystem", "component");
-		repairOverlap1.registerOverlap(api.importedComponentInSystem(), "system", "component"); // +
-		repairOverlap1.registerOverlap(api.importingComponentInSystem(), "system", "component"); // +
+//		repairOverlap1.registerOverlap(api.moveComponent(), "newSystem", "component");
+//		repairOverlap1.registerOverlap(api.importedComponentInSystem(), "system", "component"); // +
+//		repairOverlap1.registerOverlap(api.importingComponentInSystem(), "system", "component"); // +
 //		
 		repairOverlap2.registerOverlap(api.moveComponent(), "formerSystem", "component");
 		repairOverlap2.registerOverlap(api.importedComponentNotInSystem(), "system", "component");

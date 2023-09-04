@@ -5,5 +5,5 @@ Bundle-SymbolicName: RefactoringAC
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: .
-Require-Bundle: RefactoringGTLFull;bundle-version="1.0.0",
- RefactoringCommon;bundle-version="1.0.0"
+Require-Bundle: RefactoringCommon;bundle-version="1.0.0",
+ RefactoringGTLFull;bundle-version="1.0.0"

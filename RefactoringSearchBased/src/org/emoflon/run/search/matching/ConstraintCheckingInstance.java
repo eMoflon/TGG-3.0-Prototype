@@ -57,6 +57,7 @@ public abstract class ConstraintCheckingInstance<API extends IBeXGtAPI<?,?,?>> e
 		// this only works for HiPE
 		if(api.getGTEngine().getPatternMatcher() instanceof HiPEPatternMatchingEngine engine) {
 			matcherContentAdapter = engine.getAdapter();
+			engine.getEngine().getOptions().allowVirtualDeltas = true;
 			// we deactivate the notification processing of this hipe instance and activate it only for letting it process our fake notifications
 			matcherContentAdapter.setActive(false);
 		}
@@ -100,8 +101,11 @@ public abstract class ConstraintCheckingInstance<API extends IBeXGtAPI<?,?,?>> e
 		return result;
 	}
 	
-	public void registerRule(IBeXGTRule runtimeRule, GTRule specificationRule) {
+	public void registerRule(IBeXGTRule runtimeRule) {
+		var specificationRule = runtimeRule.rule;
 		Collection<Consumer<IBeXGTMatch>> consumers = new LinkedList<>();
+		ruleName2notificationCreators.put(runtimeRule.patternName, consumers);
+		
 		for(var deletedSpecNode : specificationRule.getDeletion().getNodes()) {
 			consumers.add(m -> {
 				var deletedNode = m.get(deletedSpecNode.getName());
@@ -135,7 +139,7 @@ public abstract class ConstraintCheckingInstance<API extends IBeXGtAPI<?,?,?>> e
 //			});
 //		}
 		
-		for(var createdSpecEdge : specificationRule.getDeletion().getEdges()) {
+		for(var createdSpecEdge : specificationRule.getCreation().getEdges()) {
 			consumers.add(m -> {
 				var source = m.get(createdSpecEdge.getSource().getName());
 				var target = m.get(createdSpecEdge.getTarget().getName());

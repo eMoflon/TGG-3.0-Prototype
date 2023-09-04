@@ -1,260 +1,174 @@
-/**
- */
 package softwareSystem.impl;
 
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
-import softwareSystem.Component;
+import softwareSystem.SoftwareSystemPackage;
 import softwareSystem.SoftwareSystemPackage;
 
-/**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>System</b></em>'.
- * <!-- end-user-doc -->
- * <p>
- * The following features are implemented:
- * </p>
- * <ul>
- *   <li>{@link softwareSystem.impl.SystemImpl#getSubSystems <em>Sub Systems</em>}</li>
- *   <li>{@link softwareSystem.impl.SystemImpl#getComponents <em>Components</em>}</li>
- *   <li>{@link softwareSystem.impl.SystemImpl#getName <em>Name</em>}</li>
- * </ul>
- *
- * @generated
- */
-public class SystemImpl extends MinimalEObjectImpl.Container implements softwareSystem.System {
-	/**
-	 * The cached value of the '{@link #getSubSystems() <em>Sub Systems</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSubSystems()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<softwareSystem.System> subSystems;
+import org.emoflon.smartemf.runtime.*;
+import org.emoflon.smartemf.runtime.collections.*;
+import org.emoflon.smartemf.persistence.SmartEMFResource;
+import org.emoflon.smartemf.runtime.notification.SmartEMFNotification;
+import org.emoflon.smartemf.runtime.notification.NotifyStatus;
 
-	/**
-	 * The cached value of the '{@link #getComponents() <em>Components</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getComponents()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Component> components;
+import java.util.function.Consumer;
 
-	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String NAME_EDEFAULT = null;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.Resource;
 
-	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String name = NAME_EDEFAULT;
+public class SystemImpl extends SmartObject implements softwareSystem.System {
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+    protected LinkedSmartESet<softwareSystem.System> subSystems = new LinkedSmartESet<softwareSystem.System>(this, SoftwareSystemPackage.Literals.SYSTEM__SUB_SYSTEMS);
+    protected LinkedSmartESet<softwareSystem.Component> components = new LinkedSmartESet<softwareSystem.Component>(this, SoftwareSystemPackage.Literals.SYSTEM__COMPONENTS);
+    protected java.lang.String name = null;
+	
 	protected SystemImpl() {
-		super();
+		super(SoftwareSystemPackage.Literals.SYSTEM);
 	}
+	
+    
+    @Override
+    public LinkedSmartESet<softwareSystem.System> getSubSystems() {
+    	return this.subSystems;
+    }
+    
+    @Override
+    public void setSubSystems(LinkedSmartESet<softwareSystem.System> value) {
+    	throw new UnsupportedOperationException("Set methods for SmartEMF collections are not supported.");
+    }
+    
+    
+    @Override
+    public LinkedSmartESet<softwareSystem.Component> getComponents() {
+    	return this.components;
+    }
+    
+    @Override
+    public void setComponents(LinkedSmartESet<softwareSystem.Component> value) {
+    	throw new UnsupportedOperationException("Set methods for SmartEMF collections are not supported.");
+    }
+    
+    
+    @Override
+    public java.lang.String getName() {
+    	return this.name;
+    }
+    
+    @Override
+    public void setName(java.lang.String value) {
+    	Object oldValue = this.name;
+    	this.name = value;
+    	
+    	        	sendNotification(SmartEMFNotification.createSetNotification(this, SoftwareSystemPackage.Literals.SYSTEM__NAME, oldValue, value, -1));
+    }
+    
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return SoftwareSystemPackage.Literals.SYSTEM;
-	}
+    @Override
+    public void eSet(EStructuralFeature eFeature, Object newValue){
+    	if (SoftwareSystemPackage.Literals.SYSTEM__SUB_SYSTEMS.equals(eFeature)) {
+    		setSubSystems((LinkedSmartESet<softwareSystem.System>) newValue); 
+    		return;
+    	}
+    	if (SoftwareSystemPackage.Literals.SYSTEM__COMPONENTS.equals(eFeature)) {
+    		setComponents((LinkedSmartESet<softwareSystem.Component>) newValue); 
+    		return;
+    	}
+    	if (SoftwareSystemPackage.Literals.SYSTEM__NAME.equals(eFeature)) {
+    		setName((java.lang.String) newValue); 
+    		return;
+    	}
+    	eDynamicSet(eFeature, newValue);
+    }
+    
+    @Override
+    public void eUnset(EStructuralFeature eFeature){
+    	if (SoftwareSystemPackage.Literals.SYSTEM__SUB_SYSTEMS.equals(eFeature)) {
+    		getSubSystems().clear(); 
+    		return;
+    	}
+    	if (SoftwareSystemPackage.Literals.SYSTEM__COMPONENTS.equals(eFeature)) {
+    		getComponents().clear(); 
+    		return;
+    	}
+    	if (SoftwareSystemPackage.Literals.SYSTEM__NAME.equals(eFeature)) {
+    		setName((java.lang.String)null); 
+    		return;
+    	}
+    	eDynamicUnset(eFeature);
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<softwareSystem.System> getSubSystems() {
-		if (subSystems == null) {
-			subSystems = new EObjectContainmentEList<softwareSystem.System>(softwareSystem.System.class, this,
-					SoftwareSystemPackage.SYSTEM__SUB_SYSTEMS);
+    @Override
+    public String toString(){
+		StringBuilder b = new StringBuilder();
+		b.append(super.toString());
+		b.append(" (");
+		if (SmartEMFConfig.simpleStringRepresentations()) {
+			b.append(getName());
+		} else {
+			b.append("name: ");
+			b.append(getName());
 		}
-		return subSystems;
-	}
+		b.append(")");
+		return b.toString();
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Component> getComponents() {
-		if (components == null) {
-			components = new EObjectContainmentEList<Component>(Component.class, this,
-					SoftwareSystemPackage.SYSTEM__COMPONENTS);
-		}
-		return components;
-	}
+ 	@Override
+    public Object eGet(EStructuralFeature eFeature){
+    	if (SoftwareSystemPackage.Literals.SYSTEM__SUB_SYSTEMS.equals(eFeature))
+    		return getSubSystems();
+    	if (SoftwareSystemPackage.Literals.SYSTEM__COMPONENTS.equals(eFeature))
+    		return getComponents();
+    	if (SoftwareSystemPackage.Literals.SYSTEM__NAME.equals(eFeature))
+    		return getName();
+    	return eDynamicGet(eFeature);
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SoftwareSystemPackage.SYSTEM__NAME, oldName, name));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-		case SoftwareSystemPackage.SYSTEM__SUB_SYSTEMS:
-			return ((InternalEList<?>) getSubSystems()).basicRemove(otherEnd, msgs);
-		case SoftwareSystemPackage.SYSTEM__COMPONENTS:
-			return ((InternalEList<?>) getComponents()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-		case SoftwareSystemPackage.SYSTEM__SUB_SYSTEMS:
-			return getSubSystems();
-		case SoftwareSystemPackage.SYSTEM__COMPONENTS:
-			return getComponents();
-		case SoftwareSystemPackage.SYSTEM__NAME:
-			return getName();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-		case SoftwareSystemPackage.SYSTEM__SUB_SYSTEMS:
-			getSubSystems().clear();
-			getSubSystems().addAll((Collection<? extends softwareSystem.System>) newValue);
-			return;
-		case SoftwareSystemPackage.SYSTEM__COMPONENTS:
-			getComponents().clear();
-			getComponents().addAll((Collection<? extends Component>) newValue);
-			return;
-		case SoftwareSystemPackage.SYSTEM__NAME:
-			setName((String) newValue);
-			return;
-		}
-		super.eSet(featureID, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-		case SoftwareSystemPackage.SYSTEM__SUB_SYSTEMS:
-			getSubSystems().clear();
-			return;
-		case SoftwareSystemPackage.SYSTEM__COMPONENTS:
-			getComponents().clear();
-			return;
-		case SoftwareSystemPackage.SYSTEM__NAME:
-			setName(NAME_EDEFAULT);
-			return;
-		}
-		super.eUnset(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-		case SoftwareSystemPackage.SYSTEM__SUB_SYSTEMS:
-			return subSystems != null && !subSystems.isEmpty();
-		case SoftwareSystemPackage.SYSTEM__COMPONENTS:
-			return components != null && !components.isEmpty();
-		case SoftwareSystemPackage.SYSTEM__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-		}
-		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy())
-			return super.toString();
-
-		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (name: ");
-		result.append(name);
-		result.append(')');
-		return result.toString();
-	}
-
-} //SystemImpl
+    @Override
+    public Object eGet(int featureID, boolean resolve, boolean coreType){
+    	throw new UnsupportedOperationException("This method has been deactivated since it is not always safe to use.");
+    }
+    
+    @Override
+    public void eInverseAdd(Object otherEnd, EStructuralFeature feature) {
+	    if(feature == null)
+	    	return;
+	    	
+    	eDynamicInverseAdd(otherEnd, feature);
+	    	}
+    	
+    @Override
+	    	public void eInverseRemove(Object otherEnd, EStructuralFeature feature) {
+	    if(feature == null)
+	    	return;
+	    		    		
+    	eDynamicInverseRemove(otherEnd, feature);
+	    	}
+    
+    @Override
+    /**
+    * This method sets the resource and generates REMOVING_ADAPTER and ADD notifications
+    */
+    protected void setResourceOfContainments(Consumer<SmartObject> setResourceCall) {
+    	for(Object obj : getSubSystems()) {
+    		setResourceCall.accept(((SmartObject) obj));
+	    		}
+    	for(Object obj : getComponents()) {
+    		setResourceCall.accept(((SmartObject) obj));
+	    		}
+	    	}
+	    	
+	    	@Override
+	    	/**
+	    	* This method sets the resource and only generates REMOVING_ADAPTER notifications (no ADD messages)
+	    	*/
+    protected void setResourceOfContainmentsSilently(Resource r) { 		
+    	for(Object obj : getSubSystems()) {
+    		((SmartObject) obj).setResourceSilently(r);
+	    		}
+    	for(Object obj : getComponents()) {
+    		((SmartObject) obj).setResourceSilently(r);
+	    		}
+	    	}
+}

@@ -27,13 +27,27 @@ public abstract class InstanceCoordinator {
 	
 	private Collection<WeightedMatch> checkedMatches = null;
 	
-	public InstanceCoordinator() {
-		
+	protected String path;
+	protected int instanceCount;
+	
+	public InstanceCoordinator(String path, int instanceCount) {
+		this.path = path;
+		this.instanceCount = instanceCount;
+		initialize();
 	}
 	
 	public abstract void initialize();
+	
+	public void terminate() {
+		for(var ruleMatcher : ruleMatchers) {
+			ruleMatcher.getApi().terminate();
+		}
+		for(var constraintChecker : constraintCheckers) {
+			constraintChecker.getApi().terminate();
+		}
+	}
 
-	private void update() {
+	public void update() {
 		for(var ruleMatcher : ruleMatchers) {
 			ruleMatcher.update();
 		}
@@ -45,8 +59,6 @@ public abstract class InstanceCoordinator {
 		}
 		
 		checkedMatches = (Collection<WeightedMatch>) constraintCheckers.parallelStream().flatMap(c -> c.evaluate().stream()).collect(Collectors.toList());
-
-		printAll(checkedMatches);
 	}
 	
 	public void performOneStep() {
@@ -102,7 +114,7 @@ public abstract class InstanceCoordinator {
 		constraintCheckers.add(instance);
 	}
 	
-	public void printAll(Collection<WeightedMatch> checkedMatches) {
+	public void printAll() {
 		System.out.println("\n\n\n");
 		System.out.println("Printing violations and repairs: ");
 		List<String> lines = new LinkedList<>();

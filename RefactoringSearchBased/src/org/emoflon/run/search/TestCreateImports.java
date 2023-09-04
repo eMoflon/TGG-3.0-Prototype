@@ -1,6 +1,5 @@
 package org.emoflon.run.search;
 
-import org.emoflon.refactoring.TransitiveImport;
 import org.emoflon.refactoring.logging.LoggingConfig;
 
 public class TestCreateImports {
@@ -11,17 +10,17 @@ public class TestCreateImports {
 		LoggingConfig.matchSubStringsToLog.add("TGGMatch");
 //		LoggingConfig.matchSubStringsToLog.add("GTPatternMatch");
 		
-		var config = new TransitiveImport("TestSystem2.xmi");
-		var constraintCounter = config.getConstraintCounter();
-		config.getApi().updateMatches();
-		constraintCounter.printAll();
-		
-		config.performOneStep();
-		
-		config.getApi().updateMatches();
-		constraintCounter.printAll();
-		
-		config.getApi().terminate();
+//		var config = new TransitiveImport("TestSystem2.xmi");
+//		var constraintCounter = config.getConstraintCounter();
+//		config.getApi().updateMatches();
+//		constraintCounter.printAll();
+//		
+//		config.performOneStep();
+//		
+//		config.getApi().updateMatches();
+//		constraintCounter.printAll();
+//		
+//		config.getApi().terminate();
 	}
 
 }

@@ -1,88 +1,54 @@
-/**
- */
 package softwareSystem.impl;
+
+import softwareSystem.System;
+import softwareSystem.Component;
+
+import softwareSystem.SIL;
+
+import softwareSystem.SoftwareSystemFactory;
+import softwareSystem.SoftwareSystemPackage;
+
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import softwareSystem.Component;
-import softwareSystem.SoftwareSystemFactory;
-import softwareSystem.SoftwareSystemPackage;
+import org.emoflon.smartemf.runtime.SmartPackageImpl;
 
-/**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Package</b>.
- * <!-- end-user-doc -->
- * @generated
- */
-public class SoftwareSystemPackageImpl extends EPackageImpl implements SoftwareSystemPackage {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+public class SoftwareSystemPackageImpl extends SmartPackageImpl
+		implements SoftwareSystemPackage {
+			
 	private EClass systemEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	private EReference system_subSystemsEReference = null;
+	private EReference system_componentsEReference = null;
+	private EAttribute system_nameEAttribute = null;
 	private EClass componentEClass = null;
+	private EReference component_importsEReference = null;
+	private EAttribute component_nameEAttribute = null;
+	private EAttribute component_functionPointsEAttribute = null;
+	private EAttribute component_silEAttribute = null;
+	
+	private EEnum sILEEnum = null;
+	
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum silEEnum = null;
-
-	/**
-	 * Creates an instance of the model <b>Package</b>, registered with
-	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
-	 * package URI value.
-	 * <p>Note: the correct way to create the package is via the static
-	 * factory method {@link #init init()}, which also performs
-	 * initialization of the package, or returns the registered package,
-	 * if one already exists.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see softwareSystem.SoftwareSystemPackage#eNS_URI
-	 * @see #init()
-	 * @generated
-	 */
 	private SoftwareSystemPackageImpl() {
-		super(eNS_URI, SoftwareSystemFactory.eINSTANCE);
+		super(eNS_URI, softwareSystem.SoftwareSystemFactory.eINSTANCE);
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private static boolean isInited = false;
+	private static boolean isRegistered = false;
+	private boolean isCreated = false;
+	private boolean isInitialized = false;
 
-	/**
-	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 *
-	 * <p>This method is used to initialize {@link SoftwareSystemPackage#eINSTANCE} when that field is accessed.
-	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #eNS_URI
-	 * @see #createPackageContents()
-	 * @see #initializePackageContents()
-	 * @generated
-	 */
 	public static SoftwareSystemPackage init() {
-		if (isInited)
-			return (SoftwareSystemPackage) EPackage.Registry.INSTANCE.getEPackage(SoftwareSystemPackage.eNS_URI);
+		if (isRegistered)
+			return (SoftwareSystemPackage) EPackage.Registry.INSTANCE
+					.getEPackage(SoftwareSystemPackage.eNS_URI);
 
 		// Obtain or create and register package
 		Object registeredSoftwareSystemPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
@@ -90,135 +56,84 @@ public class SoftwareSystemPackageImpl extends EPackageImpl implements SoftwareS
 				? (SoftwareSystemPackageImpl) registeredSoftwareSystemPackage
 				: new SoftwareSystemPackageImpl();
 
-		isInited = true;
+		isRegistered = true;
 
 		// Create package meta-data objects
 		theSoftwareSystemPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theSoftwareSystemPackage.initializePackageContents();
+		
+		// Inject internal eOpposites to unidirectional references
+		theSoftwareSystemPackage.injectDynamicOpposites();
+		
+		// Inject external references into foreign packages
+		theSoftwareSystemPackage.injectExternalReferences();
 
 		// Mark meta-data to indicate it can't be changed
 		theSoftwareSystemPackage.freeze();
 
 		// Update the registry and return the package
-		EPackage.Registry.INSTANCE.put(SoftwareSystemPackage.eNS_URI, theSoftwareSystemPackage);
+		EPackage.Registry.INSTANCE.put(SoftwareSystemPackage.eNS_URI,
+				theSoftwareSystemPackage);
+				
+		theSoftwareSystemPackage.fetchDynamicEStructuralFeaturesOfSuperTypes();
 		return theSoftwareSystemPackage;
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EClass getSystem() {
 		return systemEClass;
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EReference getSystem_SubSystems() {
-		return (EReference) systemEClass.getEStructuralFeatures().get(0);
+		return system_subSystemsEReference;	
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EReference getSystem_Components() {
-		return (EReference) systemEClass.getEStructuralFeatures().get(1);
+		return system_componentsEReference;	
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EAttribute getSystem_Name() {
-		return (EAttribute) systemEClass.getEStructuralFeatures().get(2);
+		return system_nameEAttribute;	
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EClass getComponent() {
 		return componentEClass;
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EReference getComponent_Imports() {
-		return (EReference) componentEClass.getEStructuralFeatures().get(0);
+		return component_importsEReference;	
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EAttribute getComponent_Name() {
-		return (EAttribute) componentEClass.getEStructuralFeatures().get(1);
+		return component_nameEAttribute;	
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EAttribute getComponent_FunctionPoints() {
-		return (EAttribute) componentEClass.getEStructuralFeatures().get(2);
+		return component_functionPointsEAttribute;	
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EAttribute getComponent_Sil() {
-		return (EAttribute) componentEClass.getEStructuralFeatures().get(3);
+		return component_silEAttribute;	
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	
+	@Override
 	public EEnum getSIL() {
-		return silEEnum;
+		return sILEEnum;
+	}
+	
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public softwareSystem.SoftwareSystemFactory getSoftwareSystemFactory() {
+		return (softwareSystem.SoftwareSystemFactory) getEFactoryInstance();
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SoftwareSystemFactory getSoftwareSystemFactory() {
-		return (SoftwareSystemFactory) getEFactoryInstance();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private boolean isCreated = false;
-
-	/**
-	 * Creates the meta-model objects for the package.  This method is
-	 * guarded to have no affect on any invocation but its first.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public void createPackageContents() {
 		if (isCreated)
 			return;
@@ -227,33 +142,28 @@ public class SoftwareSystemPackageImpl extends EPackageImpl implements SoftwareS
 		// Create classes and their features
 		systemEClass = createEClass(SYSTEM);
 		createEReference(systemEClass, SYSTEM__SUB_SYSTEMS);
+		system_subSystemsEReference = (EReference) systemEClass.getEStructuralFeatures().get(0);
 		createEReference(systemEClass, SYSTEM__COMPONENTS);
+		system_componentsEReference = (EReference) systemEClass.getEStructuralFeatures().get(1);
 		createEAttribute(systemEClass, SYSTEM__NAME);
-
+		system_nameEAttribute = (EAttribute) systemEClass.getEStructuralFeatures().get(2);
+		
 		componentEClass = createEClass(COMPONENT);
 		createEReference(componentEClass, COMPONENT__IMPORTS);
+		component_importsEReference = (EReference) componentEClass.getEStructuralFeatures().get(0);
 		createEAttribute(componentEClass, COMPONENT__NAME);
+		component_nameEAttribute = (EAttribute) componentEClass.getEStructuralFeatures().get(1);
 		createEAttribute(componentEClass, COMPONENT__FUNCTION_POINTS);
+		component_functionPointsEAttribute = (EAttribute) componentEClass.getEStructuralFeatures().get(2);
 		createEAttribute(componentEClass, COMPONENT__SIL);
-
+		component_silEAttribute = (EAttribute) componentEClass.getEStructuralFeatures().get(3);
+		
 		// Create enums
-		silEEnum = createEEnum(SIL);
+		sILEEnum = createEEnum(SIL);
+		
+		// Create data types
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private boolean isInitialized = false;
-
-	/**
-	 * Complete the initialization of the package and its meta-model.  This
-	 * method is guarded to have no affect on any invocation but its first.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public void initializePackageContents() {
 		if (isInitialized)
 			return;
@@ -263,6 +173,8 @@ public class SoftwareSystemPackageImpl extends EPackageImpl implements SoftwareS
 		setName(eNAME);
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
+		
+		// Obtain other dependent packages
 
 		// Create type parameters
 
@@ -271,38 +183,45 @@ public class SoftwareSystemPackageImpl extends EPackageImpl implements SoftwareS
 		// Add supertypes to classes
 
 		// Initialize classes, features, and operations; add parameters
-		initEClass(systemEClass, softwareSystem.System.class, "System", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSystem_SubSystems(), this.getSystem(), null, "subSystems", null, 0, -1,
-				softwareSystem.System.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSystem_Components(), this.getComponent(), null, "components", null, 0, -1,
-				softwareSystem.System.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSystem_Name(), ecorePackage.getEString(), "name", null, 0, 1, softwareSystem.System.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
+		initEClass(systemEClass, System.class, "System", !IS_ABSTRACT, !IS_INTERFACE,
+			IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSystem_SubSystems(), this.getSystem(),  null, 
+			"subSystems", null, 0, -1, System.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+			!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSystem_Components(), this.getComponent(),  null, 
+			"components", null, 0, -1, System.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+			!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSystem_Name(), ecorePackage.getEString(),
+			"name", null, 0, 1, System.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE,
+			!IS_DERIVED, IS_ORDERED);
+		
 		initEClass(componentEClass, Component.class, "Component", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getComponent_Imports(), this.getComponent(), null, "imports", null, 0, -1, Component.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getComponent_Name(), ecorePackage.getEString(), "name", null, 0, 1, Component.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getComponent_FunctionPoints(), ecorePackage.getEInt(), "functionPoints", null, 0, 1,
-				Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-				!IS_DERIVED, IS_ORDERED);
-		initEAttribute(getComponent_Sil(), this.getSIL(), "sil", null, 0, 1, Component.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
+			IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getComponent_Imports(), this.getComponent(),  null, 
+			"imports", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+			!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComponent_Name(), ecorePackage.getEString(),
+			"name", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE,
+			!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComponent_FunctionPoints(), ecorePackage.getEInt(),
+			"functionPoints", "0", 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE,
+			!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComponent_Sil(), this.getSIL(),
+			"sil", "LOW", 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE,
+			!IS_DERIVED, IS_ORDERED);
+		
+		
 		// Initialize enums and add enum literals
-		initEEnum(silEEnum, softwareSystem.SIL.class, "SIL");
-		addEEnumLiteral(silEEnum, softwareSystem.SIL.LOW);
-		addEEnumLiteral(silEEnum, softwareSystem.SIL.MED);
-		addEEnumLiteral(silEEnum, softwareSystem.SIL.HIGH);
-
+		initEEnum(sILEEnum, SIL.class, "SIL");
+		addEEnumLiteral(sILEEnum, softwareSystem.SIL.LOW);
+		addEEnumLiteral(sILEEnum, softwareSystem.SIL.MED);
+		addEEnumLiteral(sILEEnum, softwareSystem.SIL.HIGH);
+		
+		// Initialize data types
+		
 		// Create resource
 		createResource(eNS_URI);
 	}
 
-} //SoftwareSystemPackageImpl
+} 
+
