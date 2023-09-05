@@ -79,24 +79,25 @@ public abstract class ConstraintCheckingInstance<API extends IBeXGtAPI<?,?,?>> e
 		return list;
 	}
 	
+	
 	private WeightedMatch evaluate(IBeXGTMatch appliedRuleMatch) {
 		var notificationCreators = ruleName2notificationCreators.get(appliedRuleMatch.getPatternName());
 		if(notificationCreators == null)
 			return null;
 		
-		matcherContentAdapter.setActive(true);
-		
 		// first create notifications
+		matcherContentAdapter.setActive(true);
 		notificationCreators.forEach(c -> c.accept(appliedRuleMatch));
+		matcherContentAdapter.setActive(false);
 		
+		// reset match lists before the pm will detect new ones
+		reset();
+
 		// then let the pattern matcher run. new/vanished matches are automatically registered
 		api.updateMatches();
 		
 		// create the result and wipe both lists
 		var result = new WeightedMatch(appliedRuleMatch, violations, repairs);
-		reset();
-		
-		matcherContentAdapter.setActive(false);
 		
 		return result;
 	}

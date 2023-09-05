@@ -106,6 +106,7 @@ public abstract class InstanceCoordinator {
 	}
 	
 	public void registerObservedRule(IBeXGTRule rule) {
+		rules.add(rule);
 		rule.subscribeAppearing(m -> ruleMatches.add((IBeXGTMatch) m));
 		rule.subscribeDisappearing(m -> ruleMatches.remove((IBeXGTMatch) m));
 	}

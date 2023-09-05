@@ -10,15 +10,14 @@ public class TestMoveComponents {
 		LoggingConfig.useFormatter = true;
 //		LoggingConfig.matchSubStringsToLog.add("TGGMatch");
 //		LoggingConfig.matchSubStringsToLog.add("GTPatternMatch");
-		
 		var config = new MoveComponents("TestSystem1.xmi", 1);
 		config.update();
 		config.printAll();
-		
+			
 		config.performOneStep();
 		config.update();
 		config.printAll();
-
+			
 		config.terminate();
 	}
 
