@@ -12,6 +12,8 @@ public class TestMoveComponents {
 //		LoggingConfig.matchSubStringsToLog.add("GTPatternMatch");
 		
 		var config = new MoveComponents("TestSystem1.xmi");
+		
+		long tic = System.nanoTime();
 		var constraintCounter = config.getConstraintCounter();
 		config.getApi().updateMatches();
 		constraintCounter.printAll();
@@ -19,6 +21,9 @@ public class TestMoveComponents {
 		config.performOneStep();
 		config.getApi().updateMatches();
 		constraintCounter.printAll();
+		
+		long toc = System.nanoTime();
+		System.out.println("Execution took: " + (double) (toc - tic) / (double) (1000 * 1000 * 1000) + "s");
 		
 		config.getApi().terminate();
 	}

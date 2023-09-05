@@ -13,6 +13,8 @@ public class TestCreateImports {
 		
 		var config = new TransitiveImport("TestSystem2.xmi");
 		var constraintCounter = config.getConstraintCounter();
+		
+		long tic = System.nanoTime();
 		config.getApi().updateMatches();
 		constraintCounter.printAll();
 		
@@ -20,6 +22,9 @@ public class TestCreateImports {
 		
 		config.getApi().updateMatches();
 		constraintCounter.printAll();
+		
+		long toc = System.nanoTime();
+		System.out.println("Execution took: " + (double) (toc - tic) / (double) (1000 * 1000 * 1000) + "s");
 		
 		config.getApi().terminate();
 	}
