@@ -32,6 +32,8 @@ public abstract class ConstraintCheckingInstance<API extends IBeXGtAPI<?,?,?>> e
 	private Collection<IBeXGTMatch> ruleMatches = new LinkedList<>();
 	
 	public ConstraintCheckingInstance(String modelPath) {
+		// these instances should not process notifications unless we explicitly tell them to
+		HiPEContentAdapter.activeOnInstantiate = false;
 		createAPI();
 		loadModel(modelPath);
 		initialize();
@@ -39,6 +41,8 @@ public abstract class ConstraintCheckingInstance<API extends IBeXGtAPI<?,?,?>> e
 	}
 	
 	public ConstraintCheckingInstance(ResourceSet model) {
+		// these instances should not process notifications unless we explicitly tell them to
+		HiPEContentAdapter.activeOnInstantiate = false;
 		createAPI();
 		api.setModel(model);
 		initialize();
@@ -58,8 +62,6 @@ public abstract class ConstraintCheckingInstance<API extends IBeXGtAPI<?,?,?>> e
 		if(api.getGTEngine().getPatternMatcher() instanceof HiPEPatternMatchingEngine engine) {
 			matcherContentAdapter = engine.getAdapter();
 			engine.getEngine().getOptions().allowVirtualDeltas = true;
-			// we deactivate the notification processing of this hipe instance and activate it only for letting it process our fake notifications
-			matcherContentAdapter.setActive(false);
 		}
 		else 
 			throw new RuntimeException("Currently, only HiPE is supported as pattern matcher!");
@@ -80,12 +82,14 @@ public abstract class ConstraintCheckingInstance<API extends IBeXGtAPI<?,?,?>> e
 	}
 	
 	
+	private int repairCount = 0;
+	private int violationCount = 0;
 	private WeightedMatch evaluate(IBeXGTMatch appliedRuleMatch) {
 		var notificationCreators = ruleName2notificationCreators.get(appliedRuleMatch.getPatternName());
 		if(notificationCreators == null)
 			return null;
 		
-		// first create notifications
+		// activate notification processing and create notifications, then deactivate again
 		matcherContentAdapter.setActive(true);
 		notificationCreators.forEach(c -> c.accept(appliedRuleMatch));
 		matcherContentAdapter.setActive(false);
@@ -95,6 +99,13 @@ public abstract class ConstraintCheckingInstance<API extends IBeXGtAPI<?,?,?>> e
 
 		// then let the pattern matcher run. new/vanished matches are automatically registered
 		api.updateMatches();
+		
+		// we have to clear the internal match cache because it will first slow us down and second 
+		// due to the application of virtual deltas, it will probably be faulty
+		api.getGTEngine().getPatternMatcher().clearMatches();
+		
+		violationCount += violations.size();
+		repairCount += repairs.size();
 		
 		// create the result and wipe both lists
 		var result = new WeightedMatch(appliedRuleMatch, violations, repairs);
@@ -181,6 +192,10 @@ public abstract class ConstraintCheckingInstance<API extends IBeXGtAPI<?,?,?>> e
 
 	public void registerRuleMatchForChecking(IBeXGTMatch ruleMatch) {
 		ruleMatches.add(ruleMatch);
+	}
+	
+	public void print() {
+		System.out.println("Found " + violationCount + " violations and " + repairCount + " repairs");
 	}
 }
 

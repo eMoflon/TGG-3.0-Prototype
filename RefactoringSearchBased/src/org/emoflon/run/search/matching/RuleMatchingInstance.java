@@ -9,12 +9,16 @@ import org.emoflon.ibex.gt.api.IBeXGtAPI;
 import org.emoflon.ibex.gt.engine.IBeXGTMatch;
 import org.emoflon.ibex.gt.engine.IBeXGTRule;
 
+import hipe.engine.HiPEContentAdapter;
+
 public abstract class RuleMatchingInstance<API extends IBeXGtAPI<?,?,?>> extends GTInstance<API> {
 	
 	
 	private Map<String, IBeXGTRule> name2rule = new HashMap<>();
 	
 	public RuleMatchingInstance(String modelPath) {
+		// these instances should start matching the initial delta (the entire model) to give us all rule matches
+		HiPEContentAdapter.activeOnInstantiate = true;
 		createAPI();
 		loadModel(modelPath);
 		initialize();
