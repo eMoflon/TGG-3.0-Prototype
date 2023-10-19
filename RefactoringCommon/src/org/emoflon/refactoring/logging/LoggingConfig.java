@@ -41,7 +41,9 @@ public class LoggingConfig {
 	}
 	
 	public static void logln(String prefix, Object o) {
-		log(prefix, o);
-		System.out.println("\n");
+		if(activateLogging) {
+			log(prefix, o);
+			System.out.println("\n");
+		}
 	}
 }

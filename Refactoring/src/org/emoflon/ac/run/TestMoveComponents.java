@@ -7,10 +7,14 @@ import hipe.generic.actor.junction.util.HiPEConfig;
 
 public class TestMoveComponents {
 	
+	public static final int iterations = 5;
+
 	public static void main(String[] args) {
-		LoggingConfig.activateLogging = true;
+		System.out.println("Running Application Conditions...");
+
+//		LoggingConfig.activateLogging = true;
 		LoggingConfig.useFormatter = true;
-		HiPEConfig.logWorkloadActivated = true;
+//		HiPEConfig.logWorkloadActivated = true;
 //		LoggingConfig.matchSubStringsToLog.add("TGGMatch");
 //		LoggingConfig.matchSubStringsToLog.add("GTPatternMatch");
 		
@@ -20,11 +24,17 @@ public class TestMoveComponents {
 		long tic = System.nanoTime();
 		var constraintCounter = config.getConstraintCounter();
 		config.getApi().updateMatches();
-		constraintCounter.printAll();
+//		constraintCounter.printAll();
+		System.out.println("Step 0; " + (double) (System.nanoTime() - tic) / (double) (1000 * 1000 * 1000) + "s");
+
 		
-		config.performOneStep();
-		config.getApi().updateMatches();
-		constraintCounter.printAll();
+		for(var i=0; i < iterations; i++) {
+			long stepTic = System.nanoTime();
+			config.performOneStep();
+			config.getApi().updateMatches();
+//			constraintCounter.printAll();
+			System.out.println("Step " + (i+1) + "; " + (double) (System.nanoTime() - stepTic) / (double) (1000 * 1000 * 1000) + "s");
+		}
 		
 		long toc = System.nanoTime();
 		System.out.println("Execution took: " + (double) (toc - tic) / (double) (1000 * 1000 * 1000) + "s");

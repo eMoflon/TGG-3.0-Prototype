@@ -39,11 +39,11 @@ public abstract class InstanceCoordinator {
 	public abstract void initialize();
 	
 	public void terminate() {
-		System.out.println("Terminating rule matchers...");
+		LoggingConfig.log("InstanceCoordinator", "Terminating rule matchers...");
 		for(var ruleMatcher : ruleMatchers) {
 			ruleMatcher.getApi().terminate();
 		}
-		System.out.println("Terminating constraint checkers...");
+		LoggingConfig.log("InstanceCoordinator", "Terminating constraint checkers...");
 		for(var constraintChecker : constraintCheckers) {
 			constraintChecker.getApi().terminate();
 		}
@@ -54,7 +54,7 @@ public abstract class InstanceCoordinator {
 			ruleMatcher.update();
 		}
 		
-		System.out.println("Rule Matches: " + ruleMatches.size());
+		LoggingConfig.log("InstanceCoordinator", "Rule Matches: " + ruleMatches.size());
 		
 		int count=0;
 		for(var match : ruleMatches) {
