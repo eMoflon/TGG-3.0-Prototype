@@ -18,6 +18,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference softwareSystem.ecore#//System/subSystems"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference softwareSystem.ecore#//System/components"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softwareSystem.ecore#//System/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softwareSystem.ecore#//System/assignedComponents"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute softwareSystem.ecore#//System/inverseNumberOfSystems"/>
     </genClasses>
     <genClasses ecoreClass="softwareSystem.ecore#//Component">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference softwareSystem.ecore#//Component/imports"/>

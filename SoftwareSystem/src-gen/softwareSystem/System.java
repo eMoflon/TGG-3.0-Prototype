@@ -25,5 +25,13 @@ public interface System extends EObject {
     
     public void setName(java.lang.String value);
     
+    public int getAssignedComponents();
+    
+    public void setAssignedComponents(int value);
+    
+    public double getInverseNumberOfSystems();
+    
+    public void setInverseNumberOfSystems(double value);
+    
 
 }

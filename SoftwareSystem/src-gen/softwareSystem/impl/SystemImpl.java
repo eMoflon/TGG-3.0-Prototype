@@ -23,6 +23,8 @@ public class SystemImpl extends SmartObject implements softwareSystem.System {
     protected LinkedSmartESet<softwareSystem.System> subSystems = new LinkedSmartESet<softwareSystem.System>(this, SoftwareSystemPackage.Literals.SYSTEM__SUB_SYSTEMS);
     protected LinkedSmartESet<softwareSystem.Component> components = new LinkedSmartESet<softwareSystem.Component>(this, SoftwareSystemPackage.Literals.SYSTEM__COMPONENTS);
     protected java.lang.String name = null;
+    protected int assignedComponents = 0;
+    protected double inverseNumberOfSystems = 0.0;
 	
 	protected SystemImpl() {
 		super(SoftwareSystemPackage.Literals.SYSTEM);
@@ -64,6 +66,34 @@ public class SystemImpl extends SmartObject implements softwareSystem.System {
     	        	sendNotification(SmartEMFNotification.createSetNotification(this, SoftwareSystemPackage.Literals.SYSTEM__NAME, oldValue, value, -1));
     }
     
+    
+    @Override
+    public int getAssignedComponents() {
+    	return this.assignedComponents;
+    }
+    
+    @Override
+    public void setAssignedComponents(int value) {
+    	Object oldValue = this.assignedComponents;
+    	this.assignedComponents = value;
+    	
+    	        	sendNotification(SmartEMFNotification.createSetNotification(this, SoftwareSystemPackage.Literals.SYSTEM__ASSIGNED_COMPONENTS, oldValue, value, -1));
+    }
+    
+    
+    @Override
+    public double getInverseNumberOfSystems() {
+    	return this.inverseNumberOfSystems;
+    }
+    
+    @Override
+    public void setInverseNumberOfSystems(double value) {
+    	Object oldValue = this.inverseNumberOfSystems;
+    	this.inverseNumberOfSystems = value;
+    	
+    	        	sendNotification(SmartEMFNotification.createSetNotification(this, SoftwareSystemPackage.Literals.SYSTEM__INVERSE_NUMBER_OF_SYSTEMS, oldValue, value, -1));
+    }
+    
 
     @Override
     public void eSet(EStructuralFeature eFeature, Object newValue){
@@ -77,6 +107,14 @@ public class SystemImpl extends SmartObject implements softwareSystem.System {
     	}
     	if (SoftwareSystemPackage.Literals.SYSTEM__NAME.equals(eFeature)) {
     		setName((java.lang.String) newValue); 
+    		return;
+    	}
+    	if (SoftwareSystemPackage.Literals.SYSTEM__ASSIGNED_COMPONENTS.equals(eFeature)) {
+    		setAssignedComponents((int) newValue); 
+    		return;
+    	}
+    	if (SoftwareSystemPackage.Literals.SYSTEM__INVERSE_NUMBER_OF_SYSTEMS.equals(eFeature)) {
+    		setInverseNumberOfSystems((double) newValue); 
     		return;
     	}
     	eDynamicSet(eFeature, newValue);
@@ -96,6 +134,14 @@ public class SystemImpl extends SmartObject implements softwareSystem.System {
     		setName((java.lang.String)null); 
     		return;
     	}
+    	if (SoftwareSystemPackage.Literals.SYSTEM__ASSIGNED_COMPONENTS.equals(eFeature)) {
+    		setAssignedComponents((int)0); 
+    		return;
+    	}
+    	if (SoftwareSystemPackage.Literals.SYSTEM__INVERSE_NUMBER_OF_SYSTEMS.equals(eFeature)) {
+    		setInverseNumberOfSystems((double)0.0); 
+    		return;
+    	}
     	eDynamicUnset(eFeature);
     }
 
@@ -109,6 +155,11 @@ public class SystemImpl extends SmartObject implements softwareSystem.System {
 		} else {
 			b.append("name: ");
 			b.append(getName());
+			b.append(", ");
+			b.append("assignedComponents: ");
+			b.append(getAssignedComponents());b.append(", ");
+			b.append("inverseNumberOfSystems: ");
+			b.append(getInverseNumberOfSystems());
 		}
 		b.append(")");
 		return b.toString();
@@ -122,6 +173,10 @@ public class SystemImpl extends SmartObject implements softwareSystem.System {
     		return getComponents();
     	if (SoftwareSystemPackage.Literals.SYSTEM__NAME.equals(eFeature))
     		return getName();
+    	if (SoftwareSystemPackage.Literals.SYSTEM__ASSIGNED_COMPONENTS.equals(eFeature))
+    		return getAssignedComponents();
+    	if (SoftwareSystemPackage.Literals.SYSTEM__INVERSE_NUMBER_OF_SYSTEMS.equals(eFeature))
+    		return getInverseNumberOfSystems();
     	return eDynamicGet(eFeature);
     }
 

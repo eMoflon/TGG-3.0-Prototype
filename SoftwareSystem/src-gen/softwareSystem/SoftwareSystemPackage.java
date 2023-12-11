@@ -24,14 +24,16 @@ public interface SoftwareSystemPackage extends SmartPackage {
 	int SYSTEM__SUB_SYSTEMS = 0;
 	int SYSTEM__COMPONENTS = 1;
 	int SYSTEM__NAME = 2;
-	int SYSTEM_FEATURE_COUNT = 3;
+	int SYSTEM__ASSIGNED_COMPONENTS = 3;
+	int SYSTEM__INVERSE_NUMBER_OF_SYSTEMS = 4;
+	int SYSTEM_FEATURE_COUNT = 5;
 	int SYSTEM_OPERATION_COUNT = 0;
 	
 	int COMPONENT = 1;
-	int COMPONENT__IMPORTS = 3;
-	int COMPONENT__NAME = 4;
-	int COMPONENT__FUNCTION_POINTS = 5;
-	int COMPONENT__SIL = 6;
+	int COMPONENT__IMPORTS = 5;
+	int COMPONENT__NAME = 6;
+	int COMPONENT__FUNCTION_POINTS = 7;
+	int COMPONENT__SIL = 8;
 	int COMPONENT_FEATURE_COUNT = 4;
 	int COMPONENT_OPERATION_COUNT = 0;
 	
@@ -42,6 +44,8 @@ public interface SoftwareSystemPackage extends SmartPackage {
 	EReference getSystem_SubSystems();
 	EReference getSystem_Components();
 	EAttribute getSystem_Name();
+	EAttribute getSystem_AssignedComponents();
+	EAttribute getSystem_InverseNumberOfSystems();
 	
 	EClass getComponent();
 	EReference getComponent_Imports();
@@ -62,6 +66,10 @@ public interface SoftwareSystemPackage extends SmartPackage {
 		EReference SYSTEM__COMPONENTS = eINSTANCE.getSystem_Components();
 		
 		EAttribute SYSTEM__NAME = eINSTANCE.getSystem_Name();
+		
+		EAttribute SYSTEM__ASSIGNED_COMPONENTS = eINSTANCE.getSystem_AssignedComponents();
+		
+		EAttribute SYSTEM__INVERSE_NUMBER_OF_SYSTEMS = eINSTANCE.getSystem_InverseNumberOfSystems();
 		
 		EClass COMPONENT = eINSTANCE.getComponent();
 		

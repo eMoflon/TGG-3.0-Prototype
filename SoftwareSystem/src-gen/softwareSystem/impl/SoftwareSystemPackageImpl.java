@@ -28,6 +28,8 @@ public class SoftwareSystemPackageImpl extends SmartPackageImpl
 	private EReference system_subSystemsEReference = null;
 	private EReference system_componentsEReference = null;
 	private EAttribute system_nameEAttribute = null;
+	private EAttribute system_assignedComponentsEAttribute = null;
+	private EAttribute system_inverseNumberOfSystemsEAttribute = null;
 	private EClass componentEClass = null;
 	private EReference component_importsEReference = null;
 	private EAttribute component_nameEAttribute = null;
@@ -98,6 +100,14 @@ public class SoftwareSystemPackageImpl extends SmartPackageImpl
 		return system_nameEAttribute;	
 	}
 	@Override
+	public EAttribute getSystem_AssignedComponents() {
+		return system_assignedComponentsEAttribute;	
+	}
+	@Override
+	public EAttribute getSystem_InverseNumberOfSystems() {
+		return system_inverseNumberOfSystemsEAttribute;	
+	}
+	@Override
 	public EClass getComponent() {
 		return componentEClass;
 	}
@@ -147,6 +157,10 @@ public class SoftwareSystemPackageImpl extends SmartPackageImpl
 		system_componentsEReference = (EReference) systemEClass.getEStructuralFeatures().get(1);
 		createEAttribute(systemEClass, SYSTEM__NAME);
 		system_nameEAttribute = (EAttribute) systemEClass.getEStructuralFeatures().get(2);
+		createEAttribute(systemEClass, SYSTEM__ASSIGNED_COMPONENTS);
+		system_assignedComponentsEAttribute = (EAttribute) systemEClass.getEStructuralFeatures().get(3);
+		createEAttribute(systemEClass, SYSTEM__INVERSE_NUMBER_OF_SYSTEMS);
+		system_inverseNumberOfSystemsEAttribute = (EAttribute) systemEClass.getEStructuralFeatures().get(4);
 		
 		componentEClass = createEClass(COMPONENT);
 		createEReference(componentEClass, COMPONENT__IMPORTS);
@@ -193,6 +207,12 @@ public class SoftwareSystemPackageImpl extends SmartPackageImpl
 			!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSystem_Name(), ecorePackage.getEString(),
 			"name", null, 0, 1, System.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE,
+			!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSystem_AssignedComponents(), ecorePackage.getEInt(),
+			"assignedComponents", "0", 0, 1, System.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE,
+			!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSystem_InverseNumberOfSystems(), ecorePackage.getEDouble(),
+			"inverseNumberOfSystems", "0.0", 0, 1, System.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE,
 			!IS_DERIVED, IS_ORDERED);
 		
 		initEClass(componentEClass, Component.class, "Component", !IS_ABSTRACT, !IS_INTERFACE,
