@@ -1,4 +1,4 @@
-package org.emoflon.run.search;
+package org.emoflon.run.search.softwareSystem;
 
 import org.emoflon.refactoring.logging.LoggingConfig;
 

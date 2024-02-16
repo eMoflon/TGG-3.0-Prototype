@@ -1,45 +1,46 @@
-package org.emoflon.ac.run;
+package org.emoflon.run.search.softwareSystem;
 
-import org.emoflon.refactoring.ac.MoveComponents;
 import org.emoflon.refactoring.logging.LoggingConfig;
+import org.emoflon.search.scheduling.MoveComponents;
 
 import hipe.generic.actor.junction.util.HiPEConfig;
 
 public class TestMoveComponents {
-	
+
 	public static final int iterations = 5;
-
+	
 	public static void main(String[] args) {
-		System.out.println("Running Application Conditions...");
-
+		System.out.println("Running Search Based...");
 //		LoggingConfig.activateLogging = true;
 		LoggingConfig.useFormatter = true;
 //		HiPEConfig.logWorkloadActivated = true;
 //		LoggingConfig.matchSubStringsToLog.add("TGGMatch");
 //		LoggingConfig.matchSubStringsToLog.add("GTPatternMatch");
 		
-//		var config = new MoveComponents("TestSystem1.xmi");
-		var config = new MoveComponents("TestSystem_large3.xmi");
+//		var config = new MoveComponents("TestSystem1.xmi", 8);
+		var config = new MoveComponents("TestSystem_large3.xmi", 8);
 		
 		long tic = System.nanoTime();
-		var constraintCounter = config.getConstraintCounter();
-		config.getApi().updateMatches();
-//		constraintCounter.printAll();
+		config.update();
+//		config.printAll();
 		System.out.println("Step 0; " + (double) (System.nanoTime() - tic) / (double) (1000 * 1000 * 1000) + "s");
-
 		
-		for(var i=0; i < iterations; i++) {
+		for(int i=0; i < iterations; i++) {
 			long stepTic = System.nanoTime();
 			config.performOneStep();
-			config.getApi().updateMatches();
-//			constraintCounter.printAll();
+			config.update();
 			System.out.println("Step " + (i+1) + "; " + (double) (System.nanoTime() - stepTic) / (double) (1000 * 1000 * 1000) + "s");
+//			config.printAll();
 		}
 		
-		long toc = System.nanoTime();
-		System.out.println("Execution took: " + (double) (toc - tic) / (double) (1000 * 1000 * 1000) + "s");
+		config.performOneStep();
+		config.update();
 		
-		config.getApi().terminate();
+		long toc = System.nanoTime();
+//		config.printConstraintMatchCount();
+		System.out.println("Execution took: " + (double) (toc - tic) / (double) (1000 * 1000 * 1000) + "s");
+			
+		config.terminate();
 	}
 
 }

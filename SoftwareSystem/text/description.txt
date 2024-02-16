@@ -20,5 +20,5 @@ Package softwareSystem <platform:/resource/SoftwareSystem/model/softwareSystem.e
 
   Enum SIL
     Literal LOW = 0
-    Literal MED = 0
-    Literal HIGH = 0
+    Literal MED = 1
+    Literal HIGH = 2

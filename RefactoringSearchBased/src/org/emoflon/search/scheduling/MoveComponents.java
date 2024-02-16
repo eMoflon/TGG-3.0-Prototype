@@ -1,7 +1,7 @@
-package org.emoflon.run.search.scheduling;
+package org.emoflon.search.scheduling;
 
-import org.emoflon.run.search.matching.ConstraintCheckingInstance;
-import org.emoflon.run.search.matching.RuleMatchingInstance;
+import org.emoflon.search.matching.ConstraintCheckingInstance;
+import org.emoflon.search.matching.RuleMatchingInstance;
 
 import refactoring.constraints.api.ConstraintsHiPEGtApi;
 import refactoring.rules.api.RulesHiPEGtApi;

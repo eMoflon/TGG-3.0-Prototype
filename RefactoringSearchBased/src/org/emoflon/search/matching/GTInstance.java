@@ -1,4 +1,4 @@
-package org.emoflon.run.search.matching;
+package org.emoflon.search.matching;
 
 import org.emoflon.ibex.gt.api.IBeXGtAPI;
 

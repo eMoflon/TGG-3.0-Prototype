@@ -1,4 +1,4 @@
-package org.emoflon.run.search.scheduling;
+package org.emoflon.search.scheduling;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -12,9 +12,9 @@ import org.emoflon.ibex.gt.engine.IBeXGTRule;
 import org.emoflon.refactoring.RuleApplicationGain;
 import org.emoflon.refactoring.logging.Formatter;
 import org.emoflon.refactoring.logging.LoggingConfig;
-import org.emoflon.run.search.matching.ConstraintCheckingInstance;
-import org.emoflon.run.search.matching.RuleMatchingInstance;
-import org.emoflon.run.search.matching.WeightedMatch;
+import org.emoflon.search.matching.ConstraintCheckingInstance;
+import org.emoflon.search.matching.RuleMatchingInstance;
+import org.emoflon.search.matching.WeightedMatch;
 
 public abstract class InstanceCoordinator {
 	

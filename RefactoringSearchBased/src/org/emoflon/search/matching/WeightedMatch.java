@@ -1,4 +1,4 @@
-package org.emoflon.run.search.matching;
+package org.emoflon.search.matching;
 
 import java.util.Collection;
 
