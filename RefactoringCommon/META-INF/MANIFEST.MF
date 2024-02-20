@@ -7,6 +7,7 @@ Export-Package: org.emoflon.refactoring,
  org.emoflon.refactoring.logging
 Require-Bundle: org.emoflon.ibex.gt;bundle-version="1.0.0";visibility:=reexport,
  SoftwareSystem;bundle-version="0.1.0";visibility:=reexport,
- org.emoflon.ibex.gt.hipe;bundle-version="1.0.0";visibility:=reexport
+ org.emoflon.ibex.gt.hipe;bundle-version="1.0.0";visibility:=reexport,
+ ClassDiagram;bundle-version="0.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: RefactoringCommon

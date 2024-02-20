@@ -1,4 +1,4 @@
-package org.emoflon.ac.run.softwareSystem;
+package org.emoflon.ac.run.classdiagram;
 
 import org.emoflon.refactoring.logging.LoggingConfig;
 
@@ -17,7 +17,7 @@ public class TestMoveComponents {
 //		LoggingConfig.matchSubStringsToLog.add("TGGMatch");
 //		LoggingConfig.matchSubStringsToLog.add("GTPatternMatch");
 		
-		var config = new MoveComponents("TestSystem1.xmi");
+		var config = new MoveFeatures("classDiagram/Example_small.xmi");
 //		var config = new MoveComponents("TestSystem_large3.xmi");
 		
 		long tic = System.nanoTime();

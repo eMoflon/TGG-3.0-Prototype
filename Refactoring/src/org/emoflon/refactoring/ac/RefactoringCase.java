@@ -19,7 +19,7 @@ public abstract class RefactoringCase<API extends IBeXGtAPI<?,?,?>> {
 
 	protected API api;
 	
-	protected Map<String, Collection<OverlapCreator>> name2overlapCreators = new HashMap<>();
+//	private Map<String, Collection<OverlapCreator>> name2overlapCreators = new HashMap<>();
 	
 	protected Set<IBeXGTRule> rules = new HashSet<>();
 	protected Set<IBeXGTPattern> violations = new HashSet<>();

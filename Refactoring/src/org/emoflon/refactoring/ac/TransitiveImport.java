@@ -36,9 +36,9 @@ public class TransitiveImport extends RefactoringCase<FullHiPEGtApi>{
 		violationOverlap1.registerOverlap(api.transitiveImportMissingFront(), "firstComponent", "secondComponent"); // +
 		violationOverlap1.registerOverlap(api.transitiveImportMissingBack(), "secondComponent", "thirdComponent"); // +
 		
-		name2overlapCreators.computeIfAbsent(createImportName, (x) -> new LinkedList<>()).add(violationOverlap1);
-		name2overlapCreators.computeIfAbsent(transitiveImportMissingFrontName, (x) -> new LinkedList<>()).add(violationOverlap1);
-		name2overlapCreators.computeIfAbsent(transitiveImportMissingBackName, (x) -> new LinkedList<>()).add(violationOverlap1);
+//		name2overlapCreators.computeIfAbsent(createImportName, (x) -> new LinkedList<>()).add(violationOverlap1);
+//		name2overlapCreators.computeIfAbsent(transitiveImportMissingFrontName, (x) -> new LinkedList<>()).add(violationOverlap1);
+//		name2overlapCreators.computeIfAbsent(transitiveImportMissingBackName, (x) -> new LinkedList<>()).add(violationOverlap1);
 		
 		
 		// create repairs
@@ -47,8 +47,8 @@ public class TransitiveImport extends RefactoringCase<FullHiPEGtApi>{
 		repairOverlap1.registerOverlap(api.createImport(), "component", "otherComponent");
 		repairOverlap1.registerOverlap(api.transitiveImportCreated(), "firstComponent", "thirdComponent"); // +
 		
-		name2overlapCreators.computeIfAbsent(createImportName, (x) -> new LinkedList<>()).add(repairOverlap1);
-		name2overlapCreators.computeIfAbsent(transitiveImportCreatedName, (x) -> new LinkedList<>()).add(repairOverlap1);
+//		name2overlapCreators.computeIfAbsent(createImportName, (x) -> new LinkedList<>()).add(repairOverlap1);
+//		name2overlapCreators.computeIfAbsent(transitiveImportCreatedName, (x) -> new LinkedList<>()).add(repairOverlap1);
 
 		var violationOverlaps = new LinkedList<OverlapCreator>();
 		violationOverlaps.add(violationOverlap1);

@@ -1,14 +1,17 @@
-package org.emoflon.search.scheduling;
+package org.emoflon.run.search.softwareSystem;
+
+
 
 import org.emoflon.search.matching.ConstraintCheckingInstance;
 import org.emoflon.search.matching.RuleMatchingInstance;
+import org.emoflon.search.scheduling.InstanceCoordinator;
 
 import refactoring.constraints.api.ConstraintsHiPEGtApi;
 import refactoring.rules.api.RulesHiPEGtApi;
 
-public class MoveComponents extends InstanceCoordinator {
+public class MoveComponentsCoordinator extends InstanceCoordinator {
 	
-	public MoveComponents(String path, int instanceCount) {
+	public MoveComponentsCoordinator(String path, int instanceCount) {
 		super(path, instanceCount);
 	}
 

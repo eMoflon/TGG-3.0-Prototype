@@ -1,7 +1,8 @@
-package org.emoflon.refactoring.ac;
+package org.emoflon.ac.run.softwareSystem;
 
 import java.util.LinkedList;
 
+import org.emoflon.refactoring.ac.RefactoringCase;
 import org.emoflon.refactoring.ac.analysis.ConstraintCounter;
 import org.emoflon.refactoring.ac.analysis.OverlapCreator;
 
@@ -48,13 +49,13 @@ public class MoveComponents extends RefactoringCase<FullHiPEGtApi>{
 		violationOverlap2.registerOverlap(api.importedComponentNotInSystem(), "system", "component");
 		violationOverlap2.registerOverlap(api.importingComponentNotInSystem(), "system", "component");
 		
-		name2overlapCreators.computeIfAbsent(moveComponentName, (x) -> new LinkedList<>()).add(violationOverlap1);
-		name2overlapCreators.computeIfAbsent(importedComponentInSystemName, (x) -> new LinkedList<>()).add(violationOverlap1);
-		name2overlapCreators.computeIfAbsent(importingComponentInSystemName, (x) -> new LinkedList<>()).add(violationOverlap1);
-		
-		name2overlapCreators.computeIfAbsent(moveComponentName, (x) -> new LinkedList<>()).add(violationOverlap2);
-		name2overlapCreators.computeIfAbsent(importedComponentNotInSystemName, (x) -> new LinkedList<>()).add(violationOverlap2);
-		name2overlapCreators.computeIfAbsent(importingComponentNotInSystemName, (x) -> new LinkedList<>()).add(violationOverlap2);
+//		name2overlapCreators.computeIfAbsent(moveComponentName, (x) -> new LinkedList<>()).add(violationOverlap1);
+//		name2overlapCreators.computeIfAbsent(importedComponentInSystemName, (x) -> new LinkedList<>()).add(violationOverlap1);
+//		name2overlapCreators.computeIfAbsent(importingComponentInSystemName, (x) -> new LinkedList<>()).add(violationOverlap1);
+//		
+//		name2overlapCreators.computeIfAbsent(moveComponentName, (x) -> new LinkedList<>()).add(violationOverlap2);
+//		name2overlapCreators.computeIfAbsent(importedComponentNotInSystemName, (x) -> new LinkedList<>()).add(violationOverlap2);
+//		name2overlapCreators.computeIfAbsent(importingComponentNotInSystemName, (x) -> new LinkedList<>()).add(violationOverlap2);
 		
 		// create repairs
 		var repairOverlap1 = new OverlapCreator();
@@ -68,13 +69,13 @@ public class MoveComponents extends RefactoringCase<FullHiPEGtApi>{
 		repairOverlap2.registerOverlap(api.importedComponentNotInSystem(), "system", "component");
 		repairOverlap2.registerOverlap(api.importingComponentNotInSystem(), "system", "component");
 		
-		name2overlapCreators.computeIfAbsent(moveComponentName, (x) -> new LinkedList<>()).add(repairOverlap1);
-		name2overlapCreators.computeIfAbsent(importedComponentInSystemName, (x) -> new LinkedList<>()).add(repairOverlap1);
-		name2overlapCreators.computeIfAbsent(importingComponentInSystemName, (x) -> new LinkedList<>()).add(repairOverlap1);
-
-		name2overlapCreators.computeIfAbsent(moveComponentName, (x) -> new LinkedList<>()).add(repairOverlap2);
-		name2overlapCreators.computeIfAbsent(importedComponentNotInSystemName, (x) -> new LinkedList<>()).add(repairOverlap2);
-		name2overlapCreators.computeIfAbsent(importingComponentNotInSystemName, (x) -> new LinkedList<>()).add(repairOverlap2);
+//		name2overlapCreators.computeIfAbsent(moveComponentName, (x) -> new LinkedList<>()).add(repairOverlap1);
+//		name2overlapCreators.computeIfAbsent(importedComponentInSystemName, (x) -> new LinkedList<>()).add(repairOverlap1);
+//		name2overlapCreators.computeIfAbsent(importingComponentInSystemName, (x) -> new LinkedList<>()).add(repairOverlap1);
+//
+//		name2overlapCreators.computeIfAbsent(moveComponentName, (x) -> new LinkedList<>()).add(repairOverlap2);
+//		name2overlapCreators.computeIfAbsent(importedComponentNotInSystemName, (x) -> new LinkedList<>()).add(repairOverlap2);
+//		name2overlapCreators.computeIfAbsent(importingComponentNotInSystemName, (x) -> new LinkedList<>()).add(repairOverlap2);
 		
 		var violations = new LinkedList<OverlapCreator>();
 		violations.add(violationOverlap1);

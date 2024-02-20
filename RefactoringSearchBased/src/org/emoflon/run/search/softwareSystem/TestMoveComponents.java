@@ -1,9 +1,6 @@
 package org.emoflon.run.search.softwareSystem;
 
 import org.emoflon.refactoring.logging.LoggingConfig;
-import org.emoflon.search.scheduling.MoveComponents;
-
-import hipe.generic.actor.junction.util.HiPEConfig;
 
 public class TestMoveComponents {
 
@@ -18,7 +15,7 @@ public class TestMoveComponents {
 //		LoggingConfig.matchSubStringsToLog.add("GTPatternMatch");
 		
 //		var config = new MoveComponents("TestSystem1.xmi", 8);
-		var config = new MoveComponents("TestSystem_large3.xmi", 8);
+		var config = new MoveComponentsCoordinator("TestSystem_large3.xmi", 8);
 		
 		long tic = System.nanoTime();
 		config.update();

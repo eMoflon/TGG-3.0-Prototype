@@ -1,0 +1,318 @@
+package refactoringcd.full
+
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/ClassDiagram/model/classDiagram.ecore"
+
+rule moveMethod {
+	[=] fromClazz : Clazz {
+		[-] -features->method
+	}
+	[=] toClazz : Clazz { 
+		[+] -features->method
+	}
+	[=] method : Method 
+};
+
+
+rule moveAttribute {
+	[=] fromClazz : Clazz {
+		[-] -features->attribute
+	}
+	[=] toClazz : Clazz { 
+		[+] -features->attribute
+	}
+	[=] attribute : Attribute
+};
+
+/////////////////////////////////////////////////////////////////////
+/////// CONSTRAINT VIOLATIONS AND REPAIRS WHEN MOVING METHODS ///////
+/////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////
+// W1: No method-attribute dependencies between classes //
+//////////////////////////////////////////////////////////
+
+// Violation
+pattern intactMethodAttributeDependency {
+	[=] fromClazz : Clazz {
+		[=] -features-> method
+		[=] -features-> attribute
+	}
+	
+	// this is is quite expensive and unnecessary when overlapping with our refactoring rules
+	// however, the other pattern are quite expensive as well
+	[=] toClazz : Clazz 
+	
+	[=] method : Method {
+		[=] -dependencies->attribute
+	}
+	[=] attribute : Attribute
+};
+
+// Violation / Repair
+// if this pattern is found, we replace a violation with another one
+// this pattern also indicates a repair as well as a new violation and can thus be omitted
+//pattern replacingViolatedDependencyWithoutRepair {
+//	[=] fromClazz : Clazz {
+//		[=] -features->method
+//	}
+//	
+//	[=] toClazz : Clazz 
+//	[=] attributeContainingClazz : Clazz {
+//		[=] -features-> attribute
+//	}	
+//	
+//	[=] method : Method {
+//		[=] -dependencies->attribute
+//	}
+//	[=] attribute : Attribute
+//};
+
+// Repair
+pattern movingMethodWithAttributeDependencyTogether {
+	[=] fromClazz : Clazz {
+		[=] -features-> method
+	}
+	
+	[=] toClazz : Clazz {
+		[=] -features-> attribute
+	}
+	
+	[=] method : Method {
+		[=] -dependencies->attribute
+	}
+	[=] attribute : Attribute
+};
+
+
+////////////////////////////////////////////////////////////////////
+// W2: methods in same class have one common attribute dependency //
+////////////////////////////////////////////////////////////////////
+
+// Violation 
+
+// This violation is counted double (weight of 2) because it covers the symmetric case of moving
+// toMethod to fromMethod
+pattern movingMethodToOtherMethodWithoutCommonDependency {
+	[=] fromClazz : Clazz {
+		[=] -features-> fromMethod
+	}
+	
+	[=] toClazz : Clazz {
+		[=] -features->toMethod
+	}
+	
+	[=] fromMethod : Method
+	[=] toMethod : Method
+
+	// if no common attribute is found, we have found a violation that would be introduced by moving 
+	// both methods to be contained in the same class
+	forbid(methodsWithCommonAttribute)
+		[
+			fromClazz=fromClazz, toClazz=toClazz,
+			fromMethod=fromMethod, toMethod=toMethod
+		]
+};
+
+// Repair
+pattern movingMethodToOtherMethodWithCommonDependency {
+	[=] fromClazz : Clazz {
+		[=] -features-> fromMethod
+		[=] -features-> toMethod
+	}
+	
+	[=] toClazz : Clazz {
+	}
+	
+	[=] fromMethod : Method
+	[=] toMethod : Method
+
+	// if no common attribute is found, we have found a violation that would be introduced by moving 
+	// both methods to be contained in the same class
+	forbid(methodsWithCommonAttribute2)
+		[
+			fromClazz=fromClazz, toClazz=toClazz,
+			fromMethod=fromMethod, toMethod=toMethod
+		]
+};
+
+// Violation
+pattern moveLastCommonAttributeToOtherClass {
+	[=] fromClazz : Clazz {
+		[=] -features->attribute
+		[=] -features-> fromMethod
+		[=] -features-> toMethod
+	}
+	
+	[=] toClazz : Clazz {
+	}
+	
+	[=] fromMethod : Method
+	[=] toMethod : Method
+
+	[=] attribute : Attribute
+	
+	enforce(methodsWithCommonAttribute4) [
+		fromClazz=fromClazz, toClazz=toClazz,
+		fromMethod=fromMethod, toMethod=toMethod,
+		attribute=commonAttribute
+	]
+	forbid(methodsWithOtherCommonAttribute4) [
+		fromClazz=fromClazz, toClazz=toClazz,
+		fromMethod=fromMethod, toMethod=toMethod,
+		attribute=commonAttribute
+	]
+};
+
+
+// Repair
+pattern moveFirstCommonAttributeToOtherClass {
+	[=] fromClazz : Clazz {
+		[=] -features->attribute
+	}
+	
+	[=] toClazz : Clazz {
+		[=] -features-> fromMethod
+		[=] -features-> toMethod
+	}
+	
+	[=] fromMethod : Method
+	[=] toMethod : Method
+
+	[=] attribute : Attribute
+	
+	enforce(methodsWithCommonAttribute2) [
+		fromClazz=toClazz, toClazz=fromClazz,
+		fromMethod=fromMethod, toMethod=toMethod,
+		attribute=commonAttribute	
+	]
+	
+	forbid(methodsWithCommonAttribute2WithAnotherCommonAttribute) [
+		fromClazz=fromClazz, toClazz=toClazz,
+		fromMethod=fromMethod, toMethod=toMethod,
+		attribute=otherAttribute
+	]
+};
+
+
+
+/////////////////////////////////////////////////
+///////         SUPPORT PATTERNS          ///////
+/////////////////////////////////////////////////
+pattern methodsWithCommonAttribute {
+	[=] fromClazz : Clazz {
+		[=] -features-> fromMethod
+	}
+	
+	[=] toClazz : Clazz {
+		[=] -features->toMethod
+		[=] -features->commonAttribute
+	}
+	
+	[=] fromMethod : Method {
+		[=] -dependencies->commonAttribute
+	}
+	[=] toMethod : Method {
+		[=] -dependencies->commonAttribute
+	}
+	[=] commonAttribute : Attribute
+};
+
+pattern methodsWithCommonAttribute2 {
+	[=] fromClazz : Clazz {
+		[=] -features-> fromMethod
+		[=] -features-> toMethod
+	}
+	
+	[=] toClazz : Clazz {
+		[=] -features->commonAttribute
+	}
+	
+	[=] fromMethod : Method {
+		[=] -dependencies->commonAttribute
+	}
+	[=] toMethod : Method {
+		[=] -dependencies->commonAttribute
+	}
+	[=] commonAttribute : Attribute
+};
+
+pattern methodsWithCommonAttribute2WithAnotherCommonAttribute {
+	[=] fromClazz : Clazz {
+		[=] -features-> fromMethod
+		[=] -features-> toMethod
+	}
+	
+	[=] toClazz : Clazz {
+		[=] -features->commonAttribute
+	}
+	
+	[=] fromMethod : Method {
+		[=] -dependencies->commonAttribute
+	}
+	[=] toMethod : Method {
+		[=] -dependencies->commonAttribute
+	}
+	[=] commonAttribute : Attribute
+	[=] otherAttribute : Attribute
+};
+
+pattern methodsWithCommonAttribute3 {
+	[=] fromClazz : Clazz {
+		[=] -features-> fromMethod
+		[=] -features-> toMethod
+	}
+	
+	[=] toClazz : Clazz {
+		[=] -features->commonAttribute
+	}
+	
+	[=] fromMethod : Method {
+		[=] -dependencies->commonAttribute
+	}
+	[=] toMethod : Method {
+		[=] -dependencies->commonAttribute
+	}
+	[=] commonAttribute : Attribute
+};
+
+pattern methodsWithCommonAttribute4 {
+	[=] fromClazz : Clazz {
+		[=] -features->commonAttribute
+	}
+	
+	[=] toClazz : Clazz {
+		[=] -features-> fromMethod
+		[=] -features-> toMethod
+	}
+	
+	[=] fromMethod : Method {
+		[=] -dependencies->commonAttribute
+	}
+	[=] toMethod : Method {
+		[=] -dependencies->commonAttribute
+	}
+	[=] commonAttribute : Attribute
+};
+
+pattern methodsWithOtherCommonAttribute4 {
+	[=] fromClazz : Clazz {
+		[=] -features->commonAttribute
+		[=] -features->otherAttribute
+	}
+	
+	[=] toClazz : Clazz {
+		[=] -features-> fromMethod
+		[=] -features-> toMethod
+	}
+	
+	[=] fromMethod : Method {
+		[=] -dependencies->commonAttribute
+	}
+	[=] toMethod : Method {
+		[=] -dependencies->commonAttribute
+	}
+	[=] commonAttribute : Attribute
+	[=] otherAttribute : Attribute
+};
+

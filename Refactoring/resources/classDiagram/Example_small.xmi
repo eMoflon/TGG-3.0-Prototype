@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classDiagram:ClazzModel
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:classDiagram="platform:/resource/ClassDiagram/model/classDiagram.ecore">
+  <clazzes name="Session">
+    <features
+        xsi:type="classDiagram:Attribute"
+        name="username"/>
+    <features
+        xsi:type="classDiagram:Attribute"
+        name="cart"/>
+  </clazzes>
+  <clazzes name="Cart">
+    <features
+        xsi:type="classDiagram:Attribute"
+        name="items"/>
+    <features
+        xsi:type="classDiagram:Method"
+        name="checkout"
+        dependencies="//@clazzes.0/@features.0 //@clazzes.0/@features.1"/>
+    <features
+        xsi:type="classDiagram:Method"
+        name="print"
+        dependencies="//@clazzes.1/@features.0 //@clazzes.0/@features.0"/>
+    <features
+        xsi:type="classDiagram:Method"
+        name="addItem"
+        dependencies="//@clazzes.1/@features.0"/>
+  </clazzes>
+  <clazzes name="Item">
+    <features
+        xsi:type="classDiagram:Attribute"
+        name="quantity"/>
+    <features
+        xsi:type="classDiagram:Attribute"
+        name="price"/>
+    <features
+        xsi:type="classDiagram:Method"
+        name="itemSingle"
+        dependencies="//@clazzes.2/@features.1"/>
+    <features
+        xsi:type="classDiagram:Method"
+        name="itemTotal"
+        dependencies="//@clazzes.2/@features.0 //@clazzes.2/@features.1"/>
+  </clazzes>
+</classDiagram:ClazzModel>
