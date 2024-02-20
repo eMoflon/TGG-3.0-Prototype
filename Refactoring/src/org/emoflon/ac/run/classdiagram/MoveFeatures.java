@@ -45,8 +45,8 @@ public class MoveFeatures extends RefactoringCase<FullHiPEGtApi>{
 		moveMethodW1Repair.registerOverlap(api.moveMethod(), "fromClazz", "toClazz", "method");
 		moveMethodW1Repair.registerOverlap(api.movingMethodWithAttributeDependencyTogether(), "fromClazz", "toClazz", "method");
 
-		moveAttributeW1Repair.registerOverlap(api.moveAttribute(),  "fromClazz", "toClazz", "attribute");
-		moveAttributeW1Repair.registerOverlap(api.movingMethodWithAttributeDependencyTogether(), "fromClazz", "toClazz", "attribute");
+		moveAttributeW1Repair.registerOverlap(api.moveAttribute(), "fromClazz", "toClazz", "attribute");
+		moveAttributeW1Repair.registerOverlap(api.movingMethodWithAttributeDependencyTogether(), "toClazz", "fromClazz", "attribute");
 		
 		// W2
 		violations.add(api.movingMethodToOtherMethodWithoutCommonDependency());

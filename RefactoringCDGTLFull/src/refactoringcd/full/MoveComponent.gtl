@@ -239,12 +239,13 @@ pattern methodsWithCommonAttribute2 {
 
 pattern methodsWithCommonAttribute2WithAnotherCommonAttribute {
 	[=] fromClazz : Clazz {
-		[=] -features-> fromMethod
-		[=] -features-> toMethod
+		[=] -features-> commonAttribute
 	}
 	
 	[=] toClazz : Clazz {
-		[=] -features->commonAttribute
+		[=] -features-> fromMethod
+		[=] -features-> toMethod
+		[=] -features-> otherAttribute
 	}
 	
 	[=] fromMethod : Method {
