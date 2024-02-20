@@ -15,6 +15,10 @@ public class MoveFeatures extends RefactoringCase<FullHiPEGtApi>{
 		super(path);
 	}
 
+	public MoveFeatures() {
+		super(null);
+	}
+
 	@Override
 	protected void createAndRegisterOverlaps() {
 		rules.add(api.moveMethod());

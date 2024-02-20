@@ -24,6 +24,8 @@ public class ConstraintCounter {
 	private Map<OverlapCreator, OverlapMappings> creator2violations = new HashMap<>();
 	private Map<OverlapCreator, OverlapMappings> creator2repairs = new HashMap<>();
 	
+	private int patternMatchCount;
+	
 	public ConstraintCounter(Collection<OverlapCreator> violationOverlapCreators, Collection<OverlapCreator> repairOverlapCreators) {
 		this.violationOverlapCreators = violationOverlapCreators;
 		this.repairOverlapCreators = repairOverlapCreators;
@@ -46,6 +48,7 @@ public class ConstraintCounter {
 	}
 	
 	public void addViolation(IBeXGTMatch match) {
+		patternMatchCount++;
 		for(var violationOverlapCreator : violationOverlapCreators) {
 			if(!violationOverlapCreator.supportsPattern(match.getPatternName()))
 				continue;
@@ -58,6 +61,7 @@ public class ConstraintCounter {
 	}
 	
 	public void removeViolation(IBeXGTMatch match) {
+		patternMatchCount--;
 		for(var violationOverlapCreator : violationOverlapCreators) {
 			if(!violationOverlapCreator.supportsPattern(match.getPatternName()))
 				continue;
@@ -72,6 +76,7 @@ public class ConstraintCounter {
 	}
 	
 	public void addRepair(IBeXGTMatch match) {
+		patternMatchCount++;
 		for(var repairOverlapCreator : repairOverlapCreators) {
 			if(!repairOverlapCreator.supportsPattern(match.getPatternName()))
 				continue;
@@ -84,6 +89,7 @@ public class ConstraintCounter {
 	}
 	
 	public void removeRepair(IBeXGTMatch match) {
+		patternMatchCount--;
 		for(var repairOverlapCreator : repairOverlapCreators) {
 			if(!repairOverlapCreator.supportsPattern(match.getPatternName()))
 				continue;
@@ -97,7 +103,12 @@ public class ConstraintCounter {
 		}
 	}
 	
+	
 	public IBeXGTMatch getNextMatch() {
+		return getNextMatch(false);
+	}
+
+	public IBeXGTMatch getNextMatch(boolean ignoreNegativeGain) {
 		var matchList = ruleMatches.parallelStream() //
 				.map(m -> 
 					new RuleApplicationGain(m, calculcateGain(m))
@@ -105,7 +116,7 @@ public class ConstraintCounter {
 		
 		matchList.sort((a,b) -> b.gain() - a.gain());
 		var bestMatch = matchList.get(0);
-		if(bestMatch.gain() > 0) {
+		if(ignoreNegativeGain || bestMatch.gain() > 0) {
 			LoggingConfig.log("Choose Match: ", bestMatch.match() + " with gain " + bestMatch.gain());
 			return bestMatch.match();
 		}
@@ -197,6 +208,14 @@ public class ConstraintCounter {
 		for(var line : lines) {
 			System.out.println(line);
 		}	
+	}
+	
+	public int countRuleMatches() {
+		return ruleMatches.size();
+	}
+	
+	public int countPatternMatches() {
+		return patternMatchCount;
 	}
 }
 
