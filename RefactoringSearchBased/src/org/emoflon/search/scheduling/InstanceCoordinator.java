@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 import org.emoflon.ibex.gt.engine.IBeXGTMatch;
 import org.emoflon.ibex.gt.engine.IBeXGTRule;
-import org.emoflon.refactoring.RuleApplicationGain;
+import org.emoflon.refactoring.RankedRuleApplication;
 import org.emoflon.refactoring.logging.Formatter;
 import org.emoflon.refactoring.logging.LoggingConfig;
 import org.emoflon.search.matching.ConstraintCheckingInstance;
@@ -87,9 +87,12 @@ public abstract class InstanceCoordinator {
 	}
 	
 	private IBeXGTMatch selectBestMatch(Collection<WeightedMatch> checkedMatches) {
-		List<RuleApplicationGain> matchList = checkedMatches.parallelStream() //
-				.map(m -> 
-					new RuleApplicationGain(m.appliedRuleMatch(), m.repairs().size() - m.violations().size())
+		List<RankedRuleApplication> matchList = checkedMatches.parallelStream() //
+				.map(m -> {
+					var repairs = m.repairs().size();
+					var violations = m.violations().size();
+					return new RankedRuleApplication(m.appliedRuleMatch(), repairs - violations, repairs, violations);
+				}
 				).collect(Collectors.toList());
 		
 		matchList.sort((a,b) -> b.gain() - a.gain());

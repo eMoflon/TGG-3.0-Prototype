@@ -18,17 +18,15 @@ public class BenchmarkRunnerMoveFeatures {
 	private static final int MAX_EXCEPTIONS = 5;
 	private static final int TIMEOUT_MINUTES = 5;
 	
-	private static int[] modelSizes = new int[] {5, 10, 20, 30, 40, 50, 60, 70};
+	private static int[] modelSizes = new int[] {5, 10, 20, 30, 40, 50};
 //	private static int[] modelSizes = new int[] {5};
-	private static int repetitions = 1;
+	private static int repetitions = 5;
 	
 	private static List<String> jvmArgs = new LinkedList<>();
 	
 	private static File currentLogFile;
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
-		Runtime rt = Runtime.getRuntime();
-		
 		int timeoutCounter = 0;
 		int exceptionCounter = 0;
 		

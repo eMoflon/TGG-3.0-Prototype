@@ -73,20 +73,22 @@ public abstract class RefactoringCase<API extends IBeXGtAPI<?,?,?>> {
 		}
 	}
 	
-	public void performOneStep() {
-		var nextMatch = constraintCounter.getNextMatch();
-		if(nextMatch == null) {
+	public boolean performOneStep() {
+		var nextRankedMatch = constraintCounter.getNextMatch();
+		if(nextRankedMatch == null) {
 			LoggingConfig.log("Abort:", "No match found");
-			return;
+			return false;
 		}
 		
+		var nextMatch = nextRankedMatch.match();
 		for(var rule : rules) {
 			if(rule.patternName.equals(nextMatch.getPatternName())) {
 				LoggingConfig.logln("Applying Match:", nextMatch);
 				rule.apply(nextMatch);
-				break;
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	public API getApi() {
