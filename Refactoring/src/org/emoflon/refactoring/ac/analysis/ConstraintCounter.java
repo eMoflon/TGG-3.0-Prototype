@@ -152,10 +152,12 @@ public class ConstraintCounter {
 	}
 	
 	public int countViolations(IBeXGTMatch match) {
+//		System.out.println("	Violation for " + match + ": ");
 		return count(violationOverlapCreators, creator2violations, match);
 	}
 	
 	public int countRepairs(IBeXGTMatch match) {
+//		System.out.println("	Repair for " + match + ": ");
 		return count(repairOverlapCreators, creator2repairs, match);
 	}
 	
@@ -164,7 +166,12 @@ public class ConstraintCounter {
 		for(var creator : overlapCreators) {
 			if(creator.supportsPattern(match.getPatternName())) {
 				var overlap = creator.createOverlap(match);
-				count += creator2mappings.get(creator).overlap2matches().getOrDefault(overlap, new LinkedList<>()).size();
+				var overlapMatches = creator2mappings.get(creator).overlap2matches().getOrDefault(overlap, new LinkedList<>());
+//				for(var overlapMatch : overlapMatches) {
+//					System.out.println("		" + overlapMatch);
+//				}
+				var overlapCount = overlapMatches.size();
+				count += overlapCount;
 			}
 		}
 		return count;

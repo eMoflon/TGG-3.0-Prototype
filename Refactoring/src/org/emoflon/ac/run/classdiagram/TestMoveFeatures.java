@@ -17,7 +17,7 @@ public class TestMoveFeatures {
 		LoggingConfig.useFormatter = true;
 		
 		var config = new MoveFeatures("classDiagram/Example_small.xmi");
-		ModelGeneratorUtil.generateModel(config.getApi().getModel().getResources().get(0), MODELSIZE);
+//		ModelGeneratorUtil.generateModel(config.getApi().getModel().getResources().get(0), MODELSIZE);
 
 		long tic = System.nanoTime();
 		var constraintCounter = config.getConstraintCounter();
@@ -35,16 +35,23 @@ public class TestMoveFeatures {
 //			}
 //		}
 		
-		var i=1;
-		while(config.performOneStep()) {
+		constraintCounter.printAll();
+		for(int i=0; i < 6; i++) {
+			config.performOneStep();
 			config.getApi().updateMatches();
-			var updatedTotalRepairs = constraintCounter.countTotalRepairs();
-			var updatedTotalViolations = constraintCounter.countTotalViolations();
-			if(i % 10 == 0) {
-				System.out.println(i + ";" + (updatedTotalRepairs-updatedTotalViolations) + ";" + updatedTotalRepairs + ";" + updatedTotalViolations);
-			}
-			i++;
+			constraintCounter.printAll();
 		}
+		
+//		var i=1;
+//		while(config.performOneStep()) {
+//			config.getApi().updateMatches();
+//			var updatedTotalRepairs = constraintCounter.countTotalRepairs();
+//			var updatedTotalViolations = constraintCounter.countTotalViolations();
+//			if(i % 10 == 0) {
+//				System.out.println(i + ";" + (updatedTotalRepairs-updatedTotalViolations) + ";" + updatedTotalRepairs + ";" + updatedTotalViolations);
+//			}
+//			i++;
+//		}
 		
 		System.out.println();
 		

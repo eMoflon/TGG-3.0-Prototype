@@ -139,9 +139,9 @@ pattern movingMethodToOtherMethodWithCommonDependency {
 // Violation
 pattern moveLastCommonAttributeToOtherClass {
 	[=] fromClazz : Clazz {
-		[=] -features->attribute
 		[=] -features-> fromMethod
 		[=] -features-> toMethod
+		[=] -features->attribute
 	}
 	
 	[=] toClazz : Clazz {
@@ -160,7 +160,7 @@ pattern moveLastCommonAttributeToOtherClass {
 	forbid(methodsWithOtherCommonAttribute4) [
 		fromClazz=fromClazz, toClazz=toClazz,
 		fromMethod=fromMethod, toMethod=toMethod,
-		attribute=commonAttribute
+		attribute=otherAttribute
 	]
 };
 
@@ -194,8 +194,6 @@ pattern moveFirstCommonAttributeToOtherClass {
 	]
 };
 
-
-
 /////////////////////////////////////////////////
 ///////         SUPPORT PATTERNS          ///////
 /////////////////////////////////////////////////
@@ -222,10 +220,10 @@ pattern methodsWithCommonAttribute2 {
 	[=] fromClazz : Clazz {
 		[=] -features-> fromMethod
 		[=] -features-> toMethod
+		[=] -features->commonAttribute
 	}
 	
 	[=] toClazz : Clazz {
-		[=] -features->commonAttribute
 	}
 	
 	[=] fromMethod : Method {
@@ -240,12 +238,12 @@ pattern methodsWithCommonAttribute2 {
 pattern methodsWithCommonAttribute2WithAnotherCommonAttribute {
 	[=] fromClazz : Clazz {
 		[=] -features-> commonAttribute
+		[=] -features-> otherAttribute
 	}
 	
 	[=] toClazz : Clazz {
 		[=] -features-> fromMethod
 		[=] -features-> toMethod
-		[=] -features-> otherAttribute
 	}
 	
 	[=] fromMethod : Method {
@@ -279,12 +277,12 @@ pattern methodsWithCommonAttribute3 {
 
 pattern methodsWithCommonAttribute4 {
 	[=] fromClazz : Clazz {
+		[=] -features-> fromMethod
+		[=] -features-> toMethod
 		[=] -features->commonAttribute
 	}
 	
 	[=] toClazz : Clazz {
-		[=] -features-> fromMethod
-		[=] -features-> toMethod
 	}
 	
 	[=] fromMethod : Method {
@@ -298,13 +296,13 @@ pattern methodsWithCommonAttribute4 {
 
 pattern methodsWithOtherCommonAttribute4 {
 	[=] fromClazz : Clazz {
+		[=] -features-> fromMethod
+		[=] -features-> toMethod
 		[=] -features->commonAttribute
 		[=] -features->otherAttribute
 	}
 	
 	[=] toClazz : Clazz {
-		[=] -features-> fromMethod
-		[=] -features-> toMethod
 	}
 	
 	[=] fromMethod : Method {

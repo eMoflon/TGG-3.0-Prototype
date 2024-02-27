@@ -2,6 +2,9 @@ package org.emoflon.refactoring.logging;
 
 import org.emoflon.ibex.gt.engine.IBeXGTMatch;
 
+import classDiagram.Attribute;
+import classDiagram.Clazz;
+import classDiagram.Method;
 import softwareSystem.Component;
 
 public class Formatter {
@@ -18,7 +21,7 @@ public class Formatter {
 	
 	public static String toString(Object object) {
 		if(object instanceof IBeXGTMatch match) {
-			var out = printWithTab(match.getPatternName(), 4) + " [";
+			var out = printWithTab(match.getPatternName(), 4) + match.hashCode() + " [";
 			for(var entry : match.getObjects()) {
 				out += "\t" + toString(entry);
 			}
@@ -30,6 +33,15 @@ public class Formatter {
 		}
 		if(object instanceof Component component) {
 			return printWithTab("Component: " + component.getName(), 5);
+		}
+		if(object instanceof Clazz clazz) {
+			return printWithTab("Clazz: " + clazz.getName(), 5);
+		}
+		if(object instanceof Attribute attribute) {
+			return printWithTab("Attribute: " + attribute.getName(), 3);
+		}
+		if(object instanceof Method method) {
+			return printWithTab("Method: " + method.getName(), 5);
 		}
 		return object.toString();
 	}

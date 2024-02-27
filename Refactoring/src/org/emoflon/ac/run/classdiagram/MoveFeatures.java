@@ -22,7 +22,7 @@ public class MoveFeatures extends RefactoringCase<FullHiPEGtApi>{
 	@Override
 	protected void createAndRegisterOverlaps() {
 		rules.add(api.moveMethod());
-		rules.add(api.moveAttribute());
+//		rules.add(api.moveAttribute());
 
 		// W1
 		
@@ -74,22 +74,30 @@ public class MoveFeatures extends RefactoringCase<FullHiPEGtApi>{
 		var moveAttributeW2Repair = new OverlapCreator();
 
 		moveMethodW2Repair.registerOverlap(api.moveMethod(), "fromClazz", "toClazz", "method");
-		moveMethodW2Repair.registerOverlap(api.movingMethodWithAttributeDependencyTogether(), "fromClazz", "toClazz", "method");
+		moveMethodW2Repair.registerOverlap(api.movingMethodToOtherMethodWithCommonDependency(), "fromClazz", "toClazz", "toMethod");
 
 		moveAttributeW2Repair.registerOverlap(api.moveAttribute(),  "fromClazz", "toClazz", "attribute");
-		moveAttributeW2Repair.registerOverlap(api.movingMethodWithAttributeDependencyTogether(), "fromClazz", "toClazz", "attribute");
+		moveAttributeW2Repair.registerOverlap(api.moveFirstCommonAttributeToOtherClass(), "fromClazz", "toClazz", "attribute");
 		
 		
 		var violations = new LinkedList<OverlapCreator>();
 		violations.add(moveMethodW1Violation);
+		
 		violations.add(moveAttributeW1Violation);
+		
 		violations.add(moveMethodW2Violation);
+		violations.add(moveMethodW2Violation);
+		
 		violations.add(moveAttributeW2Violation);
 
 		var repairs = new LinkedList<OverlapCreator>();
 		repairs.add(moveMethodW1Repair);
+		
 		repairs.add(moveAttributeW1Repair);
+		
 		repairs.add(moveMethodW2Repair);
+		repairs.add(moveMethodW2Repair);
+		
 		repairs.add(moveAttributeW2Repair);
 		
 		constraintCounter = new ConstraintCounter(violations, repairs);
