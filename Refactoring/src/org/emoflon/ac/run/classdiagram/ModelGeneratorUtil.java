@@ -17,7 +17,7 @@ public class ModelGeneratorUtil {
 
 	protected static final int NUM_OF_ATTRIBUTES = 5;
 
-	protected static final int NUM_OF_INTERNAL_DEPENDENCIES = 3;
+	protected static final int NUM_OF_INTERNAL_DEPENDENCIES = 2;
 
 	protected static final int NUM_OF_EXTERNAL_DEPENDENCIES = 3;
 	
