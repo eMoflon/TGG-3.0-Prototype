@@ -2,8 +2,6 @@ package org.emoflon.ac.run.softwareSystem;
 
 import org.emoflon.refactoring.logging.LoggingConfig;
 
-import hipe.generic.actor.junction.util.HiPEConfig;
-
 public class TestMoveComponents {
 	
 	public static final int iterations = 1;

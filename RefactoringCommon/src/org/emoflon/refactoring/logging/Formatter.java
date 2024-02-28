@@ -7,8 +7,13 @@ import classDiagram.Clazz;
 import classDiagram.Method;
 import softwareSystem.Component;
 
+/**
+ * 
+ * @author Lars Fritsche
+ *
+ * This class contains logging formatter functions
+ */
 public class Formatter {
-
 	
 	public static String printWithTab(String name, int tabs) {
 		var out = name;

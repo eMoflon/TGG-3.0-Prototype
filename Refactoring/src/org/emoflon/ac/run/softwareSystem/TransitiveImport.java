@@ -1,7 +1,8 @@
-package org.emoflon.refactoring.ac;
+package org.emoflon.ac.run.softwareSystem;
 
 import java.util.LinkedList;
 
+import org.emoflon.refactoring.ac.RefactoringCase;
 import org.emoflon.refactoring.ac.analysis.ConstraintCounter;
 import org.emoflon.refactoring.ac.analysis.OverlapCreator;
 

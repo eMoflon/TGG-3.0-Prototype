@@ -5,6 +5,12 @@ import java.util.HashSet;
 
 import org.emoflon.ibex.gt.engine.IBeXGTMatch;
 
+/**
+ * 
+ * @author Lars Fritsche
+ *
+ * This class implements formatted logging of matches
+ */
 public class LoggingConfig {
 
 	public static boolean activateLogging = false;

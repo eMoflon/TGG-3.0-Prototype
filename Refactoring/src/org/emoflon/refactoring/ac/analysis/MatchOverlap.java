@@ -2,6 +2,13 @@ package org.emoflon.refactoring.ac.analysis;
 
 import java.util.Arrays;
 
+/**
+ * 
+ * @author Lars Fritsche
+ * 
+ * This class represents a match overlap 
+ *
+ */
 public class MatchOverlap {
 
 	public final Object[] nodes;

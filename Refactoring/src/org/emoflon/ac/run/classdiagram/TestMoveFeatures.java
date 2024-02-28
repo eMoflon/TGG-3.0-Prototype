@@ -1,9 +1,14 @@
 package org.emoflon.ac.run.classdiagram;
 
+import org.emoflon.ac.run.classdiagram.config.MoveFeatures;
 import org.emoflon.refactoring.logging.LoggingConfig;
 
-import hipe.generic.actor.junction.util.HiPEConfig;
-
+/**
+ * 
+ * @author Lars Fritsche
+ *
+ * Implementation of our running example 
+ */
 public class TestMoveFeatures {
 	
 	public static final int iterations = 200;
@@ -13,12 +18,8 @@ public class TestMoveFeatures {
 
 		LoggingConfig.activateLogging = true;
 		LoggingConfig.useFormatter = true;
-//		HiPEConfig.logWorkloadActivated = true;
-//		LoggingConfig.matchSubStringsToLog.add("TGGMatch");
-//		LoggingConfig.matchSubStringsToLog.add("GTPatternMatch");
 		
 		var config = new MoveFeatures("classDiagram/Example_small.xmi");
-//		var config = new MoveComponents("TestSystem_large3.xmi");
 		
 		long tic = System.nanoTime();
 		var constraintCounter = config.getConstraintCounter();
@@ -29,9 +30,9 @@ public class TestMoveFeatures {
 		
 		for(var i=0; i < iterations; i++) {
 			long stepTic = System.nanoTime();
-			config.performOneStep();
+			if(!config.performOneStep())
+				break;
 			config.getApi().updateMatches();
-//			constraintCounter.printAll();
 			System.out.println("Step " + (i+1) + "; " + (double) (System.nanoTime() - stepTic) / (double) (1000 * 1000 * 1000) + "s");
 		}
 
