@@ -16,7 +16,7 @@ import org.emoflon.refactoring.logging.LoggingConfig;
  */
 public class MeasureRepairSteps {
 
-	public static final int MODELSIZE = 10;
+	public static final int MODEL_SIZE = 10;
 
 	public static void main(String[] args) {
 		System.out.println("Running Application Conditions...");
@@ -25,7 +25,7 @@ public class MeasureRepairSteps {
 		LoggingConfig.useFormatter = true;
 
 		var config = new MoveFeatures("classDiagram/Example_empty.xmi");
-		ModelGeneratorUtil.generateModel(config.getApi().getModel().getResources().get(0), MODELSIZE);
+		ModelGeneratorUtil.generateModel(config.getApi().getModel().getResources().get(0), MODEL_SIZE);
 
 		long tic = System.nanoTime();
 		var constraintCounter = config.getConstraintCounter();

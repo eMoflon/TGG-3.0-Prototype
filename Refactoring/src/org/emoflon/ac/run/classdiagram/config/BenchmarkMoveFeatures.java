@@ -17,7 +17,6 @@ public class BenchmarkMoveFeatures {
 	public static void main(String[] args) {
 		LoggingConfig.activateLogging = false;
 		LoggingConfig.useFormatter = true;
-//		HiPEConfig.logWorkloadActivated = true;
 
 		MoveFeatures config;
 		try {

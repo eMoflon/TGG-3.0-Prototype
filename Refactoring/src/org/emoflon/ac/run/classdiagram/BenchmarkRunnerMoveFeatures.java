@@ -28,7 +28,7 @@ public class BenchmarkRunnerMoveFeatures {
 	private static final int MAX_EXCEPTIONS = 5;
 	private static final int TIMEOUT_MINUTES = 5;
 
-	private static int[] modelSizes = new int[] { 5, 10, 20, 30, 40, 50 };
+	private static int[] MODEL_SIZES = new int[] { 5, 10, 20, 30, 40, 50 };
 	private static int repetitions = 5;
 
 	private static List<String> jvmArgs = new LinkedList<>();
@@ -41,7 +41,7 @@ public class BenchmarkRunnerMoveFeatures {
 
 		System.out.println("initialisationTime;performingStepsTime;totalExecutionTime;modelSize;iterations;ruleMatchCount;patternMatchCount");
 		
-		for (int modelSize : modelSizes) {
+		for (int modelSize : MODEL_SIZES) {
 			for (int r = 0; r < repetitions; r++) {
 
 				if (timeoutCounter >= MAX_TIMEOUTS) {
