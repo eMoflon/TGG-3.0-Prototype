@@ -39,6 +39,8 @@ public class BenchmarkRunnerMoveFeatures {
 		int timeoutCounter = 0;
 		int exceptionCounter = 0;
 
+		System.out.println("initialisationTime;performingStepsTime;totalExecutionTime;modelSize;iterations;ruleMatchCount;patternMatchCount");
+		
 		for (int modelSize : modelSizes) {
 			for (int r = 0; r < repetitions; r++) {
 

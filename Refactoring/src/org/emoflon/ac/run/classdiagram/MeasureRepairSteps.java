@@ -16,7 +16,7 @@ import org.emoflon.refactoring.logging.LoggingConfig;
  */
 public class MeasureRepairSteps {
 
-	public static final int MODELSIZE = 40;
+	public static final int MODELSIZE = 10;
 
 	public static void main(String[] args) {
 		System.out.println("Running Application Conditions...");
