@@ -5,7 +5,6 @@ import org.emoflon.ibex.gt.engine.IBeXGTMatch;
 import classDiagram.Attribute;
 import classDiagram.Clazz;
 import classDiagram.Method;
-import softwareSystem.Component;
 
 /**
  * 
@@ -32,12 +31,6 @@ public class Formatter {
 			}
 			out += " ]";
 			return out;
-		}
-		if(object instanceof softwareSystem.System system) {
-			return printWithTab("System: " + system.getName(), 3);
-		}
-		if(object instanceof Component component) {
-			return printWithTab("Component: " + component.getName(), 5);
 		}
 		if(object instanceof Clazz clazz) {
 			return printWithTab("Clazz: " + clazz.getName(), 5);

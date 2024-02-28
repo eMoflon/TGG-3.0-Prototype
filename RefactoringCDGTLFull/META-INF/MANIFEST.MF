@@ -13,8 +13,7 @@ Require-Bundle: org.emoflon.ibex.common,
  org.emoflon.ibex.gt,
  org.emoflon.ibex.gt.gtmodel,
  org.emoflon.ibex.gt.hipe,
- ClassDiagram;bundle-version="0.1.0",
- SoftwareSystem
+ ClassDiagram;bundle-version="0.1.0"
 Export-Package: refactoringcd.full.api,
  refactoringcd.full.api.match,
  refactoringcd.full.api.pattern,

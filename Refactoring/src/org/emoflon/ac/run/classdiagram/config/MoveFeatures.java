@@ -6,8 +6,8 @@ import org.emoflon.refactoring.ac.RefactoringCase;
 import org.emoflon.refactoring.ac.analysis.ConstraintCounter;
 import org.emoflon.refactoring.ac.analysis.OverlapCreator;
 
+import classDiagram.ClassDiagramPackage;
 import refactoringcd.full.api.FullHiPEGtApi;
-import softwareSystem.SoftwareSystemPackage;
 
 /**
  * 
@@ -123,7 +123,7 @@ public class MoveFeatures extends RefactoringCase<FullHiPEGtApi> {
 
 	@Override
 	protected void initializeMetamodel() {
-		SoftwareSystemPackage.eINSTANCE.getName();
+		ClassDiagramPackage.eINSTANCE.getName();
 	}
 
 }
