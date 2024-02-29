@@ -1,4 +1,4 @@
-package org.emoflon.refactoring.ac.analysis;
+package org.emoflon.ac.analysis;
 
 import java.util.HashMap;
 import java.util.LinkedList;

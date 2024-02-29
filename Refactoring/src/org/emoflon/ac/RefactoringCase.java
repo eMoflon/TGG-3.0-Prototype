@@ -1,13 +1,13 @@
-package org.emoflon.refactoring.ac;
+package org.emoflon.ac;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import org.emoflon.ac.analysis.ConstraintCounter;
 import org.emoflon.ibex.gt.api.IBeXGtAPI;
 import org.emoflon.ibex.gt.engine.IBeXGTMatch;
 import org.emoflon.ibex.gt.engine.IBeXGTPattern;
 import org.emoflon.ibex.gt.engine.IBeXGTRule;
-import org.emoflon.refactoring.ac.analysis.ConstraintCounter;
 import org.emoflon.refactoring.logging.LoggingConfig;
 
 /**
