@@ -36,6 +36,14 @@ public abstract class InstanceCoordinator {
 		initialize();
 	}
 	
+	public Collection<RuleMatchingInstance> getRuleMatchers() {
+		return ruleMatchers;
+	}
+	
+	public Collection<IBeXGTMatch> getRuleMatches() {
+		return ruleMatches;
+	}
+	
 	public abstract void initialize();
 	
 	public void terminate() {

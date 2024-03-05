@@ -7,4 +7,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: .
 Require-Bundle: RefactoringCommon;bundle-version="1.0.0",
  RefactoringGTLConstraints;bundle-version="1.0.0",
- RefactoringGTLRules;bundle-version="1.0.0"
+ RefactoringGTLRules;bundle-version="1.0.0",
+ RefactoringCDGTLConstraints;bundle-version="1.0.0",
+ RefactoringCDGTLRules;bundle-version="1.0.0",
+ ClassDiagram;bundle-version="0.1.0"

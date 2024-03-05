@@ -23,6 +23,7 @@ pattern externalMethodAttributeDependency {
 pattern atLeastOneCommonAttributeDependency {
 	[=] clazz : Clazz {
 		[=] -features-> method
+		[=] -features-> otherMethod
 	}
 	
 	[=] method : Method {
@@ -31,13 +32,14 @@ pattern atLeastOneCommonAttributeDependency {
 	[=] otherMethod : Method {
 	}
 	
-	enforce(atLeastOneCommonAttributeDependencySupport)
+	forbid(atLeastOneCommonAttributeDependencySupport)
 		[clazz=clazz, method=method, otherMethod=otherMethod]
 };
 
 pattern atLeastOneCommonAttributeDependencySupport {
 	[=] clazz : Clazz {
 		[=] -features-> method
+		[=] -features-> otherMethod
 		[=] -features-> attribute
 	}
 	
