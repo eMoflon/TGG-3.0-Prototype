@@ -1,0 +1,25 @@
+package refactoringcd.rules
+
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/ClassDiagram/model/classDiagram.ecore"
+
+rule moveMethod {
+	[=] fromClazz : Clazz {
+		[-] -features->method
+	}
+	[=] toClazz : Clazz { 
+		[+] -features->method
+	}
+	[=] method : Method 
+};
+
+
+rule moveAttribute {
+	[=] fromClazz : Clazz {
+		[-] -features->attribute
+	}
+	[=] toClazz : Clazz { 
+		[+] -features->attribute
+	}
+	[=] attribute : Attribute
+};

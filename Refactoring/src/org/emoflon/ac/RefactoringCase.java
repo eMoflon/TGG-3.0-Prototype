@@ -8,7 +8,7 @@ import org.emoflon.ibex.gt.api.IBeXGtAPI;
 import org.emoflon.ibex.gt.engine.IBeXGTMatch;
 import org.emoflon.ibex.gt.engine.IBeXGTPattern;
 import org.emoflon.ibex.gt.engine.IBeXGTRule;
-import org.emoflon.refactoring.logging.LoggingConfig;
+import org.emoflon.logging.LoggingConfig;
 
 /**
  * 

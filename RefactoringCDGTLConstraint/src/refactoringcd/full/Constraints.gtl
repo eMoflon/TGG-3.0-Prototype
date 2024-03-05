@@ -1,0 +1,53 @@
+package refactoringcd.constraints
+
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/ClassDiagram/model/classDiagram.ecore"
+
+
+// Violation
+pattern externalMethodAttributeDependency {
+	[=] fromClazz : Clazz {
+		[=] -features-> method
+	}
+	
+	[=] toClazz : Clazz {
+		[=] -features-> attribute
+	}
+	
+	[=] method : Method {
+		[=] -dependencies->attribute
+	}
+	[=] attribute : Attribute
+};
+
+pattern atLeastOneCommonAttributeDependency {
+	[=] clazz : Clazz {
+		[=] -features-> method
+	}
+	
+	[=] method : Method {
+	}
+	
+	[=] otherMethod : Method {
+	}
+	
+	enforce(atLeastOneCommonAttributeDependencySupport)
+		[clazz=clazz, method=method, otherMethod=otherMethod]
+};
+
+pattern atLeastOneCommonAttributeDependencySupport {
+	[=] clazz : Clazz {
+		[=] -features-> method
+		[=] -features-> attribute
+	}
+	
+	[=] method : Method {
+		[=] -dependencies->attribute
+	}
+	
+	[=] otherMethod : Method {
+		[=] -dependencies->attribute
+	}
+	
+	[=] attribute : Attribute
+};

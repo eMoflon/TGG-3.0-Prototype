@@ -1,7 +1,7 @@
 package org.emoflon.ac.run.classdiagram;
 
 import org.emoflon.ac.run.classdiagram.config.MoveFeatures;
-import org.emoflon.refactoring.logging.LoggingConfig;
+import org.emoflon.logging.LoggingConfig;
 
 /**
  * 

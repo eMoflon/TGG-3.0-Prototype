@@ -1,6 +1,6 @@
 package org.emoflon.run.search.softwareSystem;
 
-import org.emoflon.refactoring.logging.LoggingConfig;
+import org.emoflon.logging.LoggingConfig;
 
 public class TestMoveComponents {
 

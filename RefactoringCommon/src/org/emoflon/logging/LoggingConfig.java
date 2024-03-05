@@ -1,4 +1,4 @@
-package org.emoflon.refactoring.logging;
+package org.emoflon.logging;
 
 import java.util.Collection;
 import java.util.HashSet;

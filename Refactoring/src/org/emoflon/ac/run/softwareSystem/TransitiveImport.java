@@ -2,9 +2,9 @@ package org.emoflon.ac.run.softwareSystem;
 
 import java.util.LinkedList;
 
-import org.emoflon.refactoring.ac.RefactoringCase;
-import org.emoflon.refactoring.ac.analysis.ConstraintCounter;
-import org.emoflon.refactoring.ac.analysis.OverlapCreator;
+import org.emoflon.ac.RefactoringCase;
+import org.emoflon.ac.analysis.ConstraintCounter;
+import org.emoflon.ac.analysis.OverlapCreator;
 
 import refactoring.full.api.FullHiPEGtApi;
 import softwareSystem.SoftwareSystemPackage;

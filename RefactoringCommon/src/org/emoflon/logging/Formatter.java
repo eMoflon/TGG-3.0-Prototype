@@ -1,4 +1,4 @@
-package org.emoflon.refactoring.logging;
+package org.emoflon.logging;
 
 import org.emoflon.ibex.gt.engine.IBeXGTMatch;
 

@@ -7,11 +7,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.emoflon.RankedRuleApplication;
 import org.emoflon.ibex.gt.engine.IBeXGTMatch;
 import org.emoflon.ibex.gt.engine.IBeXGTRule;
-import org.emoflon.refactoring.RankedRuleApplication;
-import org.emoflon.refactoring.logging.Formatter;
-import org.emoflon.refactoring.logging.LoggingConfig;
+import org.emoflon.logging.Formatter;
+import org.emoflon.logging.LoggingConfig;
 import org.emoflon.search.matching.ConstraintCheckingInstance;
 import org.emoflon.search.matching.RuleMatchingInstance;
 import org.emoflon.search.matching.WeightedMatch;

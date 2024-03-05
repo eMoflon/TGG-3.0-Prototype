@@ -1,20 +1,19 @@
 Manifest-Version: 1.0
-Automatic-Module-Name: RefactoringGT
+Automatic-Module-Name: RefactoringCDGTLFull
 Bundle-ManifestVersion: 2
-Bundle-Name: RefactoringGT
+Bundle-Name: RefactoringCDGTLConstraints
 Bundle-Vendor: My Company
 Bundle-Version: 1.0.0.qualifier
-Bundle-SymbolicName: RefactoringGT; singleton:=true
+Bundle-SymbolicName: RefactoringCDGTLConstraints;singleton:=true
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.log4j,
  org.apache.commons.logging
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.emoflon.ibex.common,
  org.emoflon.ibex.gt,
- org.emoflon.ibex.patternmodel,
- org.emoflon.ibex.gt.democles,
+ org.emoflon.ibex.gt.gtmodel,
  org.emoflon.ibex.gt.hipe,
- SoftwareSystem;bundle-version="0.1.0"
-Export-Package: RefactoringGT.api,
- RefactoringGT.api.matches,
- RefactoringGT.api.rules
+ ClassDiagram
+Export-Package: refactoringcd.constraints.api,
+ refactoringcd.constraints.api.match,
+ refactoringcd.constraints.api.pattern

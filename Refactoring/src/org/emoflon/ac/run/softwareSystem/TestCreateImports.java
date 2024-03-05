@@ -1,6 +1,6 @@
 package org.emoflon.ac.run.softwareSystem;
 
-import org.emoflon.refactoring.logging.LoggingConfig;
+import org.emoflon.logging.LoggingConfig;
 
 public class TestCreateImports {
 	
