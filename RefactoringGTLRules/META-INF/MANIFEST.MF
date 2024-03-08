@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
-Automatic-Module-Name: RefactoringGTLRule
+Automatic-Module-Name: RefactoringGTLRules
 Bundle-ManifestVersion: 2
-Bundle-Name: RefactoringGTLRule
+Bundle-Name: RefactoringGTLRules
 Bundle-Vendor: My Company
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: RefactoringGTLRules;singleton:=true

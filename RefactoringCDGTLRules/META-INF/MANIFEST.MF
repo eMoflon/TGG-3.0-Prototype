@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Automatic-Module-Name: RefactoringCDGTLFull
+Automatic-Module-Name: RefactoringCDGTLRules
 Bundle-ManifestVersion: 2
 Bundle-Name: RefactoringCDGTLRules
 Bundle-Vendor: My Company
