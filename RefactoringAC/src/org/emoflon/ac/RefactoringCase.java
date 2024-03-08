@@ -71,7 +71,7 @@ public abstract class RefactoringCase<API extends IBeXGtAPI<?, ?, ?>> {
 	}
 
 	public void loadModel(String model) {
-		var path = api.getWorkspacePath() + "Refactoring/resources/" + model;
+		var path = api.getWorkspacePath() + "RefactoringAC/resources/" + model;
 		try {
 			api.addModel(path);
 		} catch (Exception e) {
