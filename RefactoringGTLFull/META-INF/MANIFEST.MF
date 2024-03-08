@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
-Automatic-Module-Name: RefactoringGTL
+Automatic-Module-Name: RefactoringGTLFull
 Bundle-ManifestVersion: 2
-Bundle-Name: RefactoringGTL
+Bundle-Name: RefactoringGTLFull
 Bundle-Vendor: My Company
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: RefactoringGTLFull;singleton:=true
