@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
-Automatic-Module-Name: RefactoringCDGTLConstraint
+Automatic-Module-Name: RefactoringCDGTLConstraints
 Bundle-ManifestVersion: 2
-Bundle-Name: RefactoringCDGTLConstraint
+Bundle-Name: RefactoringCDGTLConstraints
 Bundle-Vendor: My Company
 Bundle-Version: 1.0.0.qualifier
-Bundle-SymbolicName: RefactoringCDGTLConstraint;singleton:=true
+Bundle-SymbolicName: RefactoringCDGTLConstraints;singleton:=true
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.log4j,
  org.apache.commons.logging
