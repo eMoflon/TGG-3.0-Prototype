@@ -1,5 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Automatic-Module-Name: RefactoringSearchBased
 Bundle-Name: RefactoringSearchBased
 Bundle-SymbolicName: RefactoringSearchBased
 Bundle-Version: 1.0.0.qualifier
