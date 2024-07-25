@@ -2,6 +2,8 @@ package org.emoflon.ac.run.classdiagram.config;
 
 import org.emoflon.logging.LoggingConfig;
 
+import hipe.generic.actor.junction.util.HiPEConfig;
+
 /**
  * 
  * @author Lars Fritsche
@@ -17,12 +19,12 @@ public class BenchmarkMoveFeatures {
 	public static void main(String[] args) {
 		LoggingConfig.activateLogging = false;
 		LoggingConfig.useFormatter = true;
-//		HiPEConfig.logWorkloadActivated = true;
+		HiPEConfig.logWorkloadActivated = true;
 
 		MoveFeatures config;
 		try {
-			int modelSize = Integer.parseInt(args[0]);
-//			int modelSize = 40;
+//			int modelSize = Integer.parseInt(args[0]);
+			int modelSize = 60;
 			config = new MoveFeatures("classDiagram/Example_empty.xmi") {
 
 				@Override

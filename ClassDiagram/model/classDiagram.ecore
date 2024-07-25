@@ -17,6 +17,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Method" eSuperTypes="#//Feature">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" upperBound="-1"
         eType="#//Attribute"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="methodDependency" upperBound="-1"
+        eType="#//Method"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Attribute" eSuperTypes="#//Feature"/>
 </ecore:EPackage>

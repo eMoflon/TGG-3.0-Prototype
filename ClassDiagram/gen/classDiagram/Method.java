@@ -21,5 +21,9 @@ public interface Method extends EObject, classDiagram.Feature {
     
     public void setDependencies(LinkedSmartESet<classDiagram.Attribute> value);
     
+    public LinkedSmartESet<classDiagram.Method> getMethodDependency();
+    
+    public void setMethodDependency(LinkedSmartESet<classDiagram.Method> value);
+    
 
 }

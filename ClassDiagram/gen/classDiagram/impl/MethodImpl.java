@@ -22,6 +22,7 @@ public class MethodImpl extends SmartObject implements classDiagram.Method {
 
     protected java.lang.String name = null;
     protected LinkedSmartESet<classDiagram.Attribute> dependencies = new LinkedSmartESet<classDiagram.Attribute>(this, ClassDiagramPackage.Literals.METHOD__DEPENDENCIES);
+    protected LinkedSmartESet<classDiagram.Method> methodDependency = new LinkedSmartESet<classDiagram.Method>(this, ClassDiagramPackage.Literals.METHOD__METHOD_DEPENDENCY);
 	
 	protected MethodImpl() {
 		super(ClassDiagramPackage.Literals.METHOD);
@@ -52,6 +53,17 @@ public class MethodImpl extends SmartObject implements classDiagram.Method {
     	throw new UnsupportedOperationException("Set methods for SmartEMF collections are not supported.");
     }
     
+    
+    @Override
+    public LinkedSmartESet<classDiagram.Method> getMethodDependency() {
+    	return this.methodDependency;
+    }
+    
+    @Override
+    public void setMethodDependency(LinkedSmartESet<classDiagram.Method> value) {
+    	throw new UnsupportedOperationException("Set methods for SmartEMF collections are not supported.");
+    }
+    
 
     @Override
     public void eSet(EStructuralFeature eFeature, Object newValue){
@@ -61,6 +73,10 @@ public class MethodImpl extends SmartObject implements classDiagram.Method {
     	}
     	if (ClassDiagramPackage.Literals.METHOD__DEPENDENCIES.equals(eFeature)) {
     		setDependencies((LinkedSmartESet<classDiagram.Attribute>) newValue); 
+    		return;
+    	}
+    	if (ClassDiagramPackage.Literals.METHOD__METHOD_DEPENDENCY.equals(eFeature)) {
+    		setMethodDependency((LinkedSmartESet<classDiagram.Method>) newValue); 
     		return;
     	}
     	eDynamicSet(eFeature, newValue);
@@ -74,6 +90,10 @@ public class MethodImpl extends SmartObject implements classDiagram.Method {
     	}
     	if (ClassDiagramPackage.Literals.METHOD__DEPENDENCIES.equals(eFeature)) {
     		getDependencies().clear(); 
+    		return;
+    	}
+    	if (ClassDiagramPackage.Literals.METHOD__METHOD_DEPENDENCY.equals(eFeature)) {
+    		getMethodDependency().clear(); 
     		return;
     	}
     	eDynamicUnset(eFeature);
@@ -100,6 +120,8 @@ public class MethodImpl extends SmartObject implements classDiagram.Method {
     		return getName();
     	if (ClassDiagramPackage.Literals.METHOD__DEPENDENCIES.equals(eFeature))
     		return getDependencies();
+    	if (ClassDiagramPackage.Literals.METHOD__METHOD_DEPENDENCY.equals(eFeature))
+    		return getMethodDependency();
     	return eDynamicGet(eFeature);
     }
 

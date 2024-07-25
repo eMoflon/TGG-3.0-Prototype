@@ -21,6 +21,7 @@
     </genClasses>
     <genClasses ecoreClass="classDiagram.ecore#//Method">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference classDiagram.ecore#//Method/dependencies"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference classDiagram.ecore#//Method/methodDependency"/>
     </genClasses>
     <genClasses ecoreClass="classDiagram.ecore#//Attribute"/>
   </genPackages>

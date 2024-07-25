@@ -38,7 +38,8 @@ public interface ClassDiagramPackage extends SmartPackage {
 	
 	int METHOD = 3;
 	int METHOD__DEPENDENCIES = 4;
-	int METHOD_FEATURE_COUNT = 2;
+	int METHOD__METHOD_DEPENDENCY = 5;
+	int METHOD_FEATURE_COUNT = 3;
 	int METHOD_OPERATION_COUNT = 0;
 	
 	int ATTRIBUTE = 4;
@@ -59,6 +60,7 @@ public interface ClassDiagramPackage extends SmartPackage {
 	
 	EClass getMethod();
 	EReference getMethod_Dependencies();
+	EReference getMethod_MethodDependency();
 	
 	EClass getAttribute();
 	
@@ -84,6 +86,8 @@ public interface ClassDiagramPackage extends SmartPackage {
 		EClass METHOD = eINSTANCE.getMethod();
 		
 		EReference METHOD__DEPENDENCIES = eINSTANCE.getMethod_Dependencies();
+		
+		EReference METHOD__METHOD_DEPENDENCY = eINSTANCE.getMethod_MethodDependency();
 		
 		EClass ATTRIBUTE = eINSTANCE.getAttribute();
 		

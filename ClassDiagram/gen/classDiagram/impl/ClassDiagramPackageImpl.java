@@ -35,6 +35,7 @@ public class ClassDiagramPackageImpl extends SmartPackageImpl
 	private EAttribute feature_nameEAttribute = null;
 	private EClass methodEClass = null;
 	private EReference method_dependenciesEReference = null;
+	private EReference method_methodDependencyEReference = null;
 	private EClass attributeEClass = null;
 	
 	
@@ -120,6 +121,10 @@ public class ClassDiagramPackageImpl extends SmartPackageImpl
 		return method_dependenciesEReference;	
 	}
 	@Override
+	public EReference getMethod_MethodDependency() {
+		return method_methodDependencyEReference;	
+	}
+	@Override
 	public EClass getAttribute() {
 		return attributeEClass;
 	}
@@ -159,6 +164,8 @@ public class ClassDiagramPackageImpl extends SmartPackageImpl
 		methodEClass = createEClass(METHOD);
 		createEReference(methodEClass, METHOD__DEPENDENCIES);
 		method_dependenciesEReference = (EReference) methodEClass.getEStructuralFeatures().get(0);
+		createEReference(methodEClass, METHOD__METHOD_DEPENDENCY);
+		method_methodDependencyEReference = (EReference) methodEClass.getEStructuralFeatures().get(1);
 		
 		attributeEClass = createEClass(ATTRIBUTE);
 		
@@ -213,6 +220,9 @@ public class ClassDiagramPackageImpl extends SmartPackageImpl
 			IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMethod_Dependencies(), this.getAttribute(),  null, 
 			"dependencies", null, 0, -1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+			!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMethod_MethodDependency(), this.getMethod(),  null, 
+			"methodDependency", null, 0, -1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 			!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 				
 		initEClass(attributeEClass, Attribute.class, "Attribute", !IS_ABSTRACT, !IS_INTERFACE,
