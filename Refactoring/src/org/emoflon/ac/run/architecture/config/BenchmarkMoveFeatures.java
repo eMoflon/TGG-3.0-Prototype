@@ -76,7 +76,7 @@ public class BenchmarkMoveFeatures {
 		int ruleMatchCount = config.getConstraintCounter().countRuleMatches();
 		int patternMatchCount = config.getConstraintCounter().countPatternMatches();
 
-		ArchitectureUtil.postProcess(config.getApi().getModel().getResources().get(0));
+		ArchitectureUtil.postProcess(config.getApi().getModel().getResources().get(0), false);
 
 		config.getApi().terminate();
 

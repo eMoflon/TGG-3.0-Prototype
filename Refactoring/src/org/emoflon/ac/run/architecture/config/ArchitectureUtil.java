@@ -39,13 +39,17 @@ public class ArchitectureUtil {
 	 * Remove all classes that contain no features
 	 * @param resource the resource that contains the result
 	 */
-	public static void postProcess(Resource resource) {
+	public static void postProcess(Resource resource, boolean leaveOneEmpty) {
 		ClassModel model = (ClassModel) resource.getContents().get(0);
 		var toBeRemoved = new HashSet<EObject>();
 		
+		var deleteEmptyClass = !leaveOneEmpty;
 		for(var clazz : model.getClasses()) {
 			if(clazz.getEncapsulates().isEmpty()) {
-				toBeRemoved.add(clazz);
+				if(deleteEmptyClass)
+					toBeRemoved.add(clazz);
+				else
+					deleteEmptyClass = true;
 			}
 		}
 		

@@ -8,6 +8,6 @@ import org.emoflon.ibex.gt.engine.IBeXGTMatch;
  *
  * This record represents a rule match with a gain represents the net repair gain when applying it
  */
-public record RankedRuleApplication(IBeXGTMatch match, int gain, int repairs, int violations) {
+public record RankedRuleApplication(IBeXGTMatch match, double gain, double repairs, double violations) {
 	
 }
