@@ -20,8 +20,14 @@ public class OverlapCreator {
 	private int overlapSize = -1;
 	private Map<String, List<String>> patternName2parameters = new HashMap<>();
 
+	private double weight = 1;
+	
 	public OverlapCreator() {
 
+	}
+	
+	public OverlapCreator(double weight) {
+		this.weight = weight;
 	}
 
 	/**
@@ -68,4 +74,7 @@ public class OverlapCreator {
 		return overlap;
 	}
 
+	public double getWeight() {
+		return weight;
+	}
 }

@@ -133,7 +133,7 @@ public class ConstraintCounter {
 					return new RankedRuleApplication(m, calculcateGain(m), repairs, violations);
 				}).collect(Collectors.toList());
 
-		matchList.sort((a, b) -> b.gain() - a.gain());
+		matchList.sort((a, b) -> Double.compare(b.gain(), a.gain()));
 		var bestMatch = matchList.get(0);
 		if (ignoreNegativeGain || bestMatch.gain() > 0) {
 			LoggingConfig.log("Choose Match: ", bestMatch.match() + " with gain " + bestMatch.gain());
@@ -156,23 +156,23 @@ public class ConstraintCounter {
 
 	}
 
-	public int calculcateGain(IBeXGTMatch match) {
+	public double calculcateGain(IBeXGTMatch match) {
 		return countRepairs(match) - countViolations(match);
 	}
 
-	public int countViolations(IBeXGTMatch match) {
+	public double countViolations(IBeXGTMatch match) {
 //		System.out.println("	Violation for " + match + ": ");
 		return count(violationOverlapCreators, creator2violations, match);
 	}
 
-	public int countRepairs(IBeXGTMatch match) {
+	public double countRepairs(IBeXGTMatch match) {
 //		System.out.println("	Repair for " + match + ": ");
 		return count(repairOverlapCreators, creator2repairs, match);
 	}
 
-	private int count(Collection<OverlapCreator> overlapCreators, Map<OverlapCreator, OverlapMappings> creator2mappings,
+	private double count(Collection<OverlapCreator> overlapCreators, Map<OverlapCreator, OverlapMappings> creator2mappings,
 			IBeXGTMatch match) {
-		var count = 0;
+		var count = 0f;
 		for (var creator : overlapCreators) {
 			if (creator.supportsPattern(match.getPatternName())) {
 				var overlap = creator.createOverlap(match);
@@ -181,7 +181,7 @@ public class ConstraintCounter {
 //				for(var overlapMatch : overlapMatches) {
 //					System.out.println("		" + overlapMatch);
 //				}
-				var overlapCount = overlapMatches.size();
+				var overlapCount = overlapMatches.size() * creator.getWeight();
 				count += overlapCount;
 			}
 		}

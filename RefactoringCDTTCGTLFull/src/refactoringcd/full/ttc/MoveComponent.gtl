@@ -71,20 +71,21 @@ pattern movingMethodWithAttributeDependencyTogether {
 ////////////////////////////////////////////////////////////////////
 
 // Violation 
-
 pattern noMethodAttributeDependencyBetweenClasses {
 	[=] fromClazz : Class {
-		[=] -encapsulates-> attribute
+		[=] -encapsulates-> method
 	}
 	
 	[=] toClazz : Class {
-		[=] -encapsulates-> method
+		[=] -encapsulates-> attribute
 	}
 	[=] attribute : Attribute {
 	}
 	[=] method : Method {
-		[=] -dataDependency-> attribute
+
 	}	
+	
+	forbid(intactMethodAttributePair)[method=method, attribute=attribute]
 };
 
 // repair
@@ -102,18 +103,10 @@ pattern methodAttributeDependencyInClass {
 		
 	}
 	
-	forbid(intactMethodAttributePair)[fromClazz=fromClazz, toClazz=toClazz, method=method, attribute=attribute]
+	forbid(intactMethodAttributePair)[method=method, attribute=attribute]
 };
 
 pattern intactMethodAttributePair {
-	[=] fromClazz : Class {
-		[=] -encapsulates-> method
-		[=] -encapsulates-> attribute
-	}
-	
-	[=] toClazz : Class {
-	}
-	
 	[=] method : Method {
 		[=] -dataDependency->attribute
 	}
@@ -186,7 +179,7 @@ pattern noMethodDependencyBetweenClasses {
 		
 	}
 	
-	enforce(methodDependencyBetweenClasses)[fromClazz=fromClazz, toClazz=toClazz, fromMethod=fromMethod, toMethod=toMethod]
+	forbid(methodDependencyBetweenClasses)[fromClazz=fromClazz, toClazz=toClazz, fromMethod=fromMethod, toMethod=toMethod]
 };
 
 // repair
@@ -205,7 +198,6 @@ pattern methodDependencyInClass {
 	}
 	
 	forbid(intactMethodPair)[fromClazz=fromClazz, toClazz=toClazz, fromMethod=fromMethod, toMethod=toMethod]
-	forbid(intactMethodPair)[fromClazz=fromClazz, toClazz=toClazz, toMethod=fromMethod, fromMethod=toMethod]
 };
 
 
