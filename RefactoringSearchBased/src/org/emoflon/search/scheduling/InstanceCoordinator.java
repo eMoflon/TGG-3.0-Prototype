@@ -103,7 +103,7 @@ public abstract class InstanceCoordinator {
 				}
 				).collect(Collectors.toList());
 		
-		matchList.sort((a,b) -> b.gain() - a.gain());
+		matchList.sort((a,b) -> (int) (b.gain() - a.gain()));
 		var bestMatch = matchList.get(0);
 		if(bestMatch.gain() > 0) {
 			LoggingConfig.log("Choose Match: ", bestMatch.match() + " with gain " + bestMatch.gain());
