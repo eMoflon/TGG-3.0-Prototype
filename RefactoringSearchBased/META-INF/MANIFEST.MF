@@ -1,9 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Automatic-Module-Name: RefactoringSearchBased
 Bundle-Name: RefactoringSearchBased
 Bundle-SymbolicName: RefactoringSearchBased
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: .
 Require-Bundle: RefactoringCommon;bundle-version="1.0.0",
  RefactoringGTLConstraints;bundle-version="1.0.0",
