@@ -1,0 +1,204 @@
+package refactoringcd.full.ttc
+
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "platform:/resource/ArchitectureCRA/model/architectureCRA.ecore"
+
+rule moveMethod {
+	[=] fromClazz : Class {
+		[-] -encapsulates->method 
+	}
+	[=] toClazz : Class {  
+		[+] -encapsulates->method
+	}
+	[=] method : Method 
+};
+
+
+rule moveAttribute {
+	[=] fromClazz : Class {
+		[-] -encapsulates->attribute
+	}
+	[=] toClazz : Class { 
+		[+] -encapsulates->attribute
+	}
+	[=] attribute : Attribute
+};
+
+/////////////////////////////////////////////////////////////////////
+/////// CONSTRAINT VIOLATIONS AND REPAIRS WHEN MOVING METHODS ///////
+/////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////
+// W1: No method-attribute dependencies between classes //
+//////////////////////////////////////////////////////////
+
+// Violation
+pattern intactMethodAttributeDependency {
+	[=] fromClazz : Class {
+		[=] -encapsulates-> method
+		[=] -encapsulates-> attribute
+	}
+	
+	// this is is quite expensive and unnecessary when overlapping with our refactoring rules
+	// however, the other patterns are quite expensive as well
+	[=] toClazz : Class 
+	
+	[=] method : Method {
+		[=] -dataDependency->attribute
+	}
+	[=] attribute : Attribute
+};
+
+// Repair
+pattern movingMethodWithAttributeDependencyTogether {
+	[=] fromClazz : Class {
+		[=] -encapsulates-> method
+	}
+	
+	[=] toClazz : Class {
+		[=] -encapsulates-> attribute
+	}
+	
+	[=] method : Method {
+		[=] -dataDependency->attribute
+	}
+	[=] attribute : Attribute
+};
+
+
+////////////////////////////////////////////////////////////////////
+// W2: method->attribut dependencies within the same class        //
+////////////////////////////////////////////////////////////////////
+
+// Violation 
+pattern noMethodAttributeDependencyBetweenClasses {
+	[=] fromClazz : Class {
+		[=] -encapsulates-> method
+	}
+	
+	[=] toClazz : Class {
+		[=] -encapsulates-> attribute
+	}
+	[=] attribute : Attribute {
+	}
+	[=] method : Method {
+
+	}	
+	
+	forbid(intactMethodAttributePair)[method=method, attribute=attribute]
+};
+
+// repair
+pattern methodAttributeDependencyInClass {
+	[=] fromClazz : Class {
+		[=] -encapsulates-> attribute
+		[=] -encapsulates-> method
+	}
+	
+	[=] toClazz : Class {
+	}
+	[=] attribute : Attribute {
+	}
+	[=] method: Method {
+		
+	}
+	
+	forbid(intactMethodAttributePair)[method=method, attribute=attribute]
+};
+
+pattern intactMethodAttributePair {
+	[=] method : Method {
+		[=] -dataDependency->attribute
+	}
+	[=] attribute : Attribute {
+	}
+};
+
+/////////////////////////////////////////////////
+///////         SUPPORT PATTERNS          ///////
+/////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////
+///////////														/////////
+///////////					TTC EXTENSION 						/////////
+///////////														/////////
+/////////////////////////////////////////////////////////////////////////
+
+// W3: No function method dependencies between two classes
+
+// Violation
+pattern intactMethodPair {
+	[=] fromClazz : Class {
+		[=] -encapsulates-> fromMethod
+		[=] -encapsulates-> toMethod
+	}
+	
+	[=] toClazz : Class {
+	}
+	
+	[=] fromMethod : Method {
+		[=] -functionalDependency->toMethod
+	}
+	[=] toMethod : Method {
+	}
+};
+
+// Repair
+pattern methodDependencyBetweenClasses {
+	[=] fromClazz : Class {
+		[=] -encapsulates-> fromMethod
+	}
+	
+	[=] toClazz : Class {
+		[=] -encapsulates-> toMethod
+	}
+	
+	[=] fromMethod : Method {
+		[=] -functionalDependency->toMethod
+	}
+	[=] toMethod : Method {
+	}
+};
+
+// W4: function method dependencies within a class
+
+// Violation
+// methodDependencyBetweenClasses
+pattern noMethodDependencyBetweenClasses {
+	[=] fromClazz : Class {
+		[=] -encapsulates-> fromMethod
+	}
+	
+	[=] toClazz : Class {
+		[=] -encapsulates-> toMethod
+	}
+	[=] fromMethod : Method {
+	}
+	[=] toMethod : Method {
+		
+	}
+	
+	forbid(methodDependencyBetweenClasses)[fromClazz=fromClazz, toClazz=toClazz, fromMethod=fromMethod, toMethod=toMethod]
+};
+
+// repair
+pattern methodDependencyInClass {
+	[=] fromClazz : Class {
+		[=] -encapsulates-> fromMethod
+		[=] -encapsulates-> toMethod
+	}
+	
+	[=] toClazz : Class {
+	}
+	[=] fromMethod : Method {
+	}
+	[=] toMethod : Method {
+		
+	}
+	
+	forbid(intactMethodPair)[fromClazz=fromClazz, toClazz=toClazz, fromMethod=fromMethod, toMethod=toMethod]
+};
+
+
+
