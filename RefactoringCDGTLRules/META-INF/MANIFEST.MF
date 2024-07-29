@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Automatic-Module-Name: RefactoringCDGTLFull
+Automatic-Module-Name: RefactoringCDGTLRules
 Bundle-ManifestVersion: 2
 Bundle-Name: RefactoringCDGTLRules
 Bundle-Vendor: My Company
@@ -8,7 +8,7 @@ Bundle-SymbolicName: RefactoringCDGTLRules;singleton:=true
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.log4j,
  org.apache.commons.logging
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Require-Bundle: org.emoflon.ibex.common,
  org.emoflon.ibex.gt,
  org.emoflon.ibex.gt.gtmodel,

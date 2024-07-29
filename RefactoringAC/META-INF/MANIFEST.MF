@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Automatic-Module-Name: RefactoringAC
+Bundle-Name: RefactoringAC
+Bundle-SymbolicName: RefactoringAC
+Bundle-Version: 1.0.0.qualifier
+Import-Package: refactoringcd.full.api
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Require-Bundle: RefactoringCommon;bundle-version="1.0.0",
+ RefactoringGTLFull;bundle-version="1.0.0",
+ RefactoringCDGTLFull;bundle-version="1.0.0",
+ ClassDiagram,
+ RefactoringCDTTCGTLFull;bundle-version="1.0.0",
+ ArchitectureCRA
