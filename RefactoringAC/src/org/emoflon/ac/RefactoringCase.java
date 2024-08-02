@@ -78,9 +78,13 @@ public abstract class RefactoringCase<API extends IBeXGtAPI<?, ?, ?>> {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public boolean performOneStep() {
-		var nextRankedMatch = constraintCounter.getNextMatch();
+		return performOneStep(0);
+	}
+
+	public boolean performOneStep(double bestMatchOffset) {
+		var nextRankedMatch = constraintCounter.getNextMatch(bestMatchOffset != 0, bestMatchOffset);
 		if (nextRankedMatch == null) {
 			LoggingConfig.log("Abort:", "No match found");
 			return false;

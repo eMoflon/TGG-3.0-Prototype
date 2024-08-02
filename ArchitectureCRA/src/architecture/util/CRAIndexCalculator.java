@@ -141,7 +141,7 @@ public class CRAIndexCalculator {
 		return cohesionRatio;
 	}
 	
-	static double calculateCRAIndex(ClassModel model) {
+	public static double calculateCRAIndex(ClassModel model) {
 		return calculateCohesion(model) - calculateCoupling(model);
 	}
 	
