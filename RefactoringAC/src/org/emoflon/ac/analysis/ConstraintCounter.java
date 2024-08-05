@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.emoflon.RankedRuleApplication;
@@ -24,6 +25,8 @@ import org.emoflon.logging.LoggingConfig;
  */
 @SuppressWarnings("rawtypes")
 public class ConstraintCounter {
+	
+	public static Function<IBeXGTMatch, Double> matchWeightFunction;
 
 	private Collection<OverlapCreator> violationOverlapCreators;
 	private Collection<OverlapCreator> repairOverlapCreators;
@@ -124,8 +127,12 @@ public class ConstraintCounter {
 	public RankedRuleApplication getNextMatch() {
 		return getNextMatch(false);
 	}
-
+	
 	public RankedRuleApplication getNextMatch(boolean ignoreNegativeGain) {
+		return getNextMatch(ignoreNegativeGain, 1);
+	}
+
+	public RankedRuleApplication getNextMatch(boolean ignoreNegativeGain, double bestMatchOffset) {
 		var matchList = ruleMatches.parallelStream() //
 				.map(m -> {
 					var repairs = countRepairs(m);
@@ -134,23 +141,26 @@ public class ConstraintCounter {
 				}).collect(Collectors.toList());
 
 		matchList.sort((a, b) -> Double.compare(b.gain(), a.gain()));
-		var bestMatch = matchList.get(0);
-		if (ignoreNegativeGain || bestMatch.gain() > 0) {
-			LoggingConfig.log("Choose Match: ", bestMatch.match() + " with gain " + bestMatch.gain());
+		
+		// if the offset is 0, we can just take the actually best match that has the largest gain. Otherwise, we use the offset to get another match from the list
+		var nextMatchIndex = bestMatchOffset == 0 ? 0 : (int) (Math.random() * bestMatchOffset * (matchList.size()-1));
+		var nextMatch = matchList.get(nextMatchIndex);
+		if (ignoreNegativeGain || nextMatch.gain() > 0) {
+			LoggingConfig.log("Choose Match: ", nextMatch.match() + " with gain " + nextMatch.gain());
 
 			{
 				// DEBUG
-				countRepairs(bestMatch.match());
-				countViolations(bestMatch.match());
+				countRepairs(nextMatch.match());
+				countViolations(nextMatch.match());
 			}
 
 			// we assume that this match will be applied
-			violationCount += bestMatch.violations();
-			repairCount += bestMatch.repairs();
-			return bestMatch;
+			violationCount += nextMatch.violations();
+			repairCount += nextMatch.repairs();
+			return nextMatch;
 		} else {
 			LoggingConfig.log("Blocked Match: ",
-					"Best match is " + bestMatch.match() + " and has only a gain of " + bestMatch.gain());
+					"Best match is " + nextMatch.match() + " and has only a gain of " + nextMatch.gain());
 			return null;
 		}
 
@@ -178,9 +188,6 @@ public class ConstraintCounter {
 				var overlap = creator.createOverlap(match);
 				var overlapMatches = creator2mappings.get(creator).overlap2matches().getOrDefault(overlap,
 						new LinkedList<>());
-//				for(var overlapMatch : overlapMatches) {
-//					System.out.println("		" + overlapMatch);
-//				}
 				var overlapCount = overlapMatches.size() * creator.getWeight();
 				count += overlapCount;
 			}
