@@ -10,8 +10,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference architectureCRA.ecore#//ClassModel/classes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference architectureCRA.ecore#//ClassModel/features"/>
     </genClasses>
-    <genClasses ecoreClass="architectureCRA.ecore#//Class">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference architectureCRA.ecore#//Class/encapsulates"/>
+    <genClasses ecoreClass="architectureCRA.ecore#//Clazz">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference architectureCRA.ecore#//Clazz/encapsulates"/>
     </genClasses>
     <genClasses ecoreClass="architectureCRA.ecore#//Attribute"/>
     <genClasses ecoreClass="architectureCRA.ecore#//Method">
