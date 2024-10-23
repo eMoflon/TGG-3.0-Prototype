@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:softwareSystem="platform:/resource/SoftwareSystem/model/softwareSystem.ecore" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="platform:/resource/SoftwareSystem/model/softwareSystem.ecore">
+  <xsd:import namespace="http://www.omg.org/XMI" schemaLocation="platform:/plugin/org.eclipse.emf.ecore/model/XMI.xsd"/>
+  <xsd:simpleType name="SIL">
+    <xsd:restriction base="xsd:NCName">
+      <xsd:enumeration value="LOW"/>
+      <xsd:enumeration value="MED"/>
+      <xsd:enumeration value="HIGH"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="System">
+    <xsd:choice maxOccurs="unbounded" minOccurs="0">
+      <xsd:element name="test" nillable="true" type="xsd:string"/>
+      <xsd:element name="subSystems" type="softwareSystem:System"/>
+      <xsd:element name="components" type="softwareSystem:Component"/>
+      <xsd:element ref="xmi:Extension"/>
+    </xsd:choice>
+    <xsd:attribute ref="xmi:id"/>
+    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
+    <xsd:attribute name="name" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="System" type="softwareSystem:System"/>
+  <xsd:complexType name="Component">
+    <xsd:choice maxOccurs="unbounded" minOccurs="0">
+      <xsd:element name="imports" type="softwareSystem:Component"/>
+      <xsd:element ref="xmi:Extension"/>
+    </xsd:choice>
+    <xsd:attribute ref="xmi:id"/>
+    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
+    <xsd:attribute name="name" type="xsd:string"/>
+    <xsd:attribute name="functionPoints" type="xsd:int"/>
+    <xsd:attribute name="sil" type="softwareSystem:SIL"/>
+    <xsd:attribute name="imports" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="Component" type="softwareSystem:Component"/>
+</xsd:schema>
