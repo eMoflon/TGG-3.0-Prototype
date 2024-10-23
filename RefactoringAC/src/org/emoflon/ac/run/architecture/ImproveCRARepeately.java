@@ -19,8 +19,8 @@ import architectureCRA.ClassModel;
  */
 public class ImproveCRARepeately {
 	
-	public static final int iterations = 2000;
-	public static final int runs = 100;
+	public static final int iterations = 5000;
+	public static final int runs = 200;
 	public static final int optimizeThreshold = 100;
 
 	
@@ -37,7 +37,7 @@ public class ImproveCRARepeately {
 		var times = new LinkedList<Double>();
 		var features = 0;
 		
-		var modelName = "architecture/TTC_InputRDG_D.xmi";
+		var modelName = "architecture/TTC_InputRDG_A.xmi";
 
 		// this is only used for calculating the initial CRA-Index
 //		var initConfig = new MoveTTCFeatures(modelName);
