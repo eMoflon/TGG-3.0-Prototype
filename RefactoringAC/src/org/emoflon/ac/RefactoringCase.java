@@ -1,5 +1,7 @@
 package org.emoflon.ac;
 
+import java.io.File;
+import java.nio.file.InvalidPathException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +25,8 @@ import org.emoflon.logging.LoggingConfig;
 @SuppressWarnings("unused")
 public abstract class RefactoringCase<API extends IBeXGtAPI<?, ?, ?>> {
 
+	private String modelPath;
+	
 	protected API api;
 
 //	private Map<String, Collection<OverlapCreator>> name2overlapCreators = new HashMap<>();
@@ -33,12 +37,17 @@ public abstract class RefactoringCase<API extends IBeXGtAPI<?, ?, ?>> {
 
 	protected ConstraintCounter constraintCounter;
 
-	public RefactoringCase(String path) {
+	public RefactoringCase(String path, String modelPath) {
+		this.modelPath = modelPath;
 		initializeMetamodel();
 		createAPI();
 		initializeAPI(path);
 		createAndRegisterOverlaps();
 		registerSubscriptions();
+	}
+	
+	public RefactoringCase(String path) {
+		this(path, null);
 	}
 
 	protected abstract void initializeMetamodel();
@@ -71,7 +80,11 @@ public abstract class RefactoringCase<API extends IBeXGtAPI<?, ?, ?>> {
 	}
 
 	public void loadModel(String model) {
-		var path = api.getWorkspacePath() + "RefactoringAC/resources/" + model;
+		String path = api.getWorkspacePath() + "RefactoringAC/resources/" + model;
+		
+		if(new File(model).exists())
+			path = model;
+		
 		try {
 			api.addModel(path);
 		} catch (Exception e) {

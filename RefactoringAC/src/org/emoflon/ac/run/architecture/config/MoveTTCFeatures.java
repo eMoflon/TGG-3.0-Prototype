@@ -19,6 +19,12 @@ import softwareSystem.SoftwareSystemPackage;
  */
 public class MoveTTCFeatures extends RefactoringCase<TtcHiPEGtApi> {
 
+	private String modelPath;
+	
+	public MoveTTCFeatures(String path, String modelPath) {
+		super(path, modelPath);
+	}
+	
 	public MoveTTCFeatures(String path) {
 		super(path);
 	}
@@ -166,7 +172,12 @@ public class MoveTTCFeatures extends RefactoringCase<TtcHiPEGtApi> {
 
 	@Override
 	protected void createAPI() {
-		api = new TtcHiPEGtApi();
+		api = new TtcHiPEGtApi() {
+			@Override
+			public String getIBeXModelPath() {
+				return modelPath != null ? modelPath : super.getIBeXModelPath();
+			}
+		};
 	}
 
 	@Override

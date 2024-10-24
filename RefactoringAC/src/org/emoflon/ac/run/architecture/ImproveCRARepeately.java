@@ -2,6 +2,7 @@ package org.emoflon.ac.run.architecture;
 
 import java.util.LinkedList;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.emoflon.ac.run.architecture.config.ArchitectureUtil;
 import org.emoflon.ac.run.architecture.config.MoveTTCFeatures;
@@ -9,6 +10,7 @@ import org.emoflon.logging.LoggingConfig;
 
 import architecture.util.CRAIndexCalculator;
 import architectureCRA.ClassModel;
+import hipe.engine.config.HiPEPathOptions;
 
 /**
  * 
@@ -20,7 +22,7 @@ import architectureCRA.ClassModel;
 public class ImproveCRARepeately {
 	
 	public static final int iterations = 5000;
-	public static final int runs = 200;
+	public static final int runs = 5;
 	public static final int optimizeThreshold = 100;
 
 	
@@ -37,8 +39,10 @@ public class ImproveCRARepeately {
 		var times = new LinkedList<Double>();
 		var features = 0;
 		
-		var modelName = "architecture/TTC_InputRDG_A.xmi";
-
+		var modelName = "architecture/TTC_InputRDG_E.xmi";
+		if(args.length > 2)
+			modelName = args[2];
+		
 		// this is only used for calculating the initial CRA-Index
 //		var initConfig = new MoveTTCFeatures(modelName);
 //		ArchitectureUtil.preProcess(initConfig.getApi().getModel().getResources().get(0));
@@ -48,8 +52,11 @@ public class ImproveCRARepeately {
 		
 		for(int r=0; r < runs; r++) {	
 			System.gc();
+			if(args.length > 0)
+				HiPEPathOptions.setNetworkPath(URI.createFileURI(args[0]));
 			
-			var config = new MoveTTCFeatures(modelName);
+			var modelPath = args.length > 1 ? args[1] : null;
+			var config = new MoveTTCFeatures(modelName, modelPath);
 			features = ((ClassModel) config.getApi().getModel().getResources().get(0).getContents().get(0)).getFeatures().size();
 			
 			ArchitectureUtil.preProcess(config.getApi().getModel().getResources().get(0));
