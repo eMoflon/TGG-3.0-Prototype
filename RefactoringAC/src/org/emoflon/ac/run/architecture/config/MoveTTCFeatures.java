@@ -18,8 +18,6 @@ import softwareSystem.SoftwareSystemPackage;
  *         indicating condition patterns and how they overlap
  */
 public class MoveTTCFeatures extends RefactoringCase<TtcHiPEGtApi> {
-
-	private String modelPath;
 	
 	public MoveTTCFeatures(String path, String modelPath) {
 		super(path, modelPath);

@@ -25,7 +25,7 @@ import org.emoflon.logging.LoggingConfig;
 @SuppressWarnings("unused")
 public abstract class RefactoringCase<API extends IBeXGtAPI<?, ?, ?>> {
 
-	private String modelPath;
+	protected String modelPath;
 	
 	protected API api;
 
@@ -121,5 +121,4 @@ public abstract class RefactoringCase<API extends IBeXGtAPI<?, ?, ?>> {
 	public ConstraintCounter getConstraintCounter() {
 		return constraintCounter;
 	}
-
 }

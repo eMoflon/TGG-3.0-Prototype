@@ -6,6 +6,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.emoflon.ac.run.architecture.config.ArchitectureUtil;
 import org.emoflon.ac.run.architecture.config.MoveTTCFeatures;
+import org.emoflon.cli.CommandLineParser;
 import org.emoflon.logging.LoggingConfig;
 
 import architecture.util.CRAIndexCalculator;
@@ -39,9 +40,11 @@ public class ImproveCRARepeately {
 		var times = new LinkedList<Double>();
 		var features = 0;
 		
+		var pathConfig = CommandLineParser.parseArgs(args);
+		
 		var modelName = "architecture/TTC_InputRDG_E.xmi";
-		if(args.length > 2)
-			modelName = args[2];
+		if(pathConfig.testModel() != null)
+			modelName = pathConfig.testModel();
 		
 		// this is only used for calculating the initial CRA-Index
 //		var initConfig = new MoveTTCFeatures(modelName);
@@ -52,10 +55,10 @@ public class ImproveCRARepeately {
 		
 		for(int r=0; r < runs; r++) {	
 			System.gc();
-			if(args.length > 0)
-				HiPEPathOptions.setNetworkPath(URI.createFileURI(args[0]));
+			if(pathConfig.hipeNetworkPath() != null)
+				HiPEPathOptions.setNetworkPath(URI.createFileURI(pathConfig.hipeNetworkPath()));
 			
-			var modelPath = args.length > 1 ? args[1] : null;
+			var modelPath = pathConfig.ibexGtModel() != null ? pathConfig.ibexGtModel() : null;
 			var config = new MoveTTCFeatures(modelName, modelPath);
 			features = ((ClassModel) config.getApi().getModel().getResources().get(0).getContents().get(0)).getFeatures().size();
 			
