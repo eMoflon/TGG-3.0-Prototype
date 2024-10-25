@@ -23,7 +23,7 @@ import hipe.engine.config.HiPEPathOptions;
 public class ImproveCRARepeately {
 	
 	public static final int iterations = 5000;
-	public static final int runs = 5;
+	public static final int runs = 200;
 	public static final int optimizeThreshold = 100;
 
 	
