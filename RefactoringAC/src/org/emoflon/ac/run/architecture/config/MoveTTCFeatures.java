@@ -170,12 +170,11 @@ public class MoveTTCFeatures extends RefactoringCase<TtcHiPEGtApi> {
 
 	@Override
 	protected void createAPI() {
-		api = new TtcHiPEGtApi() {
-			@Override
-			public String getIBeXModelPath() {
-				return modelPath != null ? modelPath : super.getIBeXModelPath();
-			}
-		};
+		if (modelPath != null) {
+			api = new TtcHiPEGtApi(modelPath);
+		} else {
+			api = new TtcHiPEGtApi();
+		}
 	}
 
 	@Override
