@@ -2,8 +2,11 @@ package org.emoflon.ac.run.architecture;
 
 import java.util.LinkedList;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.emoflon.ac.analysis.StatisticUtils;
 import org.emoflon.ac.run.architecture.config.ArchitectureUtil;
 import org.emoflon.ac.run.architecture.config.MoveTTCFeatures;
 import org.emoflon.cli.CommandLineParser;
@@ -23,7 +26,7 @@ import hipe.engine.config.HiPEPathOptions;
 public class ImproveCRARepeately {
 	
 	public static final int iterations = 5000;
-	public static final int runs = 5;
+	public static final int runs = 200;
 	public static final int optimizeThreshold = 100;
 
 	
@@ -42,7 +45,7 @@ public class ImproveCRARepeately {
 		
 		var pathConfig = CommandLineParser.parseArgs(args);
 		
-		var modelName = "architecture/TTC_InputRDG_E.xmi";
+		var modelName = "architecture/TTC_InputRDG_C.xmi";
 		if(pathConfig.testModel() != null)
 			modelName = pathConfig.testModel();
 		
@@ -100,11 +103,17 @@ public class ImproveCRARepeately {
 		System.out.println("Best CRA-Index: " + craIndices.stream().max(Double::compare).get());
 		System.out.println("Average CRA-Index: " + craIndices.stream().reduce((a, b) -> a + b).get() / craIndices.size());
 		System.out.println("Median CRA-Index: " + craIndices.get(craIndices.size() / 2));
+		System.out.println("------------------------");
 		System.out.println("Smallest #Violations: " + totalViolations.stream().min(Double::compare).get());
 		System.out.println("Largest #Violations: " + totalViolations.stream().max(Double::compare).get());
 		System.out.println("Average #Violations: " + totalViolations.stream().reduce((a, b) -> a + b).get() / totalViolations.size());
 		System.out.println("Median #Violations: " + totalViolations.get(totalViolations.size() / 2));
+		System.out.println("Median #Violations: " + totalViolations.get(totalViolations.size() / 2));
+		System.out.println("StdDev #Violations: " + StatisticUtils.stdDev(totalViolations.toArray(new Double[0])));
+		System.out.println("------------------------");
 		System.out.println("Average Time of a Run: " + times.stream().reduce((a, b) -> a + b).get() / times.size());
+		System.out.println("StdDev Time: " + StatisticUtils.stdDev(times.toArray(new Double[0])));
+		System.out.println("------------------------");
 		System.out.println("Largest #Classes " + numOfClasses.stream().max(Double::compare).get());
 		System.out.println("Smallest #Classes " + numOfClasses.stream().min(Double::compare).get());
 	}
