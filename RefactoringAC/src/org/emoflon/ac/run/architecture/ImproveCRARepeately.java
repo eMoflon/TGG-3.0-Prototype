@@ -59,7 +59,7 @@ public class ImproveCRARepeately {
 		for(int r=0; r < runs; r++) {	
 			System.gc();
 			if(pathConfig.hipeNetworkPath() != null)
-				HiPEPathOptions.setNetworkPath(URI.createFileURI(pathConfig.hipeNetworkPath()));
+				HiPEPathOptions.getInstance().setNetworkPath(URI.createFileURI(pathConfig.hipeNetworkPath()));
 			
 			var modelPath = pathConfig.ibexGtModel() != null ? pathConfig.ibexGtModel() : null;
 			var config = new MoveTTCFeatures(modelName, modelPath);
